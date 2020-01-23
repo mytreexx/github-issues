@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
 
+import logo from '../../assets/images/GitHub-Logo.png';
+
 
 const NavBar = () => {
   return (
     <StyledNavBar>
       <div>
-        <a>
-          logo
-        </a>
+        <img src={logo} alt='Logo' />
         <input />
         <a href='/'>Pull Requests</a>
         <a href='/'>Issues</a>
