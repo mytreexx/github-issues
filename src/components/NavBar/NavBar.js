@@ -8,19 +8,12 @@ import logo from '../../assets/images/GitHub-Logo.png';
 const NavBar = () => {
   return (
     <StyledNavBar>
-      <div>
-        <img src={logo} alt='Logo' />
-        <input />
-        <a href='/'>Pull Requests</a>
-        <a href='/'>Issues</a>
-        <a href='/'>Marketplace</a>
-        <a href='/'>Explore</a>
-      </div>
-      <div>
-        <a href='/'>notifications</a>
-        <a href='/'>plus</a>
-        <a href='/'>profile</a>
-      </div>
+      <img src={logo} alt='Logo' />
+      <Input placeholder='Search or jump to...'></Input>
+      <a href='/'>Pull requests</a>
+      <a href='/'>Issues</a>
+      <a href='/'>Marketplace</a>
+      <a href='/'>Explore</a>
     </StyledNavBar>
   );
 }
@@ -35,10 +28,40 @@ const StyledNavBar = styled(Flex).attrs({
   background-color: #24292E;
 
   a {
-    margin: 0;
+    margin-left: 16px;
     color: #ffffff;
     text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  a:hover {
+    filter: brightness(0.75);
+  }
+
+  img {
+    margin-left: 16px;
+  }
+
+  img:hover {
+    filter: brightness(0.75);
   }
 `;
+
+const Input = styled.input`
+  background-color: #3F4448;
+  width: 300px;
+  height: 28px;
+  border-style: none;
+  border-radius: 3px;
+  margin-left: 16px;
+  padding: 0;
+}
+::placeholder {
+  color: #8c8f92;
+  font-weight: 600;
+  padding-left: 7px;
+}
+`
 
 export default NavBar;
