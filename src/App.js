@@ -1,8 +1,7 @@
 import React from 'react';
 
 import NavBar from './components/NavBar/NavBar';
-import RepoHead from './components/RepoHead/RepoHead';
-import IssueContainer from './components/IssueContainer/IssueContainer';
+import Main from './components/Main/Main'
 import Footer from './components/Footer/Footer';
 
 
@@ -10,8 +9,7 @@ const App = () => {
   return (
     <>
       <NavBar />
-      <RepoHead />
-      <IssueContainer />
+      <Main/>
       <Footer />
     </>
   );
