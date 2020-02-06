@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
 
@@ -6,7 +7,23 @@ import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
 
 
+// return axios.get(URLConstants.USER_URL, { headers: { Authorization: `Bearer ${data.token}` } });
+
 const IssueContainer = () => {
+  // axios.get('https://api.github.com/repos/bluzi/name-db//search/issues')
+  axios.get('https://github.com/login/oauth/authorize')
+
+  
+    .then(function (response) {
+    console.log(response);
+  })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
   return (
     <>
       <IssueContainerNav />
