@@ -1,9 +1,12 @@
 const express = require('express');
 require('custom-env').env('staging');
 const app = express();
-const port = 3000;
+const cors = require('cors');
+const port = 8000;
 const axios = require('axios');
 
+
+app.use(cors());
 
 app.get('/repos/bluzi/name-db/458/comments', async function (req, res) { 
   const response = await axios.get("https://api.github.com/repos/bluzi/name-db/issues/458/comments", {
@@ -24,7 +27,7 @@ app.get('/repos/bluzi/name-db/458', async function (req, res) {
 });
 
 app.get('/repos/bluzi/name-db/', async function (req, res) { 
-  const response = await axios.get('https://api.github.com/search/issues?q=repo:bluzi/name-db/ is:issue', {
+  const response = await axios.get('https://api.github.com/search/issues?q=repo:bluzi/name-db/ is:issue is:open', {
     headers: {
       'Authorization': `token ${process.env.ACCESS_TOKEN}`
     }
