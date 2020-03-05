@@ -27,7 +27,17 @@ const IssueContainer = () => {
           (
             <ul>{
               issues.items.map((issue, i) =>
-                <li key={i}>{issue.title}</li>
+                <li key={i}>
+                  <StyledIssue>
+                    <input type='checkbox' />
+                    {issue.state}
+                    {issue.title}
+                    #{issue.number}
+                    opened on {issue.created_at}
+                    by {issue.user.login}
+                    {issue.comments}
+                  </StyledIssue>
+                </li>
               )}
             </ul>
           ) : <NoIssues />}
@@ -41,7 +51,7 @@ const IssueContainer = () => {
 
 const StyledIssueContainer = styled(Flex).attrs({
   width: "978px",
-  minHeight: "335px",
+  minHeight: "335px"
 })`
   padding-top: 24px;
   border: solid 1px #d1d5da;
@@ -51,5 +61,9 @@ const StyledIssueContainer = styled(Flex).attrs({
   flex-direction: column;
   align-items: center;
 `;
+
+const StyledIssue = styled.div`
+  height: 55px;
+`
 
 export default IssueContainer;
