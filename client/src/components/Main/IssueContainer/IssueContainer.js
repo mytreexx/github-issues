@@ -42,28 +42,38 @@ const IssueContainer = () => {
             </ul>
           ) : <NoIssues />}
       </StyledIssueContainer>
-
-
     </>
   )
 }
-
 
 const StyledIssueContainer = styled(Flex).attrs({
   width: "978px",
   minHeight: "335px"
 })`
-  padding-top: 24px;
+  padding: 0;
   border: solid 1px #d1d5da;
   border-radius: 3px;
   margin: auto; 
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
 `;
 
 const StyledIssue = styled.div`
   height: 55px;
+  border-top: solid 1px #d1d5da;
+  margin: 0;
+
+  :hover {
+    background-color: #F6F8FA;
+  }
 `
 
 export default IssueContainer;
