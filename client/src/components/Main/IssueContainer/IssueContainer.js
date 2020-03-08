@@ -27,26 +27,28 @@ const IssueContainer = () => {
           (<>
             <IssueListHeader>
               <input type='checkbox' />
-              <span>18 Open</span>
-              <span>21 Closed</span>
-              <span>Author</span>
-              <span>Label</span>
-              <span>Projects</span>
-              <span>Milestones</span>
-              <span>Asignee</span>
-              <span>Sort</span>
+              <a href='/'> 18 Open</a>
+              <a href='/'>21 Closed</a>
+              <a href='/'>Author</a>
+              <a href='/'>Label</a>
+              <a href='/'>Projects</a>
+              <a href='/'>Milestones</a>
+              <a href='/'>Asignee</a>
+              <a href='/'>Sort</a>
             </IssueListHeader>
+
             {
               issues.items.map((issue, i) =>
-                  <StyledIssue key={i}>
-                    <input type='checkbox' />
-                    {issue.state}
-                    {issue.title}
-                    #{issue.number}
-                    opened on {issue.created_at}
-                    by {issue.user.login}
-                    {issue.comments}
-                  </StyledIssue>
+                //TODO: change key to issue id
+                <StyledIssue key={i}>
+                  <input type='checkbox' />
+                  {issue.state}
+                  <a href='/'>{issue.title}</a>
+                  #{issue.number}
+                  opened on {issue.created_at}
+                  by <a href='/'>{issue.user.login}</a>
+                  {issue.comments}
+                </StyledIssue>
               )}
           </>) : <NoIssues />}
       </StyledIssueContainer>
@@ -74,6 +76,12 @@ const StyledIssue = styled.div`
   border-top: solid 1px #d1d5da;
   margin: 0;
 
+  input {
+    margin-left: 16px;
+    margin-top: 10px;
+  
+  }
+
   :hover {
     background-color: #F6F8FA;
   }
@@ -84,5 +92,6 @@ const IssueListHeader = styled(StyledIssue)`
   background-color: #F6F8FA;
   pointer-events: none;
 `
+
 
 export default IssueContainer;
