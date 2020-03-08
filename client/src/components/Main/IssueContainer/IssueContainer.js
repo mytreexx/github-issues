@@ -35,15 +35,10 @@ const IssueContainer = () => {
               <span>Milestones</span>
               <span>Asignee</span>
               <span>Sort</span>
-
-
-
-
             </IssueListHeader>
-            <ul>{
+            {
               issues.items.map((issue, i) =>
-                <li key={i}>
-                  <StyledIssue>
+                  <StyledIssue key={i}>
                     <input type='checkbox' />
                     {issue.state}
                     {issue.title}
@@ -52,9 +47,7 @@ const IssueContainer = () => {
                     by {issue.user.login}
                     {issue.comments}
                   </StyledIssue>
-                </li>
               )}
-            </ul>
           </>) : <NoIssues />}
       </StyledIssueContainer>
     </>
@@ -72,16 +65,11 @@ const StyledIssueContainer = styled(Flex).attrs({
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  ul {
-    list-style-type: none;
-    padding-left: 20px;
-    margin: 0;
-    width: 100%;
   }
 `;
 
 const StyledIssue = styled.div`
+  width: 100%;
   height: 57.5px;
   border-top: solid 1px #d1d5da;
   margin: 0;
