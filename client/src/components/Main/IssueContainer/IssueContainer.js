@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
+import Octicon, { IssueOpened } from '@primer/octicons-react'
 
 import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
@@ -27,6 +28,7 @@ const IssueContainer = () => {
           (<>
             <IssueListHeader>
               <input type='checkbox' />
+              <Octicon icon={IssueOpened} />
               <a href='/'> 18 Open</a>
               <a href='/'>21 Closed</a>
               <a href='/'>Author</a>
@@ -42,6 +44,7 @@ const IssueContainer = () => {
                 //TODO: change key to issue id
                 <StyledIssue key={i}>
                   <input type='checkbox' />
+                  <StyledOcticon icon={IssueOpened} />
                   {issue.state}
                   <a href='/'>{issue.title}</a>
                   #{issue.number}
@@ -82,6 +85,7 @@ const StyledIssue = styled.div`
   
   }
 
+
   :hover {
     background-color: #F6F8FA;
   }
@@ -91,6 +95,10 @@ const IssueListHeader = styled(StyledIssue)`
   width: 100%;
   background-color: #F6F8FA;
   pointer-events: none;
+`
+
+const StyledOcticon = styled(Octicon)`
+  color: #28a745;
 `
 
 
