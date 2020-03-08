@@ -24,7 +24,22 @@ const IssueContainer = () => {
       <IssueContainerNav />
       <StyledIssueContainer>
         {issues ?
-          (
+          (<>
+            <IssueListHeader>
+              <input type='checkbox' />
+              <span>18 Open</span>
+              <span>21 Closed</span>
+              <span>Author</span>
+              <span>Label</span>
+              <span>Projects</span>
+              <span>Milestones</span>
+              <span>Asignee</span>
+              <span>Sort</span>
+
+
+
+
+            </IssueListHeader>
             <ul>{
               issues.items.map((issue, i) =>
                 <li key={i}>
@@ -40,7 +55,7 @@ const IssueContainer = () => {
                 </li>
               )}
             </ul>
-          ) : <NoIssues />}
+          </>) : <NoIssues />}
       </StyledIssueContainer>
     </>
   )
@@ -52,7 +67,7 @@ const StyledIssueContainer = styled(Flex).attrs({
 })`
   padding: 0;
   border: solid 1px #d1d5da;
-  border-radius: 3px;
+  border-radius: 4px;
   margin: auto; 
   display: flex;
   flex-direction: column;
@@ -60,20 +75,26 @@ const StyledIssueContainer = styled(Flex).attrs({
 
   ul {
     list-style-type: none;
-    padding: 0;
+    padding-left: 20px;
     margin: 0;
     width: 100%;
   }
 `;
 
 const StyledIssue = styled.div`
-  height: 55px;
+  height: 57.5px;
   border-top: solid 1px #d1d5da;
   margin: 0;
 
   :hover {
     background-color: #F6F8FA;
   }
+`
+const IssueListHeader = styled(StyledIssue)`
+  border-top: none;
+  width: 100%;
+  background-color: #F6F8FA;
+  pointer-events: none;
 `
 
 export default IssueContainer;
