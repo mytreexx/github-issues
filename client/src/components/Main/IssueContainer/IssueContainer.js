@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
-import Octicon, { IssueOpened } from '@primer/octicons-react'
+import Octicon, { IssueOpened, Comment } from '@primer/octicons-react'
 
 import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
@@ -23,14 +23,17 @@ const IssueContainer = () => {
   return (
     <>
       <IssueContainerNav />
+
       <StyledIssueContainer>
         {issues ?
           (<>
             <IssueListHeader>
               <input type='checkbox' />
               <Octicon icon={IssueOpened} />
+
               <a href='/'> 18 Open</a>
               <a href='/'>21 Closed</a>
+
               <a href='/'>Author</a>
               <a href='/'>Label</a>
               <a href='/'>Projects</a>
@@ -41,19 +44,27 @@ const IssueContainer = () => {
 
             {
               issues.items.map((issue, i) =>
-                //TODO: change key to issue id
                 <StyledIssue key={i}>
-                  <input type='checkbox' />
-                  <StyledOcticon icon={IssueOpened} />
-                  {issue.state}
-                  <a href='/'>{issue.title}</a>
-                  #{issue.number}
-                  opened on {issue.created_at}
-                  by <a href='/'>{issue.user.login}</a>
-                  {issue.comments}
+                  <Container>
+                    <input type='checkbox' />
+                    <StyledOcticon icon={IssueOpened} />
+
+                    <TitleContainer>
+                      <a href='/'>{issue.title}</a>
+                      <span>
+                        #{issue.number} opened on {issue.created_at} by <a href='/'>{issue.user.login}</a>
+                      </span>
+                    </TitleContainer>
+                  </Container>
+
+                  <Container>
+                    <StyledCommentOcticon icon={Comment} />
+                    {issue.comments}
+                  </Container>
                 </StyledIssue>
               )}
-          </>) : <NoIssues />}
+          </>
+          ): <NoIssues />}
       </StyledIssueContainer>
     </>
   )
@@ -78,13 +89,13 @@ const StyledIssue = styled.div`
   height: 57.5px;
   border-top: solid 1px #d1d5da;
   margin: 0;
+  display: flex;
+  justify-content: space-between;
 
   input {
     margin-left: 16px;
-    margin-top: 10px;
-  
+    margin-right: 16px;
   }
-
 
   :hover {
     background-color: #F6F8FA;
@@ -97,9 +108,24 @@ const IssueListHeader = styled(StyledIssue)`
   pointer-events: none;
 `
 
-const StyledOcticon = styled(Octicon)`
-  color: #28a745;
+const Container = styled.span`
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 8px;
+`
+const TitleContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  padding-top: 0;
 `
 
+const StyledOcticon = styled(Octicon)`
+  color: #28a745;
+  padding-top: 5px;
+`
+
+const StyledCommentOcticon = styled(Octicon)`
+  color: #586069;
+`
 
 export default IssueContainer;
