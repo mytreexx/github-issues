@@ -24,7 +24,7 @@ const IssueContainer = () => {
     <>
       <IssueContainerNav />
 
-      <StyledIssueContainer>
+      <IssueListContainer>
         {issues ?
           (<>
             <IssueListHeader>
@@ -44,10 +44,10 @@ const IssueContainer = () => {
 
             {
               issues.items.map((issue, i) =>
-                <StyledIssue key={i}>
+                <Issue key={i}>
                   <Container>
                     <input type='checkbox' />
-                    <StyledOcticon icon={IssueOpened} />
+                    <OpenIssueOcticon icon={IssueOpened} />
 
                     <TitleContainer>
                       <a href='/'>{issue.title}</a>
@@ -58,19 +58,19 @@ const IssueContainer = () => {
                   </Container>
 
                   <Container>
-                    <StyledCommentOcticon icon={Comment} />
+                    <CommentOcticon icon={Comment} />
                     {issue.comments}
                   </Container>
-                </StyledIssue>
+                </Issue>
               )}
           </>
           ): <NoIssues />}
-      </StyledIssueContainer>
+      </IssueListContainer>
     </>
   )
 }
 
-const StyledIssueContainer = styled(Flex).attrs({
+const IssueListContainer = styled(Flex).attrs({
   width: "978px",
   minHeight: "335px"
 })`
@@ -84,7 +84,7 @@ const StyledIssueContainer = styled(Flex).attrs({
   }
 `;
 
-const StyledIssue = styled.div`
+const Issue = styled.div`
   width: 100%;
   height: 57.5px;
   border-top: solid 1px #d1d5da;
@@ -101,7 +101,7 @@ const StyledIssue = styled.div`
     background-color: #F6F8FA;
   }
 `
-const IssueListHeader = styled(StyledIssue)`
+const IssueListHeader = styled(Issue)`
   border-top: none;
   width: 100%;
   background-color: #F6F8FA;
@@ -119,12 +119,12 @@ const TitleContainer = styled(Container)`
   padding-top: 0;
 `
 
-const StyledOcticon = styled(Octicon)`
+const OpenIssueOcticon = styled(Octicon)`
   color: #28a745;
   padding-top: 5px;
 `
 
-const StyledCommentOcticon = styled(Octicon)`
+const CommentOcticon = styled(Octicon)`
   color: #586069;
 `
 
