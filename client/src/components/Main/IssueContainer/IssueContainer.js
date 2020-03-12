@@ -13,9 +13,9 @@ const IssueContainer = () => {
   useEffect(() => {
     fetch('http://localhost:8000/repos/bluzi/name-db/')
       .then(response => response.json())
-      .then(data => {
-        setIssues(data);
-        data.items.map((issue) =>
+      .then(repoIssues => {
+        setIssues(repoIssues.items);
+        repoIssues.items.map((issue) =>
           console.log(issue.title));
       })
   }, []);
@@ -43,7 +43,7 @@ const IssueContainer = () => {
             </IssueListHeader>
 
             {
-              issues.items.map((issue, i) =>
+              issues.map((issue, i) =>
                 <Issue key={i}>
                   <Container>
                     <input type='checkbox' />
