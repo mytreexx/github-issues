@@ -43,8 +43,8 @@ const IssueContainer = () => {
             </IssueListHeader>
 
             {
-              issues.map((issue, i) =>
-                <Issue key={i}>
+              issues.map(issue =>
+                <Issue key={issue.id}>
                   <Container>
                     <input type='checkbox' />
                     <OpenIssueOcticon icon={IssueOpened} />
@@ -53,8 +53,12 @@ const IssueContainer = () => {
                       <span>
                         <a href='/'>{issue.title}</a>
                         {
-                          issue.labels.map((label, i) =>
-                            <Label key={i} color={label.color}> {label.name}</Label>
+                          issue.labels.map(label =>
+                            <Label
+                              key={label.id}
+                              color={label.color}>
+                              {label.name}
+                            </Label>
                           )
                         }
                       </span>
