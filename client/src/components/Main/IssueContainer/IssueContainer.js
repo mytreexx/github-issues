@@ -15,8 +15,8 @@ const IssueContainer = () => {
       .then(response => response.json())
       .then(repoIssues => {
         setIssues(repoIssues.items);
-        repoIssues.items.map((issue) =>
-          console.log(issue.title));
+        // repoIssues.items.map((issue) =>
+        //   console.log(issue.title));
       })
   }, []);
 
@@ -50,7 +50,15 @@ const IssueContainer = () => {
                     <OpenIssueOcticon icon={IssueOpened} />
 
                     <TitleContainer>
-                      <a href='/'>{issue.title}</a>
+                      <span>
+                        <a href='/'>{issue.title}</a>
+                        {
+                          issue.labels.map((label, i) =>
+                            <span key={i}> {label.name}</span>
+                          )
+                        }
+                      </span>
+
                       <span>
                         #{issue.number} opened on {issue.created_at} by <a href='/'>{issue.user.login}</a>
                       </span>
@@ -64,7 +72,7 @@ const IssueContainer = () => {
                 </Issue>
               )}
           </>
-          ): <NoIssues />}
+          ) : <NoIssues />}
       </IssueListContainer>
     </>
   )
