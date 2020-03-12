@@ -54,7 +54,7 @@ const IssueContainer = () => {
                         <a href='/'>{issue.title}</a>
                         {
                           issue.labels.map((label, i) =>
-                            <span key={i}> {label.name}</span>
+                            <Label key={i} color={label.color}> {label.name}</Label>
                           )
                         }
                       </span>
@@ -134,6 +134,10 @@ const OpenIssueOcticon = styled(Octicon)`
 
 const CommentOcticon = styled(Octicon)`
   color: #586069;
+`
+
+const Label = styled.span`
+  background-color: #${props => props.color};
 `
 
 export default IssueContainer;
