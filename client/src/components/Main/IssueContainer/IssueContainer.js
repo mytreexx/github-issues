@@ -140,8 +140,17 @@ const CommentOcticon = styled(Octicon)`
   color: #586069;
 `
 
-const Label = styled.span`
+const Label = styled.div`
   background-color: #${props => props.color};
+  font-size: 12px;
+  font-weight: 600;
+  height: 20px;
+  padding: 0 4px;
+  margin: 0 2px;
+  display: inline-block;
+  border-radius: 2px;
+  box-shadow: inset 0 -1px 0 rgba(27,31,35,.12);
+  cursor: pointer;
 `
 
 export default IssueContainer;
