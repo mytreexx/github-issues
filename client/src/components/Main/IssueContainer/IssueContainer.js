@@ -51,7 +51,7 @@ const IssueContainer = () => {
 
                     <TitleContainer>
                       <span>
-                        <a href='/'>{issue.title}</a>
+                        <IssueTitle href='/'>{issue.title}</IssueTitle>
                         {
                           issue.labels.map(label =>
                             <Label
@@ -63,9 +63,9 @@ const IssueContainer = () => {
                         }
                       </span>
 
-                      <span>
+                      <IssueDetails>
                         #{issue.number} opened on {issue.created_at} by <a href='/'>{issue.user.login}</a>
-                      </span>
+                      </IssueDetails>
                     </TitleContainer>
                   </Container>
 
@@ -119,6 +119,32 @@ const IssueListHeader = styled(Issue)`
   background-color: #F6F8FA;
   pointer-events: none;
 `
+const IssueTitle = styled.a`
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #24292e;
+  cursor: pointer;
+  
+  :hover {
+    color: #0366d6;
+  }
+`
+
+const IssueDetails = styled.span`
+  font-size: 12px;
+  color: #586069;
+
+  a {
+    text-decoration: none;
+    color: #586069;
+    cursor: pointer;
+
+    :hover {
+      color: #0366d6;
+    }
+  }
+`
 
 const Container = styled.span`
   display: flex;
@@ -129,6 +155,7 @@ const TitleContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   padding-top: 0;
+  padding-left: 8px;
 `
 
 const OpenIssueOcticon = styled(Octicon)`
