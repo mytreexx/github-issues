@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
 import Octicon, { IssueOpened, Comment } from '@primer/octicons-react'
+import { Link } from 'react-router-dom';
 
 import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
@@ -51,7 +52,11 @@ const IssueContainer = () => {
 
                     <TitleContainer>
                       <span>
-                        <IssueTitle href='/'>{issue.title}</IssueTitle>
+                        <IssueTitle>
+                          <Link to="/bluzi/name-db/issues/458">
+                            {issue.title}
+                          </Link>
+                        </IssueTitle>
                         {
                           issue.labels.map(label =>
                             <Label
