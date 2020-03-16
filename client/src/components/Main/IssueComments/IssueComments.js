@@ -22,11 +22,24 @@ const IssueComments = () => {
   }, []);
 
 
+  if (!issue) {
+    return null;
+  }
+
   return (
-    <div>
-      issue comments
-    </div>
+    <>
+      <issueDetails>
+        {issue.title}
+      </issueDetails>
+
+    </>
   )
+
 }
+
+
+const IssueDetails = styled.div`
+  border: 1px solid black;
+`
 
 export default IssueComments;
