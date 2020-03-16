@@ -22,15 +22,22 @@ const IssueComments = () => {
   }, []);
 
 
-  if (!issue) {
+  if (!issue || !issueComments) {
     return null;
   }
 
   return (
     <>
-      <issueDetails>
+      <IssueDetails>
         {issue.title}
-      </issueDetails>
+        {issue.body}
+      </IssueDetails>
+
+      {issueComments.map(comment =>
+        <Comment>
+          {comment.body}
+        </Comment>
+      )}
 
     </>
   )
@@ -39,7 +46,11 @@ const IssueComments = () => {
 
 
 const IssueDetails = styled.div`
-  border: 1px solid black;
-`
+    border: 1px solid black;
+  `
+
+const Comment = styled.div`
+    border: 1px black solid;
+  `
 
 export default IssueComments;
