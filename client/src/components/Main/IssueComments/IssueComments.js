@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { Flex } from 'reflexbox/styled-components';
 
 
 const IssueComments = () => {
@@ -9,18 +11,13 @@ const IssueComments = () => {
     fetch('http://localhost:8000/repos/bluzi/name-db/458')
       .then(response => response.json())
       .then(issueDetails => {
-        setIssue(issueDetails.items);
-        console.log(issueDetails.title);
+        setIssue(issueDetails);
       })
-  }, []);
 
-  useEffect(() => {
     fetch('http://localhost:8000/repos/bluzi/name-db/458/comments')
       .then(response => response.json())
       .then(issueComments => {
-        setIssueComments(issueComments.items);
-        issueComments.map((comment) =>
-        console.log(comment.body));
+        setIssueComments(issueComments);
       })
   }, []);
 
