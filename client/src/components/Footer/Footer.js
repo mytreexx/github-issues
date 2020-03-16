@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Flex } from 'reflexbox/styled-components';
 import Octicon, { MarkGithub } from '@primer/octicons-react'
 
 const Footer = () => {
@@ -15,10 +14,10 @@ const Footer = () => {
         <a href='https://help.github.com/'>Help</a>
       </Container>
 
-      <Octicon icon={MarkGithub} />
-
+      <a href='https://github.com/'><GithubLogo icon={MarkGithub} /></a>
+      
       <Container>
-        <a href='https://github.com/contact'>Contact Github</a>
+        <a href='https://github.com/contact'>Contact GitHub</a>
         <a href='https://github.com/pricing'>Pricing</a>
         <a href='https://developer.github.com/'>API</a>
         <a href='https://training.github.com/'>Training</a>
@@ -50,10 +49,22 @@ const Container = styled.div`
   a {
     color: #0366d6;
     text-decoration: none;
+    padding-left: 16px;
 
     :hover {
       text-decoration: underline;
     }
+  }
+`
+
+const GithubLogo = styled(Octicon)`
+  color: #C6CBD1;
+  width: 24px;
+  height: 24px;
+  padding-left: 15px;
+
+  :hover {
+    color: #9FA6AE;
   }
 `
 
