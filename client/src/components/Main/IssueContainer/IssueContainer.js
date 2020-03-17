@@ -52,11 +52,9 @@ const IssueContainer = () => {
 
                     <TitleContainer>
                       <span>
-                        <IssueTitle>
-                          <Link to="/bluzi/name-db/issues/458">
+                        <IssueTitleLink to="/bluzi/name-db/issues/458">
                             {issue.title}
-                          </Link>
-                        </IssueTitle>
+                        </IssueTitleLink>
                         {
                           issue.labels.map(label =>
                             <Label
@@ -124,7 +122,7 @@ const IssueListHeader = styled(Issue)`
   background-color: #F6F8FA;
   pointer-events: none;
 `
-const IssueTitle = styled.a`
+const IssueTitleLink = styled(Link)`
   font-size: 16px;
   text-decoration: none;
   font-weight: 600;
