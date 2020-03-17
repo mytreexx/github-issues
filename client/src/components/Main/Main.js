@@ -13,7 +13,7 @@ const Main = () => {
       <BrowserRouter>
         <Switch>
           <Route path="/bluzi/name-db/issues" exact component={IssueContainer} />
-          <Route path="/bluzi/name-db/issues/458" exact component={IssueComments} />
+          <Route path="/bluzi/name-db/issues/:issueNumber" exact component={IssueComments} />
         </Switch>
       </BrowserRouter>
 
