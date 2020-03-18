@@ -18,10 +18,10 @@ const RepoHead = () => {
             <StyledOcticon icon={Code} />
             Code
           </Tab>
-          <Tab id="issues">
+          <SelectedTab>
             <StyledOcticon icon={IssueOpened} />
             Issues 17
-          </Tab>
+          </SelectedTab>
           <Tab>
             <StyledOcticon icon={GitPullRequest} />
             Pull Requests 95
@@ -84,10 +84,14 @@ const Tab = styled.div`
     color: #24292e;
     cursor: pointer;
   }
+`
 
-  .issues {
-    background-color: red;
-  }
+const SelectedTab = styled(Tab)`
+  background-color: white;
+  border-top: #e36209 3px solid;
+  border-right: solid 1px #e1e4e8;
+  border-left: solid 1px #e1e4e8;
+  borer-radius: 3px 3px 0 0;
 `
 
 const StyledOcticon = styled(Octicon)`
