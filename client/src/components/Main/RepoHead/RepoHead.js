@@ -14,30 +14,30 @@ const RepoHead = () => {
         </RepoHeader>
 
         <RepoNavbar>
-          <div>
+          <Tab>
             <StyledOcticon icon={Code} />
             Code
-          </div>
-          <div>
+          </Tab>
+          <Tab id="issues">
             <StyledOcticon icon={IssueOpened} />
             Issues 17
-         </div>
-          <div>
+          </Tab>
+          <Tab>
             <StyledOcticon icon={GitPullRequest} />
             Pull Requests 95
-           </div>
-          <div>
+          </Tab>
+          <Tab>
             <StyledOcticon icon={Play} />
             Actions
-         </div>
-          <div>
+          </Tab>
+          <Tab>
             <StyledOcticon icon={Shield} />
             Security
-          </div>
-          <div>
+          </Tab>
+          <Tab>
             <StyledOcticon icon={Graph} />
             Insights
-        </div>
+         </Tab>
         </RepoNavbar>
       </MainContainer>
 
@@ -60,17 +60,33 @@ const Container = styled(Flex).attrs({
 
 const MainContainer = styled.div`
   width: 978px;
-  margin: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
 
 const RepoHeader = styled.div`
   width: 100%;
 `
+
 const RepoNavbar = styled.div`
   width: 100%;
+`
 
-  div {
-    display: inline-block;
+const Tab = styled.div`
+  display: inline-block;
+  padding: 7px 12px;
+  font-size: 14px;
+  color: #586069;
+
+  :hover {
+    color: #24292e;
+    cursor: pointer;
+  }
+
+  .issues {
+    background-color: red;
   }
 `
 
