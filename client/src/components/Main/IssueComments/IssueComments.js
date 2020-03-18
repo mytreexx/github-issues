@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
+import { useParams } from 'react-router-dom';
 
 
 const IssueComments = () => {
+  const { issueNumber } = useParams();
+
   const [issue, setIssue] = useState();
   const [issueComments, setIssueComments] = useState();
 
   useEffect(() => {
-    fetch('http://localhost:8000/repos/bluzi/name-db/222')
+    fetch(`http://localhost:8000/repos/bluzi/name-db/${issueNumber}`)
       .then(response => response.json())
       .then(issueDetails => {
         setIssue(issueDetails);
       })
 
-    fetch('http://localhost:8000/repos/bluzi/name-db/222/comments')
+    fetch(`http://localhost:8000/repos/bluzi/name-db/${issueNumber}/comments`)
       .then(response => response.json())
       .then(issueComments => {
         setIssueComments(issueComments);
