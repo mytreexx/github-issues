@@ -95,7 +95,7 @@ const SelectedTab = styled(Tab)`
 `
 
 const StyledOcticon = styled(Octicon)`
-  color: #959da5;
+  color: rgba(27,31,35,.3);
   margin-right: 4px;
 `
 
