@@ -63,7 +63,6 @@ const IssueContainer = () => {
                               color={label.color}>
                               {label.name}
                             </Label>
-
                           )
                         }
                       </span>
@@ -86,6 +85,7 @@ const IssueContainer = () => {
     </>
   )
 }
+
 
 const IssueListContainer = styled(Flex).attrs({
   width: "978px",
@@ -118,12 +118,14 @@ const Issue = styled.div`
     background-color: #F6F8FA;
   }
 `
+
 const IssueListHeader = styled(Issue)`
   border-top: none;
   width: 100%;
   background-color: #F6F8FA;
   pointer-events: none;
 `
+
 const IssueTitleLink = styled(Link)`
   font-size: 16px;
   text-decoration: none;
@@ -156,6 +158,7 @@ const Container = styled.span`
   justify-content: flex-start;
   padding-top: 8px;
 `
+
 const TitleContainer = styled(Container)`
   display: flex;
   flex-direction: column;
