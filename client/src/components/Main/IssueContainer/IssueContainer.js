@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
 import Octicon, { IssueOpened, Comment } from '@primer/octicons-react'
 import { Link } from 'react-router-dom';
+import color from 'color';
 
 import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
@@ -52,9 +53,8 @@ const IssueContainer = () => {
 
                     <TitleContainer>
                       <span>
-                      
-                        <IssueTitleLink to={{pathname: `/bluzi/name-db/issues/${issue.number}`}} >
-                            {issue.title}
+                        <IssueTitleLink to={{ pathname: `/bluzi/name-db/issues/${issue.number}` }} >
+                          {issue.title}
                         </IssueTitleLink>
                         {
                           issue.labels.map(label =>
@@ -63,6 +63,7 @@ const IssueContainer = () => {
                               color={label.color}>
                               {label.name}
                             </Label>
+
                           )
                         }
                       </span>
@@ -173,6 +174,7 @@ const CommentOcticon = styled(Octicon)`
 
 const Label = styled.div`
   background-color: #${props => props.color};
+  color: ${props => color('#' + props.color).isLight() ? 'black' : 'white'};
   font-size: 12px;
   font-weight: 600;
   height: 20px;
