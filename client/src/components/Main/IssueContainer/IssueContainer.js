@@ -74,8 +74,13 @@ const IssueContainer = () => {
                   </Container>
 
                   <Container>
-                    <CommentOcticon icon={Comment} />
-                    {issue.comments}
+                    {
+                      issue.comments > 0 &&
+                      <>
+                        <CommentOcticon icon={Comment} />
+                        {issue.comments}
+                      </>
+                    }
                   </Container>
                 </Issue>
               )}
