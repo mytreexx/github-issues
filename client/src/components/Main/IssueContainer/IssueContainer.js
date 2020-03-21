@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
-import Octicon, { IssueOpened, Comment } from '@primer/octicons-react'
+import Octicon, { IssueOpened, IssueClosed, Comment } from '@primer/octicons-react'
 import { Link } from 'react-router-dom';
 import color from 'color';
 
@@ -49,7 +49,7 @@ const IssueContainer = () => {
                 <Issue key={issue.id}>
                   <Container>
                     <input type='checkbox' />
-                    <OpenIssueOcticon icon={IssueOpened} />
+                    <IssueOcticon icon={ issue.state === 'open' ? IssueOpened : IssueClosed} />
 
                     <TitleContainer>
                       <span>
@@ -171,7 +171,7 @@ const TitleContainer = styled(Container)`
   padding-left: 8px;
 `
 
-const OpenIssueOcticon = styled(Octicon)`
+const IssueOcticon = styled(Octicon)`
   color: #28a745;
   padding-top: 5px;
 `
