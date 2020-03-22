@@ -91,8 +91,9 @@ const SelectedTab = styled(Tab)`
   border-top: #e36209 3px solid;
   border-right: solid 1px #e1e4e8;
   border-left: solid 1px #e1e4e8;
-  borer-radius: 3px 3px 0 0;
-`
+  box-shadow: 0 1px 0 #fff;
+  border-radius: 3px 3px 0 0;
+  `
 
 const StyledOcticon = styled(Octicon)`
   color: rgba(27,31,35,.3);
