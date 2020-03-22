@@ -4,6 +4,7 @@ import { Flex } from 'reflexbox/styled-components';
 import Octicon, { IssueOpened, IssueClosed, Comment } from '@primer/octicons-react'
 import { Link } from 'react-router-dom';
 import color from 'color';
+import format from 'date-fns/format';
 
 import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
@@ -68,7 +69,7 @@ const IssueContainer = () => {
                       </span>
 
                       <IssueDetails>
-                        #{issue.number} opened on {issue.created_at} by <a href='/'>{issue.user.login}</a>
+                        #{issue.number} opened on {format((new Date(issue.created_at)), "MMM d, y")} by <a href='/'>{issue.user.login}</a>
                       </IssueDetails>
                     </TitleContainer>
                   </Container>
