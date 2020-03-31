@@ -9,8 +9,16 @@ const RepoHead = () => {
     <Container>
       <MainContainer>
         <RepoHeader>
-          <StyledOcticon icon={Repo} />
-          <span>bluzi/name-db</span>
+          <span>
+            <StyledOcticon icon={Repo} />
+            bluzi/name-db
+          </span>
+
+          <span>
+            <button>Watch</button>
+            <button>Star</button>
+            <button>Fork</button>
+          </span>
         </RepoHeader>
 
         <RepoNavbar>
@@ -68,6 +76,9 @@ const MainContainer = styled.div`
 
 const RepoHeader = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  width: 978px;
 `
 
 const RepoNavbar = styled.div`
