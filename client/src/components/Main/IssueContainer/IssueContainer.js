@@ -18,8 +18,6 @@ const IssueContainer = () => {
       .then(response => response.json())
       .then(repoIssues => {
         setIssues(repoIssues.items);
-        // repoIssues.items.map((issue) =>
-        //   console.log(issue.title));
       })
   }, []);
 
