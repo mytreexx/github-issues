@@ -1,7 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
-import Octicon, { Repo, Code, IssueOpened, GitPullRequest, Play, Shield, Graph } from '@primer/octicons-react'
+import Octicon, {
+  Repo,
+  Code,
+  IssueOpened,
+  GitPullRequest,
+  Play,
+  Shield,
+  Graph,
+  Eye,
+  Star,
+  RepoForked,
+  TriangleDown
+}
+  from '@primer/octicons-react'
 
 
 const RepoHead = () => {
@@ -15,9 +28,19 @@ const RepoHead = () => {
           </span>
 
           <span>
-            <button>Watch</button>
-            <button>Star</button>
-            <button>Fork</button>
+            <Button>
+              <Octicon icon={Eye} />
+              Watch
+              <Octicon icon={TriangleDown} />
+            </Button>
+            <Button>
+              <Octicon icon={Star} />
+              Star
+            </Button>
+            <Button>
+              <Octicon icon={RepoForked} />
+              Fork
+            </Button>
           </span>
         </RepoHeader>
 
@@ -109,6 +132,13 @@ const SelectedTab = styled(Tab)`
 const StyledOcticon = styled(Octicon)`
   color: rgba(27,31,35,.3);
   margin-right: 4px;
+`
+
+const Button = styled.button`
+  font-size: 12px;
+  font-weight: 600;
+  color: #24292e;
+  
 `
 
 export default RepoHead;
