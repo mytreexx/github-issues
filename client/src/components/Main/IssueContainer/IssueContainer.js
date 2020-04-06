@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
-import Octicon, { IssueOpened, IssueClosed, Comment } from '@primer/octicons-react'
+import Octicon, { IssueOpened, IssueClosed, Comment, TriangleDown } from '@primer/octicons-react'
 import { Link } from 'react-router-dom';
 import color from 'color';
 import format from 'date-fns/format';
@@ -29,18 +29,40 @@ const IssueContainer = () => {
         {issues ?
           (<>
             <IssueListHeader>
-              <input type='checkbox' />
-              <Octicon icon={IssueOpened} />
+              <span>
+                <input type='checkbox' />
+                <Octicon icon={IssueOpened} />
 
-              <a href='/'> 18 Open</a>
-              <a href='/'>21 Closed</a>
+                <a href='/'> 18 Open</a>
+                <a href='/'>21 Closed</a>
+              </span>
 
-              <a href='/'>Author</a>
-              <a href='/'>Label</a>
-              <a href='/'>Projects</a>
-              <a href='/'>Milestones</a>
-              <a href='/'>Asignee</a>
-              <a href='/'>Sort</a>
+              <span>
+                <a href='/'>
+                  Author
+                  <ArrowDownOcticon icon={TriangleDown} />
+                </a>
+                <a href='/'>
+                  Label
+                  <ArrowDownOcticon icon={TriangleDown} />
+                </a>
+                <a href='/'>
+                  Projects
+                  < ArrowDownOcticon icon={TriangleDown} />
+                </a>
+                <a href='/'>
+                  Milestones
+                  <ArrowDownOcticon icon={TriangleDown} />
+                </a>
+                <a href='/'>
+                  Asignee
+                  <ArrowDownOcticon icon={TriangleDown} />
+                </a>
+                <a href='/'>
+                  Sort
+                  <ArrowDownOcticon icon={TriangleDown} />
+                </a>
+              </span>
             </IssueListHeader>
 
             {
@@ -177,6 +199,9 @@ const IssueOcticon = styled(Octicon)`
 
 const CommentOcticon = styled(Octicon)`
   color: #586069;
+`
+const ArrowDownOcticon = styled(Octicon)`
+  width: 8px;
 `
 
 const Label = styled.div`
