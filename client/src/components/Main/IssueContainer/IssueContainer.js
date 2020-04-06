@@ -70,7 +70,7 @@ const IssueContainer = () => {
                 <Issue key={issue.id}>
                   <Container>
                     <input type='checkbox' />
-                    <IssueOcticon icon={ issue.state === 'open' ? IssueOpened : IssueClosed} />
+                    <IssueOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
 
                     <TitleContainer>
                       <span>
@@ -134,6 +134,7 @@ const Issue = styled.div`
   margin: 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   input {
     margin-left: 16px;
@@ -150,6 +151,17 @@ const IssueListHeader = styled(Issue)`
   width: 100%;
   background-color: #F6F8FA;
   pointer-events: none;
+
+  span {
+    margin-right: 20px;
+  }
+  a {
+    color: #586069;
+    text-decoration: none;
+    font-size: 14px; 
+    margin-left: 32px;
+  }
+  
 `
 
 const IssueTitleLink = styled(Link)`
@@ -202,6 +214,7 @@ const CommentOcticon = styled(Octicon)`
 `
 const ArrowDownOcticon = styled(Octicon)`
   width: 8px;
+  margin-left: 4px;
 `
 
 const Label = styled.div`
