@@ -12,8 +12,8 @@ const Main = () => {
       <RepoHead />
       <BrowserRouter>
         <Switch>
-          <Route path="/bluzi/name-db/issues" exact component={IssueContainer} />
-          <Route path="/bluzi/name-db/issues/:issueNumber" exact component={IssueComments} />
+          <Route path="/:userName/:repoName/issues" exact component={IssueContainer} />
+          <Route path="/:userName/:repoName/issues/:issueNumber" exact component={IssueComments} />
         </Switch>
       </BrowserRouter>
 
