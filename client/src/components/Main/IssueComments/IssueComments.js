@@ -5,23 +5,25 @@ import { useParams } from 'react-router-dom';
 
 const IssueComments = () => {
   const { issueNumber } = useParams();
+  const { repoName } = useParams();
+  const { userName } = useParams();
 
   const [issue, setIssue] = useState();
   const [issueComments, setIssueComments] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/repos/bluzi/name-db/${issueNumber}`)
+    fetch(`http://localhost:8000/repos/${userName}/${repoName}/${issueNumber}`)
       .then(response => response.json())
       .then(issueDetails => {
         setIssue(issueDetails);
       })
 
-    fetch(`http://localhost:8000/repos/bluzi/name-db/${issueNumber}/comments`)
+    fetch(`http://localhost:8000/repos/${userName}/${repoName}/${issueNumber}/comments`)
       .then(response => response.json())
       .then(issueComments => {
         setIssueComments(issueComments);
       })
-  }, [issueNumber]);
+  }, [issueNumber, repoName, userName]);
 
 
   if (!issue || !issueComments) {
@@ -36,7 +38,7 @@ const IssueComments = () => {
       </IssueDetails>
 
       <CommentSection>
-        <span/>
+        <span />
         {issueComments.map(comment =>
           <Comment>
             {comment.body}
