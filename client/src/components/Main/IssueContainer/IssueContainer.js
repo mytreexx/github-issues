@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
 import Octicon, { IssueOpened, IssueClosed, Comment, TriangleDown } from '@primer/octicons-react'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import color from 'color';
 import format from 'date-fns/format';
 
@@ -11,15 +11,17 @@ import NoIssues from './NoIssues/NoIssues';
 
 
 const IssueContainer = () => {
+  const { repoName } = useParams();
+  const { userName } = useParams();
   const [issues, setIssues] = useState();
 
   useEffect(() => {
-    fetch('http://localhost:8000/repos/bluzi/name-db/')
+    fetch(`http://localhost:8000/repos/${userName}/${repoName}/`)
       .then(response => response.json())
       .then(repoIssues => {
         setIssues(repoIssues.items);
       })
-  }, []);
+  }, [userName, repoName]);
 
   return (
     <>
