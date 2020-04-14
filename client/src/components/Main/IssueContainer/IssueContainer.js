@@ -76,7 +76,7 @@ const IssueContainer = () => {
 
                     <TitleContainer>
                       <span>
-                        <IssueTitleLink to={{ pathname: `/bluzi/name-db/issues/${issue.number}` }} >
+                        <IssueTitleLink to={{ pathname: `/${userName}/${repoName}/issues/${issue.number}` }} >
                           {issue.title}
                         </IssueTitleLink>
                         {
