@@ -9,7 +9,7 @@ const axios = require('axios');
 app.use(cors());
 
 app.get('/repos/:userName/:repoName/:issueNumber/comments', async function (req, res) { 
-  const response = await axios.get(`https://api.github.com/repos/${req.params('userName')}/${req.params('repoName')}/issues/${req.params('issueNumber')}/comments`, {
+  const response = await axios.get(`https://api.github.com/repos/${req.params.userName}/${req.params.repoName}/issues/${req.params.issueNumber}/comments`, {
     headers: {
       'Authorization': `token ${process.env.ACCESS_TOKEN}`
     }
@@ -18,7 +18,7 @@ app.get('/repos/:userName/:repoName/:issueNumber/comments', async function (req,
 });
 
 app.get('/repos/:userName/:repoName/:issueNumber', async function (req, res) { 
-  const response = await axios.get(`https://api.github.com/repos/${req.params('userName')}/${req.params('repoName')}/issues/${req.params('issueNumber')}`, {
+  const response = await axios.get(`https://api.github.com/repos/${req.params.userName}/${req.params.repoName}/issues/${req.params.issueNumber}`, {
     headers: {
       'Authorization': `token ${process.env.ACCESS_TOKEN}`
     }
@@ -27,7 +27,7 @@ app.get('/repos/:userName/:repoName/:issueNumber', async function (req, res) {
 });
 
 app.get('/repos/:userName/:repoName/', async function (req, res) { 
-  const response = await axios.get(`https://api.github.com/search/issues?q=repo:${req.params('userName')}/${req.params('repoName')}/ is:issue is:open`, {
+  const response = await axios.get(`https://api.github.com/search/issues?q=repo:${req.params.userName}/${req.params.repoName}/ is:issue is:open`, {
     headers: {
       'Authorization': `token ${process.env.ACCESS_TOKEN}`
     }
