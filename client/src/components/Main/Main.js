@@ -1,26 +1,18 @@
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
-import RepoHead from './RepoHead/RepoHead';
 import Welcome from './Welcome/Welcome';
-import IssueContainer from './IssueContainer/IssueContainer';
-import IssueComments from './IssueComments/IssueComments';
-
+import Issues from './Issues/Issues';
 
 
 const Main = () => {
   return (
-    <>
-      <RepoHead />
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Welcome} />
-          <Route path="/:userName/:repoName/issues" exact component={IssueContainer} />
-          <Route path="/:userName/:repoName/issues/:issueNumber" exact component={IssueComments} />
+          <Route path="/:userName/:repoName/issues" component={Issues} />
         </Switch>
       </BrowserRouter>
-
-    </>
   );
 }
 
