@@ -17,7 +17,7 @@ app.get('/repos/:userName/:repoName/:issueNumber/comments', async function (req,
     });
     res.json(response.data);
   } catch (error) {
-    res.json(error);
+    res.json({ error: true });
   }
 });
 
@@ -30,7 +30,7 @@ app.get('/repos/:userName/:repoName/:issueNumber', async function (req, res) {
     });
     res.json(response.data);
   } catch (error) {
-    res.json(error);
+    res.json({ error: true });
   }
 });
 
@@ -43,7 +43,7 @@ app.get('/repos/:userName/:repoName/', async function (req, res) {
     });
     res.json(response.data);
   } catch (error) {
-    res.json(error);
+    res.json({ error: true });
   }
 });
 
