@@ -14,18 +14,26 @@ const IssueContainer = () => {
   const { repoName } = useParams();
   const { userName } = useParams();
   const [issues, setIssues] = useState();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:8000/repos/${userName}/${repoName}/`)
       .then(response => response.json())
-      .then(repoIssues => {
-        setIssues(repoIssues.items);
+      .then(response => {
+        if (response.error) { 
+          setError(true);
+        } else {
+          setError(false);
+          setIssues(response.items);
+        }
       })
   }, [userName, repoName]);
 
   return (
     <>
       <IssueContainerNav />
+
+      {error && <div>Could not show issues</div>}
 
       <IssueListContainer>
         {issues ?
