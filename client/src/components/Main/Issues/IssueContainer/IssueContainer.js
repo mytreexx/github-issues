@@ -20,7 +20,7 @@ const IssueContainer = () => {
     fetch(`http://localhost:8000/repos/${userName}/${repoName}/`)
       .then(response => response.json())
       .then(response => {
-        if (response.error) { 
+        if (response.error) {
           setError(true);
         } else {
           setError(false);
@@ -136,17 +136,12 @@ const IssueListContainer = styled(Flex).attrs({
 
 const Issue = styled.div`
   width: 100%;
-  height: 57.5px;
+  min-height: 57.5px;
   border-top: solid 1px #d1d5da;
   margin: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  input {
-    margin-left: 16px;
-    margin-right: 16px;
-  }
 
   :hover {
     background-color: #F6F8FA;
@@ -207,19 +202,19 @@ const Container = styled.span`
 const TitleContainer = styled(Container)`
   display: flex;
   flex-direction: column;
-  padding-top: 0;
-  padding-left: 8px;
+  padding: 0 0 8px 8px;
+  max-width: 690px;
 `
 
 const IssueOcticon = styled(Octicon)`
   color: #28a745;
-  padding-top: 5px;
-  padding-left: 16px;
+  padding: 5px 0 0 16px;
 `
 
 const CommentOcticon = styled(Octicon)`
   color: #586069;
 `
+
 const ArrowDownOcticon = styled(Octicon)`
   width: 8px;
   margin-left: 4px;
