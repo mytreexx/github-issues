@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
-import Octicon, { IssueOpened, IssueClosed, Comment, TriangleDown } from '@primer/octicons-react'
+import Octicon, { IssueOpened, IssueClosed, Comment, TriangleDown } from '@primer/octicons-react';
 import { Link, useParams } from 'react-router-dom';
 import color from 'color';
 import format from 'date-fns/format';
@@ -157,6 +157,7 @@ const IssueListHeader = styled(Issue)`
   span {
     margin-right: 20px;
   }
+
   a {
     color: #586069;
     text-decoration: none;

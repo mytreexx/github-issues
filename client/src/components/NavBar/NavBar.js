@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
-import Octicon, { MarkGithub } from '@primer/octicons-react'
+import Octicon, { MarkGithub } from '@primer/octicons-react';
 
 import Search from '../UI-components/Search';
 
@@ -39,7 +39,7 @@ const StyledNavBar = styled(Flex).attrs({
   a:hover {
     filter: brightness(0.75);
   }
-`;
+`
 
 const LogoOcticon = styled(Octicon)`
   color: #ffffff;

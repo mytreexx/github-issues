@@ -56,6 +56,7 @@ const IssueDetails = styled.div`
     width: 700px;
     margin: auto;
   `
+  
 const CommentSection = styled.div`
   width: 700px;
   margin: auto;

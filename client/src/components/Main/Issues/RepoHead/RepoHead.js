@@ -14,7 +14,7 @@ import Octicon, {
   RepoForked,
   TriangleDown
 }
-  from '@primer/octicons-react'
+  from '@primer/octicons-react';
 
 
 const RepoHead = () => {

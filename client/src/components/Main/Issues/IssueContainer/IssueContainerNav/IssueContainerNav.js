@@ -24,5 +24,4 @@ const StyledIssueContainerNav = styled(Flex).attrs({
 
 `;
 
-
 export default IssueContainerNav;

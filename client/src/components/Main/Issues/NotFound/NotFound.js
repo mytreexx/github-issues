@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Octicon, { X } from '@primer/octicons-react'
+import Octicon, { X } from '@primer/octicons-react';
 
 
 const NotFound = () => {
