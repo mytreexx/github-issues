@@ -9,7 +9,10 @@ import Search from '../UI-components/Search';
 const NavBar = () => {
   return (
     <StyledNavBar>
-      <LogoOcticon icon={MarkGithub} />
+      <a href="/">
+        <LogoOcticon icon={MarkGithub} />
+      </a>
+      
       <Search />
       <a href='/'>Pull requests</a>
       <a href='/'>Issues</a>
@@ -45,7 +48,7 @@ const LogoOcticon = styled(Octicon)`
   color: #ffffff;
   width: 32px;
   height: 32px;
-  padding: 0 16px;
+  padding-right: 8px;
 
   :hover {
     filter: brightness(0.75);
