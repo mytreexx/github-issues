@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
-
-import logo from '../../assets/images/GitHub-Logo.png';
+import Octicon, { MarkGithub } from '@primer/octicons-react'
 
 
 const NavBar = () => {
   return (
     <StyledNavBar>
-      <img src={logo} alt='Logo' />
+      <LogoOcticon icon={MarkGithub} />
       <Input placeholder='Search or jump to...'></Input>
       <a href='/'>Pull requests</a>
       <a href='/'>Issues</a>
@@ -38,14 +37,6 @@ const StyledNavBar = styled(Flex).attrs({
   a:hover {
     filter: brightness(0.75);
   }
-
-  img {
-    margin-left: 16px;
-  }
-
-  img:hover {
-    filter: brightness(0.75);
-  }
 `;
 
 const Input = styled.input`
@@ -54,7 +45,6 @@ const Input = styled.input`
   height: 28px;
   border-style: none;
   border-radius: 3px;
-  margin-left: 16px;
   padding: 0;
 }
 ::placeholder {
@@ -62,6 +52,17 @@ const Input = styled.input`
   font-weight: 600;
   padding-left: 7px;
 }
+`
+
+const LogoOcticon = styled(Octicon)`
+  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  padding: 0 16px;
+
+  :hover {
+    filter: brightness(0.75);
+  }
 `
 
 export default NavBar;
