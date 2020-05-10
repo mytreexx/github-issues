@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
 import Octicon, { MarkGithub } from '@primer/octicons-react'
 
+import Search from '../UI-components/Search';
+
 
 const NavBar = () => {
   return (
     <StyledNavBar>
       <LogoOcticon icon={MarkGithub} />
-      <Input placeholder='Search or jump to...'></Input>
+      <Search placeholder='Search or jump to...' />
       <a href='/'>Pull requests</a>
       <a href='/'>Issues</a>
       <a href='/'>Marketplace</a>
@@ -38,21 +40,6 @@ const StyledNavBar = styled(Flex).attrs({
     filter: brightness(0.75);
   }
 `;
-
-const Input = styled.input`
-  background-color: #3F4448;
-  width: 300px;
-  height: 28px;
-  border-style: none;
-  border-radius: 3px;
-  padding: 0;
-}
-::placeholder {
-  color: #8c8f92;
-  font-weight: 600;
-  padding-left: 7px;
-}
-`
 
 const LogoOcticon = styled(Octicon)`
   color: #ffffff;
