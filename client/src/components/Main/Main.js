@@ -7,12 +7,11 @@ import Issues from './Issues/Issues';
 
 const Main = () => {
   return (
-      <BrowserRouter>
+     
         <Switch>
           <Route path="/" exact component={Welcome} />
           <Route path="/:userName/:repoName/issues" component={Issues} />
         </Switch>
-      </BrowserRouter>
   );
 }
 

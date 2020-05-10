@@ -10,12 +10,10 @@ const Issues = () => {
   return (
     <>
       <RepoHead />
-      <BrowserRouter>
-        <Switch>
-          <Route path="/:userName/:repoName/issues" exact component={IssueContainer} />
-          <Route path="/:userName/:repoName/issues/:issueNumber" exact component={IssueComments} />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route path="/:userName/:repoName/issues" exact component={IssueContainer} />
+        <Route path="/:userName/:repoName/issues/:issueNumber" exact component={IssueComments} />
+      </Switch>
     </>
   );
 }
