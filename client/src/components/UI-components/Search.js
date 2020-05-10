@@ -1,27 +1,36 @@
 import React, { useState } from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
+import { Redirect, BrowserRouter } from 'react-router-dom';
 
 
 const Search = (props) => {
   const [searchInput, setSearchInput] = useState();
+  const [redirect, setRedirect] = useState(false);
 
   const handleChange = event => {
     setSearchInput(event.target.value);
   };
 
   const handlePress = event => {
-    event.keyCode === 13 && console.log('yay');
+    event.keyCode === 13 && setRedirect(true);
   };
 
   return (
-    <StyledSearch
-      color={props.color}
-      type='text'
-      placeholder='Search...'
-      value={searchInput}
-      onChange={handleChange}
-      onKeyDown={handlePress}
-    />
+    <>
+      {redirect &&
+        <BrowserRouter >
+          <Redirect to={`/${searchInput}/issues`} />
+        </BrowserRouter >}
+
+      <StyledSearch
+        color={props.color}
+        type='text'
+        placeholder='Search...'
+        value={searchInput}
+        onChange={handleChange}
+        onKeyDown={handlePress}
+      />
+    </>
   )
 };
 
