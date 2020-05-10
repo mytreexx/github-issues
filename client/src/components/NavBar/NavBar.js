@@ -22,7 +22,7 @@ const NavBar = () => {
 const StyledNavBar = styled(Flex).attrs({
   as: "header",
   width: "100%",
-  height: "64px",
+  height: "53px",
   alignItems: "center",
 })`
   background-color: #24292E;
