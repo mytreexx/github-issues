@@ -17,7 +17,7 @@ const Welcome = () => {
         <p>
           You can view any repository issue section by searching it.
         </p>
-        <Search type="inverse" placeholder='Search or jump to...'/>
+        <Search color="inverse" />
       </span>
     </MainContainer>
   );

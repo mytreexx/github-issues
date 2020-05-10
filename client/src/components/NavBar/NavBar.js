@@ -10,7 +10,7 @@ const NavBar = () => {
   return (
     <StyledNavBar>
       <LogoOcticon icon={MarkGithub} />
-      <Search placeholder='Search or jump to...' />
+      <Search />
       <a href='/'>Pull requests</a>
       <a href='/'>Issues</a>
       <a href='/'>Marketplace</a>
