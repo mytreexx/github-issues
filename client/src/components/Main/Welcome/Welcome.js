@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Octicon, { LightBulb } from '@primer/octicons-react'
+import Octicon, { LightBulb } from '@primer/octicons-react';
+
+import Search from '../../UI-components/Search';
 
 
 const Welcome = () => {
@@ -13,8 +15,9 @@ const Welcome = () => {
         </h1>
 
         <p>
-          You can view any repo's issue section by searching it in the navbar.
+          You can view any repository issue section by searching it.
         </p>
+        <Search type="inverse" placeholder='Search or jump to...'/>
       </span>
     </MainContainer>
   );
