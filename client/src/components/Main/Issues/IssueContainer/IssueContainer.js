@@ -40,9 +40,7 @@ const IssueContainer = () => {
           (<>
             <IssueListHeader>
               <span>
-                <input type='checkbox' />
-                <Octicon icon={IssueOpened} />
-
+                <IssueOcticon icon={IssueOpened} />
                 <a href='/'> 18 Open</a>
                 <a href='/'>21 Closed</a>
               </span>
@@ -79,7 +77,6 @@ const IssueContainer = () => {
               issues.map(issue =>
                 <Issue key={issue.id}>
                   <Container>
-                    <input type='checkbox' />
                     <IssueOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
 
                     <TitleContainer>
@@ -217,6 +214,7 @@ const TitleContainer = styled(Container)`
 const IssueOcticon = styled(Octicon)`
   color: #28a745;
   padding-top: 5px;
+  padding-left: 16px;
 `
 
 const CommentOcticon = styled(Octicon)`
