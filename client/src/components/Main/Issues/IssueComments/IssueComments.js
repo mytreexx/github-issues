@@ -32,19 +32,31 @@ const IssueComments = () => {
 
   return (
     <>
-      <IssueDetails>
-        {issue.title}
-        {issue.body}
-      </IssueDetails>
+      <Container>
+        <IssueDetails>
+          {issue.title}
 
-      <CommentSection>
-        <span />
-        {issueComments.map(comment =>
-          <Comment>
-            {comment.body}
-          </Comment>
-        )}
-      </CommentSection>
+        </IssueDetails>
+        <Main>
+          <CommentSection>
+            {issueComments.map(comment =>
+              <Comment>
+                {comment.body}
+              </Comment>
+            )}
+          </CommentSection>
+          
+          <SidebarSection>
+            <p>Assignees</p>
+            <p>Assignees</p>
+            <p>Assignees</p>
+            <p>Assignees</p>
+            <p>Assignees</p>
+          </SidebarSection>
+        </Main>
+
+      </Container>
+
 
     </>
   )
@@ -52,30 +64,38 @@ const IssueComments = () => {
 
 
 const IssueDetails = styled.div`
-    border: 1px solid black;
-    width: 700px;
-    margin: auto;
+  border-bottom: 1px solid #e1e4e8;
+  min-height: 110px;
   `
-  
+
 const CommentSection = styled.div`
   width: 700px;
-  margin: auto;
-  span {
-    border-left: #e1e4e8 solid 2px;
-    height: 1300px;
-    z-index: -1;
-    position: absolute;
-    margin-left: 16px;
-  }
+  
 `
 
 const Comment = styled.div`
-    border: 1px black solid;
-    width: 669px;
-    margin: 32px auto;
-    min-height: 21px;
-    padding: 16px;
-    background-color: white;
+  border: 1px black solid;
+  width: 669px;
+  margin: 32px auto;
+  min-height: 21px;
+  padding: 16px;
+  background-color: white;
   `
+
+
+const Container = styled.div`
+  width: 980px;
+  margin: auto;
+  `
+
+const SidebarSection = styled.div`
+  width: 220px;
+  border: 1px red solid;
+`
+const Main = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 
 export default IssueComments;
