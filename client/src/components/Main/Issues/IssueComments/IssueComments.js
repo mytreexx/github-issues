@@ -64,10 +64,19 @@ const IssueComments = () => {
         </IssueDetails>
         <Main>
           <CommentSection>
+
             <Comment>
+
               <Avatar size='large' src={issue.user.avatar_url} />
+              <Arrow/>
               <CommentBox>
-                {issue.body}
+                <CommentDetails type='title'>
+                  <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
+                </CommentDetails>
+                <p>
+                  {issue.body}
+                </p>
+
               </CommentBox>
             </Comment>
 
@@ -75,8 +84,15 @@ const IssueComments = () => {
             {issueComments.map(comment =>
               <Comment>
                 <Avatar size='large' src={comment.user.avatar_url} />
+                <Arrow/>
                 <CommentBox key={comment.id}>
-                  {comment.body}
+                  <CommentDetails type='title'>
+                    <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
+                  </CommentDetails>
+                  <p>
+                    {comment.body}
+                  </p>
+
                 </CommentBox>
               </Comment>
 
@@ -142,14 +158,53 @@ const Comment = styled.div`
   margin-top: 16px;
   margin-bottom: 32px;
   min-height: 93px;
+  font-size: 14px;
+  
 `
 
 const CommentBox = styled.div`
-  border: 1px black solid;
+  border: 1px #d1d5da solid;
   width: 671px;
-  min-height: 21px;
   background-color: white;
+  border-radius: 3px;
+
+  p {
+    margin: 16px 16px;
+  }
   `
+
+const CommentDetails = styled.div`
+  background-color: #F6F8FA;
+  color: #586069;
+  height: 39px;
+  border-bottom: 1px #e1e4e8 solid;
+  padding: 8px 16px;
+  box-sizing: border-box;
+
+  a {
+    text-decoration: none;
+    color: #24292e;
+    font-weight: 600;
+    cursor: pointer;
+
+    :hover {
+      color: #0366d6;
+      text-decoration: underline;
+    }
+  }
+`
+
+const Arrow = styled.div`
+  width: 8px;
+  height: 8px;
+  background-color: #F6F8FA;
+  transform: rotate(45deg);
+  border-bottom: 1px solid #d1d5da;
+  border-left: 1px solid #d1d5da;
+  margin-top: 16px;
+  position: relative;
+  left: 6px;
+`
 
 const Container = styled.div`
   width: 980px;
