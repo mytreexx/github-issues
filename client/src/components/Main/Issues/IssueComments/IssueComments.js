@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import Octicon, { IssueOpened } from '@primer/octicons-react';
 import format from 'date-fns/format';
+import color from 'color';
 
 
 
@@ -45,32 +46,73 @@ const IssueComments = () => {
             <div>
               <Status>
                 <Octicon icon={IssueOpened} />
-                {issue.state}
+                <span id='state'>
+                  {issue.state}
+                </span>
+
               </Status>
-              {issue.user.login} opened this issue at {format((new Date(issue.created_at)), "MMM d, y")} · {issue.comments} comments
+              <div id='details'>
+                <a href='/'>{issue.user.login}</a> opened this issue on {format((new Date(issue.created_at)), "MMM d, y")} · {issue.comments} comments
+              </div>
+
             </div>
           </Title>
+          <NewIssueButton>
+            New issue
+          </NewIssueButton>
 
         </IssueDetails>
         <Main>
           <CommentSection>
             <Comment>
-              {issue.body}
+              <Avatar size='large' src={issue.user.avatar_url} />
+              <CommentBox>
+                {issue.body}
+              </CommentBox>
             </Comment>
+
 
             {issueComments.map(comment =>
               <Comment>
-                {comment.body}
+                <Avatar size='large' src={comment.user.avatar_url} />
+                <CommentBox key={comment.id}>
+                  {comment.body}
+                </CommentBox>
               </Comment>
+
             )}
           </CommentSection>
 
           <SidebarSection>
-            <p>Assignees</p>
-            <p>Assignees</p>
-            <p>Assignees</p>
-            <p>Assignees</p>
-            <p>Assignees</p>
+            <SideDetails>
+              <div>
+                Assignees
+              </div>
+
+              {issue.asignees ? issue.assignees.map(user =>
+                <div key={user.id} className='assignee'>
+                  <Avatar src={user.avatar_url} />
+                  <a href='/'>
+                    {user.login}
+                  </a>
+                </div>
+              ) : <span>no assignees</span>}
+            </SideDetails>
+            <SideDetails>
+              <div>
+                Labels
+              </div>
+              {
+                issue.labels.map(label =>
+                  <Label
+                    key={label.id}
+                    color={label.color}>
+                    {label.name}
+                  </Label>
+                )
+              }
+
+            </SideDetails>
           </SidebarSection>
         </Main>
 
@@ -84,33 +126,36 @@ const IssueComments = () => {
 
 const IssueDetails = styled.div`
   border-bottom: 1px solid #e1e4e8;
-  min-height: 110px;
+  min-height: 100px;
+  display: flex;
+  justify-content: space-between;
   `
 
 const CommentSection = styled.div`
-  width: 700px;
+  width: 727px;
   
 `
 
 const Comment = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  margin-bottom: 32px;
+  min-height: 93px;
+`
+
+const CommentBox = styled.div`
   border: 1px black solid;
-  width: 669px;
-  margin: 32px auto;
+  width: 671px;
   min-height: 21px;
-  padding: 16px;
   background-color: white;
   `
-
 
 const Container = styled.div`
   width: 980px;
   margin: auto;
   `
 
-const SidebarSection = styled.div`
-  width: 220px;
-  border: 1px red solid;
-`
 const Main = styled.div`
   display: flex;
   justify-content: space-between;
@@ -121,31 +166,128 @@ const Title = styled.h1`
   font-weight: 400;
   max-width: 900px;
   line-height: 1.125;
+  margin-bottom: 8px;
   
     span {
       color: #6a737d;
       font-weight: 300;
-      margin-left: 8px;
+
     }
 
     div {
       font-size: 14px;
     }
     
+    #details {
+      display: inline-block;
+      color: #586069;
+    }
+
+    #datails, a {
+      color: #586069;
+      font-weight: 600;
+      text-decoration: none;
+      margin-left: 8px;
+
+      :hover {
+        color: #0366d6;
+        text-decoration: underline;
+      }
+    }
 `
 
 const Status = styled.div`
+  margin: 8px 0;
   background-color: #2cbe4e;
   color: white;
-  font-size: 14px;
   border-radius: 3px;
   padding: 4px 8px;
-  font-weight: 600;
-  line-height: 20px;
   display: inline-block;
   text-transform: capitalize;
+
+  #state {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    margin-left: 4px;
+  }
+`
+const NewIssueButton = styled.span`
+  background-image: linear-gradient(-180deg,#34d058,#28a745 90%);
+  padding: 3px 10px;
+  font-size: 12px;
+  line-height: 20px;
+  color: white;
+  font-weight: 600;
+  margin: 32px 0;
+  height: 20px;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid rgba(27,31,35,.2);
+  border-radius: .25em;
+
+  :hover {
+    border: black;
+  }
 `
 
+const SideDetails = styled.div`
+  border-bottom: 1px #e1e4e8 solid;
+  padding-top: 16px;
+  font-size: 12px;
+  color: #586069;
+  display: flex;
+  flex-direction: column;    
+  font-weight: 600;
+  
+  div {
+    line-height: 20px;
+    display: flex;
+    margin-bottom: 10px;
+  }
 
+  a {
+    color: #24292e;
+    text-decoration: none;
 
+    :hover {
+      color: #0366d6;
+    }
+  }
+
+  div:first-of-type {
+    color: #586069;
+    margin-bottom: 8px;
+  }
+
+  :last-child {
+    border-bottom: none;
+  }
+`
+
+const SidebarSection = styled.div`
+  width: 220px;
+  padding-top: 16px;
+`
+
+const Avatar = styled.img`
+  width: ${props => props.size === "large" ? "40px" : "20px"};
+  height: ${props => props.size === "large" ? "40px" : "20px"};
+  border-radius: 3px;
+  margin-right: 2px;
+`
+
+const Label = styled.div`
+  background-color: #${props => props.color};
+  color: ${props => color('#' + props.color).isLight() ? 'black' : 'white'};
+  font-size: 12px;
+  font-weight: 600;
+  height: 20px;
+  padding: 0 4px;
+  margin-bottom: 3px !important;
+  border-radius: 2px;
+  box-shadow: inset 0 -1px 0 rgba(27,31,35,.12);
+  cursor: pointer;
+`
 export default IssueComments;
