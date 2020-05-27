@@ -64,11 +64,12 @@ const IssueComments = () => {
         </IssueDetails>
         <Main>
           <CommentSection>
+            <VerticalLine />
 
             <Comment>
 
               <Avatar size='large' src={issue.user.avatar_url} />
-              <Arrow/>
+              <Arrow />
               <CommentBox>
                 <CommentDetails type='title'>
                   <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
@@ -84,7 +85,7 @@ const IssueComments = () => {
             {issueComments.map(comment =>
               <Comment>
                 <Avatar size='large' src={comment.user.avatar_url} />
-                <Arrow/>
+                <Arrow />
                 <CommentBox key={comment.id}>
                   <CommentDetails type='title'>
                     <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
@@ -112,7 +113,7 @@ const IssueComments = () => {
                     {user.login}
                   </a>
                 </div>
-              ) : <span>no assignees</span>}
+              ) : <span>No one assigned</span>}
             </SideDetails>
             <SideDetails>
               <div>
@@ -128,6 +129,14 @@ const IssueComments = () => {
                 )
               }
 
+            </SideDetails>
+            <SideDetails>
+              <div>Projects</div>
+              <span>None yet</span>
+            </SideDetails>
+            <SideDetails>
+              <div>Milestone</div>
+              <span>No milestone</span>
             </SideDetails>
           </SidebarSection>
         </Main>
@@ -149,7 +158,9 @@ const IssueDetails = styled.div`
 
 const CommentSection = styled.div`
   width: 727px;
-  
+  position: relative;
+  border-bottom: 2px solid #e1e4e8;
+
 `
 
 const Comment = styled.div`
@@ -319,6 +330,11 @@ const SideDetails = styled.div`
   :last-child {
     border-bottom: none;
   }
+
+  span {
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
 `
 
 const SidebarSection = styled.div`
@@ -342,7 +358,18 @@ const Label = styled.div`
   padding: 0 4px;
   margin-bottom: 3px !important;
   border-radius: 2px;
-  box-shadow: inset 0 -1px 0 rgba(27,31,35,.12);
   cursor: pointer;
+
 `
+
+const VerticalLine = styled.div`
+  background-color: white;
+  border-right: 2px solid #e1e4e8;
+  height: 100%;
+  width: 68px;
+  z-index: -1;
+  position: absolute;
+  margin-top: 35px;
+`
+
 export default IssueComments;
