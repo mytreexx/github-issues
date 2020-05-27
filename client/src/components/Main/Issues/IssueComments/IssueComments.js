@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Octicon, { IssueOpened } from '@primer/octicons-react';
 import format from 'date-fns/format';
 import color from 'color';
-
+import ReactMarkdown from 'react-markdown';
 
 
 const IssueComments = () => {
@@ -49,18 +49,15 @@ const IssueComments = () => {
                 <span id='state'>
                   {issue.state}
                 </span>
-
               </Status>
               <div id='details'>
                 <a href='/'>{issue.user.login}</a> opened this issue on {format((new Date(issue.created_at)), "MMM d, y")} · {issue.comments} comments
               </div>
-
             </div>
           </Title>
           <NewIssueButton>
             New issue
           </NewIssueButton>
-
         </IssueDetails>
         <Main>
           <CommentSection>
@@ -69,34 +66,36 @@ const IssueComments = () => {
             <Comment>
 
               <Avatar size='large' src={issue.user.avatar_url} />
+
               <Arrow />
+
               <CommentBox>
                 <CommentDetails type='title'>
                   <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
                 </CommentDetails>
                 <p>
-                  {issue.body}
+                  <ReactMarkdown source={issue.body}/>
+                  
                 </p>
 
               </CommentBox>
             </Comment>
 
-
             {issueComments.map(comment =>
               <Comment>
                 <Avatar size='large' src={comment.user.avatar_url} />
+
                 <Arrow />
+
                 <CommentBox key={comment.id}>
                   <CommentDetails type='title'>
                     <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
                   </CommentDetails>
-                  <p>
-                    {comment.body}
-                  </p>
+
+                  <ReactMarkdown source={comment.body}/>
 
                 </CommentBox>
               </Comment>
-
             )}
           </CommentSection>
 
@@ -115,6 +114,7 @@ const IssueComments = () => {
                 </div>
               ) : <span>No one assigned</span>}
             </SideDetails>
+
             <SideDetails>
               <div>
                 Labels
@@ -130,6 +130,7 @@ const IssueComments = () => {
               }
 
             </SideDetails>
+
             <SideDetails>
               <div>Projects</div>
               <span>None yet</span>
@@ -140,10 +141,7 @@ const IssueComments = () => {
             </SideDetails>
           </SidebarSection>
         </Main>
-
       </Container>
-
-
     </>
   )
 }
@@ -154,13 +152,12 @@ const IssueDetails = styled.div`
   min-height: 100px;
   display: flex;
   justify-content: space-between;
-  `
+`
 
 const CommentSection = styled.div`
   width: 727px;
   position: relative;
   border-bottom: 2px solid #e1e4e8;
-
 `
 
 const Comment = styled.div`
@@ -170,7 +167,6 @@ const Comment = styled.div`
   margin-bottom: 32px;
   min-height: 93px;
   font-size: 14px;
-  
 `
 
 const CommentBox = styled.div`
@@ -182,7 +178,11 @@ const CommentBox = styled.div`
   p {
     margin: 16px 16px;
   }
-  `
+
+  img {
+    width: 100%;
+  }
+`
 
 const CommentDetails = styled.div`
   background-color: #F6F8FA;
@@ -220,7 +220,7 @@ const Arrow = styled.div`
 const Container = styled.div`
   width: 980px;
   margin: auto;
-  `
+`
 
 const Main = styled.div`
   display: flex;
@@ -234,32 +234,32 @@ const Title = styled.h1`
   line-height: 1.125;
   margin-bottom: 8px;
   
-    span {
-      color: #6a737d;
-      font-weight: 300;
+  span {
+    color: #6a737d;
+    font-weight: 300;
 
-    }
+  }
 
-    div {
-      font-size: 14px;
-    }
-    
-    #details {
-      display: inline-block;
-      color: #586069;
-    }
+  div {
+    font-size: 14px;
+  }
+  
+  #details {
+    display: inline-block;
+    color: #586069;
+  }
 
-    #datails, a {
-      color: #586069;
-      font-weight: 600;
-      text-decoration: none;
-      margin-left: 8px;
+  #datails, a {
+    color: #586069;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 8px;
 
-      :hover {
-        color: #0366d6;
-        text-decoration: underline;
-      }
+    :hover {
+      color: #0366d6;
+      text-decoration: underline;
     }
+  }
 `
 
 const Status = styled.div`
@@ -279,6 +279,7 @@ const Status = styled.div`
     margin-left: 4px;
   }
 `
+
 const NewIssueButton = styled.span`
   background-image: linear-gradient(-180deg,#34d058,#28a745 90%);
   padding: 3px 10px;
