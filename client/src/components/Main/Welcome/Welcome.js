@@ -1,25 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
 import Octicon, { LightBulb } from '@primer/octicons-react';
+import { Helmet } from 'react-helmet';
 
 import Search from '../../UI-components/Search';
 
 
 const Welcome = () => {
   return (
-    <MainContainer>
-      <LightBulbOcticon icon={LightBulb} />
-      <span>
-        <h1>
-          Welcome to the repository issue finder!
+    <>
+      <Helmet>
+        <title>
+          Welcome!
+      </title>
+      </Helmet>
+      <MainContainer>
+        <LightBulbOcticon icon={LightBulb} />
+        <span>
+          <h1>
+            Welcome to the repository issue finder!
         </h1>
 
-        <p>
-          You can view any repository issue section by searching it.
+          <p>
+            You can view any repository issue section by searching it.
         </p>
-        <Search color="inverse" />
-      </span>
-    </MainContainer>
+          <Search color="inverse" />
+        </span>
+      </MainContainer>
+    </>
   );
 }
 
