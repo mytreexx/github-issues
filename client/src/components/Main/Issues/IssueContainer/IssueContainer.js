@@ -5,6 +5,7 @@ import Octicon, { IssueOpened, IssueClosed, Comment, TriangleDown } from '@prime
 import { Link, useParams } from 'react-router-dom';
 import color from 'color';
 import format from 'date-fns/format';
+import { Helmet } from 'react-helmet';
 
 import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
@@ -31,6 +32,9 @@ const IssueContainer = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Issues · {`${userName}/${repoName}`} </title>
+      </Helmet>
       <IssueContainerNav />
 
       {error && <div>Could not show issues</div>}

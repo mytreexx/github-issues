@@ -5,6 +5,7 @@ import Octicon, { IssueOpened } from '@primer/octicons-react';
 import format from 'date-fns/format';
 import color from 'color';
 import ReactMarkdown from 'react-markdown';
+import { Helmet } from 'react-helmet';
 
 
 const IssueComments = () => {
@@ -36,6 +37,9 @@ const IssueComments = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`${issue.title} · Issue #${issue.number} · ${userName}/${repoName}`}</title>
+      </Helmet>
       <Container>
         <IssueDetails>
           <Title>
@@ -74,8 +78,7 @@ const IssueComments = () => {
                   <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
                 </CommentDetails>
                 <p>
-                  <ReactMarkdown source={issue.body}/>
-                  
+                  <ReactMarkdown source={issue.body} />
                 </p>
 
               </CommentBox>
@@ -92,7 +95,7 @@ const IssueComments = () => {
                     <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
                   </CommentDetails>
 
-                  <ReactMarkdown source={comment.body}/>
+                  <ReactMarkdown source={comment.body} />
 
                 </CommentBox>
               </Comment>
