@@ -44,7 +44,7 @@ const IssueContainer = () => {
           (<>
             <IssueListHeader>
               <span>
-                <IssueOcticon icon={IssueOpened} />
+                <StyledOcticon listHeader icon={IssueOpened} />
                 <a href='/'> 18 Open</a>
                 <a href='/'>21 Closed</a>
               </span>
@@ -52,27 +52,27 @@ const IssueContainer = () => {
               <span>
                 <a href='/'>
                   Author
-                  <ArrowDownOcticon icon={TriangleDown} />
+                  <StyledOcticon icon={TriangleDown} />
                 </a>
                 <a href='/'>
                   Label
-                  <ArrowDownOcticon icon={TriangleDown} />
+                  <StyledOcticon icon={TriangleDown} />
                 </a>
                 <a href='/'>
                   Projects
-                  < ArrowDownOcticon icon={TriangleDown} />
+                  <StyledOcticon icon={TriangleDown} />
                 </a>
                 <a href='/'>
                   Milestones
-                  <ArrowDownOcticon icon={TriangleDown} />
+                  <StyledOcticon icon={TriangleDown} />
                 </a>
                 <a href='/'>
                   Asignee
-                  <ArrowDownOcticon icon={TriangleDown} />
+                  <StyledOcticon icon={TriangleDown} />
                 </a>
                 <a href='/'>
                   Sort
-                  <ArrowDownOcticon icon={TriangleDown} />
+                  <StyledOcticon icon={TriangleDown} />
                 </a>
               </span>
             </IssueListHeader>
@@ -81,7 +81,7 @@ const IssueContainer = () => {
               issues.map(issue =>
                 <Issue key={issue.id}>
                   <Container>
-                    <IssueOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
+                    <StyledOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
 
                     <TitleContainer>
                       <span>
@@ -109,7 +109,7 @@ const IssueContainer = () => {
                     {
                       issue.comments > 0 &&
                       <>
-                        <CommentOcticon icon={Comment} />
+                        <StyledOcticon icon={Comment} />
                         {issue.comments}
                       </>
                     }
@@ -211,18 +211,14 @@ const TitleContainer = styled(Container)`
   max-width: 690px;
 `
 
-const IssueOcticon = styled(Octicon)`
-  color: #28a745;
-  padding: 5px 0 0 16px;
-`
-
-const CommentOcticon = styled(Octicon)`
-  color: #586069;
-`
-
-const ArrowDownOcticon = styled(Octicon)`
-  width: 8px;
-  margin-left: 4px;
+const StyledOcticon = styled(Octicon)`
+ color: ${props => props.listHeader ? '#24292e' 
+                 : props.icon === IssueOpened ? '#28a745' 
+                 : props.icon === IssueClosed ? '#cb2431'
+                 : '#586069'};
+  padding: ${props => (props.icon === IssueOpened || props.icon === IssueClosed) && '5px 0 0 16px'};
+  width: ${props => props.icon === TriangleDown && '8px'};
+  margin-left: ${props => props.icon === TriangleDown && '4px'};      
 `
 
 const Label = styled.div`
