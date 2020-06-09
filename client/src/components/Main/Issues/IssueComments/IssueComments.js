@@ -108,7 +108,7 @@ const IssueComments = () => {
                 Assignees
               </div>
 
-              {issue.asignees ? issue.assignees.map(user =>
+              {issue.assignees ? issue.assignees.map(user =>
                 <div key={user.id} className='assignee'>
                   <Avatar src={user.avatar_url} />
                   <a href='/'>
