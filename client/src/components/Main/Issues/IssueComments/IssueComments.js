@@ -108,28 +108,29 @@ const IssueComments = () => {
                 Assignees
               </div>
 
-              {issue.assignees ? issue.assignees.map(user =>
-                <div key={user.id} className='assignee'>
-                  <Avatar src={user.avatar_url} />
-                  <a href='/'>
-                    {user.login}
-                  </a>
-                </div>
-              ) : <span>No one assigned</span>}
+              {issue.assignee === null ? <span>No one assigned</span> : (
+                issue.assignees.map(user =>
+                  <div key={user.id} className='assignee'>
+                    <Avatar src={user.avatar_url} />
+                    <a href='/'>
+                      {user.login}
+                    </a>
+                  </div>
+                ))}
             </SideDetails>
 
             <SideDetails>
               <div>
                 Labels
               </div>
-              {
-                issue.labels.map(label =>
-                  <Label
-                    key={label.id}
-                    color={label.color}>
-                    {label.name}
-                  </Label>
-                )
+              {issue.labels ? (issue.labels.map(label =>
+                <Label
+                  key={label.id}
+                  color={label.color}>
+                  {label.name}
+                </Label>
+              )) : <span>No labels</span>
+
               }
 
             </SideDetails>
