@@ -85,12 +85,12 @@ const IssueComments = () => {
             </Comment>
 
             {issueComments.map(comment =>
-              <Comment>
+              <Comment key={comment.id}>
                 <Avatar size='large' src={comment.user.avatar_url} />
 
                 <Arrow />
 
-                <CommentBox key={comment.id}>
+                <CommentBox >
                   <CommentDetails type='title'>
                     <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
                   </CommentDetails>
@@ -140,7 +140,15 @@ const IssueComments = () => {
             </SideDetails>
             <SideDetails>
               <div>Milestone</div>
-              <span>No milestone</span>
+              {issue.milestone === null ? (<span>No milestone</span>) : (
+                <>
+                  <MilestoneBar width={issue.milestone.closed_issues / (issue.milestone.open_issues + issue.milestone.closed_issues) * 100}>
+                    <div className='progressBar' />
+                  </MilestoneBar>
+                  <div>{issue.milestone.title}</div>
+                </>
+              )}
+
             </SideDetails>
           </SidebarSection>
         </Main>
@@ -364,6 +372,20 @@ const Label = styled.div`
   border-radius: 2px;
   cursor: pointer;
 
+`
+
+const MilestoneBar = styled.div`
+  width: 221px;
+  height: 8px;
+  background-color: #eaecef;
+  border-radius: 3px;
+
+  .progressBar {
+    width: ${props => props.width}%;
+    height: 8px;
+    background-color: #2cbe4e;
+    border-radius: 3px 0 0 3px; 
+   }
 `
 
 const VerticalLine = styled.div`
