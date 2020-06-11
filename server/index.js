@@ -47,4 +47,17 @@ app.get('/repos/:userName/:repoName/', async function (req, res) {
   }
 });
 
+app.get('/:userName/:repoName/', async function (req, res) {
+  try {
+    const response = await axios.get(`https://api.github.com/repos/${req.params.userName}/${req.params.repoName}`, {
+      headers: {
+        'Authorization': `token ${process.env.ACCESS_TOKEN}`
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    res.json({ error: true });
+  }
+});
+
 app.listen(port, () => console.log("Running!"));
