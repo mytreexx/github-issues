@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
 import Octicon, {
@@ -18,74 +19,102 @@ import Octicon, {
 
 
 const RepoHead = () => {
+  const { repoName } = useParams();
+  const { userName } = useParams();
+  const [repoDetails, setRepoDetails] = useState();
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/${userName}/${repoName}/`)
+      .then(response => response.json())
+      .then(response => {
+        if (response.error) {
+          setError(true);
+        } else {
+          setError(false);
+          setRepoDetails(response);
+        }
+      })
+  }, [userName, repoName]);
+
+
   return (
     <Container>
-      <MainContainer>
-        <RepoHeader>
-          <span>
-            <StyledOcticon icon={Repo} />
-            <RepoTitle>
-              aseprite / <span>aseprite</span>
-            </RepoTitle>
-          </span>
+      {repoDetails &&
+        <MainContainer>
+          <RepoHeader>
+            <span>
+              <StyledOcticon icon={Repo} />
+              <RepoTitle>
+                {userName} / <span>{repoName}</span>
+              </RepoTitle>
+            </span>
 
-          <SideButtons>
-            <MenuButton>
-              <button>
-                <StyledOcticon type='dark' icon={Eye} />
-                Watch
-                <StyledOcticon type='dark' icon={TriangleDown} />
-              </button>
-              <div>309</div>
-            </MenuButton>
+            <SideButtons>
+              <MenuButton>
+                <button>
+                  <StyledOcticon type='dark' icon={Eye} />
+                  Watch
+                  <StyledOcticon type='dark' icon={TriangleDown} />
+                </button>
+                <div>{repoDetails.subscribers_count}</div>
+              </MenuButton>
 
-            <MenuButton>
-              <button>
-                <StyledOcticon type='dark' icon={Star} />
-                Star
-              </button>
-              <div>9.1k</div>
-            </MenuButton>
+              <MenuButton>
+                <button>
+                  <StyledOcticon type='dark' icon={Star} />
+                  Star
+                </button>
+                <div>{repoDetails.stargazers_count}</div>
+              </MenuButton>
 
-            <MenuButton>
-              <button>
-                <StyledOcticon type='dark' icon={RepoForked} />
-                Fork
-              </button>
-              <div>934</div>
-            </MenuButton>
+              <MenuButton>
+                <button>
+                  <StyledOcticon type='dark' icon={RepoForked} />
+                  Fork
+                </button>
+                <div>{repoDetails.forks}</div>
+              </MenuButton>
 
-          </SideButtons>
-        </RepoHeader>
+            </SideButtons>
+          </RepoHeader>
 
-        <RepoNavbar>
-          <Tab>
-            <StyledOcticon icon={Code} />
-            Code
-          </Tab>
-          <SelectedTab>
-            <StyledOcticon type='dark' icon={IssueOpened} />
-            Issues <span>829</span>
-          </SelectedTab>
-          <Tab>
-            <StyledOcticon icon={GitPullRequest} />
-            Pull Requests <span>5</span>
-          </Tab>
-          <Tab>
-            <StyledOcticon icon={Play} />
-            Actions
-          </Tab>
-          <Tab>
-            <StyledOcticon icon={Shield} />
-            Security <span>0</span>
-          </Tab>
-          <Tab>
-            <StyledOcticon icon={Graph} />
-            Insights
-         </Tab>
-        </RepoNavbar>
-      </MainContainer>
+          <RepoNavbar>
+            <Tab>
+              <StyledOcticon icon={Code} />
+              Code
+            </Tab>
 
+            <SelectedTab>
+              <StyledOcticon type='dark' icon={IssueOpened} />
+              Issues
+              <span>829</span>
+            </SelectedTab>
+
+            <Tab>
+              <StyledOcticon icon={GitPullRequest} />
+              Pull Requests
+              <span>5</span>
+            </Tab>
+
+            <Tab>
+              <StyledOcticon icon={Play} />
+              Actions
+            </Tab>
+
+            <Tab>
+              <StyledOcticon icon={Shield} />
+              Security
+              <span>0</span>
+            </Tab>
+
+            <Tab>
+              <StyledOcticon icon={Graph} />
+              Insights
+            </Tab>
+          </RepoNavbar>
+        </MainContainer>
+      }
     </Container>
   );
 }
@@ -178,7 +207,6 @@ const MenuButton = styled.div`
   font-size: 12px;
   line-height: 27px;
   
-
   button {
     background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
     border: none;
