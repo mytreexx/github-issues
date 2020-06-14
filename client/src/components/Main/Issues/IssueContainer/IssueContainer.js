@@ -9,6 +9,7 @@ import { Helmet } from 'react-helmet';
 
 import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
+import Loading from '../../../UI-components/Loading';
 
 
 const IssueContainer = () => {
@@ -30,6 +31,7 @@ const IssueContainer = () => {
       })
   }, [userName, repoName]);
 
+  console.log(issues)
   return (
     <>
       <Helmet>
@@ -37,87 +39,86 @@ const IssueContainer = () => {
       </Helmet>
       <IssueContainerNav />
 
-      {error && <div>Could not show issues</div>}
-
       <IssueListContainer>
-        {issues ?
-          (<>
-            <IssueListHeader>
-              <span>
-                <StyledOcticon listHeader icon={IssueOpened} />
-                <a href='/'> 18 Open</a>
-                <a href='/'>21 Closed</a>
-              </span>
+        {error ? <div>Could not show issues</div> :
+          issues && issues.length > 0 ?
+            (<>
+              <IssueListHeader>
+                <span>
+                  <StyledOcticon listHeader icon={IssueOpened} />
+                  <a href='/'> 18 Open</a>
+                  <a href='/'>21 Closed</a>
+                </span>
 
-              <span>
-                <a href='/'>
-                  Author
+                <span>
+                  <a href='/'>
+                    Author
                   <StyledOcticon icon={TriangleDown} />
-                </a>
-                <a href='/'>
-                  Label
+                  </a>
+                  <a href='/'>
+                    Label
                   <StyledOcticon icon={TriangleDown} />
-                </a>
-                <a href='/'>
-                  Projects
+                  </a>
+                  <a href='/'>
+                    Projects
                   <StyledOcticon icon={TriangleDown} />
-                </a>
-                <a href='/'>
-                  Milestones
+                  </a>
+                  <a href='/'>
+                    Milestones
                   <StyledOcticon icon={TriangleDown} />
-                </a>
-                <a href='/'>
-                  Asignee
+                  </a>
+                  <a href='/'>
+                    Asignee
                   <StyledOcticon icon={TriangleDown} />
-                </a>
-                <a href='/'>
-                  Sort
+                  </a>
+                  <a href='/'>
+                    Sort
                   <StyledOcticon icon={TriangleDown} />
-                </a>
-              </span>
-            </IssueListHeader>
+                  </a>
+                </span>
+              </IssueListHeader>
 
-            {
-              issues.map(issue =>
-                <Issue key={issue.id}>
-                  <Container>
-                    <StyledOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
+              {
+                issues.map(issue =>
+                  <Issue key={issue.id}>
+                    <Container>
+                      <StyledOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
 
-                    <TitleContainer>
-                      <span>
-                        <IssueTitleLink to={{ pathname: `/${userName}/${repoName}/issues/${issue.number}` }} >
-                          {issue.title}
-                        </IssueTitleLink>
-                        {
-                          issue.labels.map(label =>
-                            <Label
-                              key={label.id}
-                              color={label.color}>
-                              {label.name}
-                            </Label>
-                          )
-                        }
-                      </span>
+                      <TitleContainer>
+                        <span>
+                          <IssueTitleLink to={{ pathname: `/${userName}/${repoName}/issues/${issue.number}` }} >
+                            {issue.title}
+                          </IssueTitleLink>
+                          {
+                            issue.labels.map(label =>
+                              <Label
+                                key={label.id}
+                                color={label.color}>
+                                {label.name}
+                              </Label>
+                            )
+                          }
+                        </span>
 
-                      <IssueDetails>
-                        #{issue.number} opened on {format((new Date(issue.created_at)), "MMM d, y")} by <a href='/'>{issue.user.login}</a>
-                      </IssueDetails>
-                    </TitleContainer>
-                  </Container>
+                        <IssueDetails>
+                          #{issue.number} opened on {format((new Date(issue.created_at)), "MMM d, y")} by <a href='/'>{issue.user.login}</a>
+                        </IssueDetails>
+                      </TitleContainer>
+                    </Container>
 
-                  <Container>
-                    {
-                      issue.comments > 0 &&
-                      <>
-                        <StyledOcticon icon={Comment} />
-                        {issue.comments}
-                      </>
-                    }
-                  </Container>
-                </Issue>
-              )}
-          </>
-          ) : <NoIssues />}
+                    <Container>
+                      {
+                        issue.comments > 0 &&
+                        <>
+                          <StyledOcticon icon={Comment} />
+                          {issue.comments}
+                        </>
+                      }
+                    </Container>
+                  </Issue>
+                )}
+            </>
+            ) : issues  ? <NoIssues /> : <Loading />}
       </IssueListContainer>
     </>
   )
@@ -212,10 +213,10 @@ const TitleContainer = styled(Container)`
 `
 
 const StyledOcticon = styled(Octicon)`
- color: ${props => props.listHeader ? '#24292e' 
-                 : props.icon === IssueOpened ? '#28a745' 
-                 : props.icon === IssueClosed ? '#cb2431'
-                 : '#586069'};
+ color: ${props => props.listHeader ? '#24292e'
+    : props.icon === IssueOpened ? '#28a745'
+      : props.icon === IssueClosed ? '#cb2431'
+        : '#586069'};
   padding: ${props => (props.icon === IssueOpened || props.icon === IssueClosed) && '5px 0 0 16px'};
   width: ${props => props.icon === TriangleDown && '8px'};
   margin-left: ${props => props.icon === TriangleDown && '4px'};      
