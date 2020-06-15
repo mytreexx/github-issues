@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet';
 import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
 import Loading from '../../../UI-components/Loading';
+import Error from '../../../UI-components/Error';
 
 
 const IssueContainer = () => {
@@ -40,7 +41,7 @@ const IssueContainer = () => {
       <IssueContainerNav />
 
       <IssueListContainer>
-        {error ? <div>Could not show issues</div> :
+        {error ? <Error /> :
           issues && issues.length > 0 ?
             (<>
               <IssueListHeader>
@@ -118,7 +119,7 @@ const IssueContainer = () => {
                   </Issue>
                 )}
             </>
-            ) : issues  ? <NoIssues /> : <Loading />}
+            ) : issues ? <NoIssues /> : <Loading />}
       </IssueListContainer>
     </>
   )
