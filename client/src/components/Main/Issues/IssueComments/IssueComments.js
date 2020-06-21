@@ -475,6 +475,10 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
     background-color: #e1e4e8;
     border: 0;
   }
+
+  strong {
+    font-weight: 600;
+  }
 `
 
 export default IssueComments;
