@@ -77,9 +77,7 @@ const IssueComments = () => {
                 <CommentDetails type='title'>
                   <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
                 </CommentDetails>
-                <p>
-                  <ReactMarkdown source={issue.body} />
-                </p>
+                  <StyledReactMarkdown source={issue.body} />
 
               </CommentBox>
             </Comment>
@@ -95,7 +93,7 @@ const IssueComments = () => {
                     <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
                   </CommentDetails>
 
-                  <ReactMarkdown source={comment.body} />
+                  <StyledReactMarkdown source={comment.body} />
 
                 </CommentBox>
               </Comment>
@@ -397,6 +395,86 @@ const VerticalLine = styled.div`
   z-index: -1;
   position: absolute;
   margin-top: 35px;
+`
+
+const StyledReactMarkdown = styled(ReactMarkdown)`
+  line-height: 1.5;
+  font-size: 14px;
+  color: #24292e;
+  
+  blockquote {
+    color: #6a737d;
+    border-left: 4px #dfe2e5 solid;
+    margin-left: 16px;
+  }
+
+  a {
+    color: #0366d6;
+    text-decoration: none;
+    
+    :hover {
+      text-decoration: underline;
+    }
+  }
+
+  li {
+    margin-right: 16px;
+    margin-top: 3px;
+  }
+
+  code {
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: #f6f8fa;
+    border-radius: 3px;
+  }
+
+  pre {
+    background-color: #f6f8fa;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 3px;
+    overflow-x: auto;
+  }
+
+  h1 {
+    font-weight: 600;
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: 8px;
+    margin: 16px;
+    margin-top: 24px;
+  }
+
+  h2 {
+    font-weight: 600;
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: 6px;
+    margin: 16px;
+    margin-top: 24px;
+  }
+
+  h3, h4, h5 {
+    margin: 16px;
+    margin-top: 24px;
+    font-weight: 600;
+  }
+
+  h6 {
+    margin: 16px;
+    margin-top: 24px;
+    font-weight: 600;
+    color: #6a737d;
+  }
+
+  hr {
+    height: 3px;
+    padding: 0;
+    margin: 16px;
+    margin-top: 24px;
+    background-color: #e1e4e8;
+    border: 0;
+  }
 `
 
 export default IssueComments;
