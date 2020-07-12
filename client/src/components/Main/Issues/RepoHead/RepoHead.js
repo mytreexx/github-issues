@@ -3,32 +3,27 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
 import Octicon, {
-  Repo,
-  Code,
-  IssueOpened,
-  GitPullRequest,
-  Play,
-  Shield,
-  Graph,
-  Eye,
-  Star,
-  RepoForked,
-  TriangleDown
-}
-  from '@primer/octicons-react';
+  Repo, Code, IssueOpened, GitPullRequest, Play, Shield, Graph, Eye, Star, RepoForked, TriangleDown
+} from '@primer/octicons-react';
 
 
 const RepoHead = () => {
   const { repoName } = useParams();
   const { userName } = useParams();
   const [repoDetails, setRepoDetails] = useState();
+  const [numberOfIssues, setNumberOfIssues] = useState();
 
   useEffect(() => {
     fetch(`http://localhost:8000/${userName}/${repoName}/`)
       .then(response => response.json())
       .then(response => setRepoDetails(response))
-  }, [userName, repoName]);
 
+    fetch(`http://localhost:8000/repos/${userName}/${repoName}`)
+      .then(response => response.json())
+      .then(response => {
+        setNumberOfIssues(response.total_count);
+      })
+  }, [userName, repoName]);
 
   return (
     <Container>
@@ -80,13 +75,15 @@ const RepoHead = () => {
             <SelectedTab>
               <StyledOcticon type='dark' icon={IssueOpened} />
               Issues
-              <span>829</span>
+              <span>{numberOfIssues}</span>
             </SelectedTab>
 
             <Tab>
               <StyledOcticon icon={GitPullRequest} />
               Pull Requests
-              <span>5</span>
+              <span>
+                {repoDetails.open_issues - numberOfIssues}
+              </span>
             </Tab>
 
             <Tab>
@@ -97,7 +94,6 @@ const RepoHead = () => {
             <Tab>
               <StyledOcticon icon={Shield} />
               Security
-              <span>0</span>
             </Tab>
 
             <Tab>
@@ -189,7 +185,6 @@ const StyledOcticon = styled(Octicon)`
   margin-right: 4px;
   margin-left: ${props => props.icon === TriangleDown && '4px'};  
   width: ${props => props.icon === TriangleDown && '8px'};  
-
 `
 
 const MenuButton = styled.div`
