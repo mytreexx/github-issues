@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
-import Octicon, { IssueOpened, IssueClosed, Comment, TriangleDown } from '@primer/octicons-react';
+import Octicon, { 
+  // IssueOpened,
+  // IssueClosed, 
+  // Comment,
+   TriangleDown } from '@primer/octicons-react';
 import { Link, useParams } from 'react-router-dom';
 import color from 'color';
 import format from 'date-fns/format';
@@ -50,7 +54,7 @@ const IssueContainer = () => {
               (<>
                 <IssueListHeader>
                   <span>
-                    <StyledOcticon listHeader icon={IssueOpened} />
+                    {/* <StyledOcticon listHeader icon={IssueOpened} /> */}
                     <a href='/'> 18 Open</a>
                     <a href='/'>21 Closed</a>
                   </span>
@@ -87,7 +91,7 @@ const IssueContainer = () => {
                   issues.map(issue =>
                     <Issue key={issue.id}>
                       <Container>
-                        <StyledOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
+                        {/* <StyledOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} /> */}
 
                         <TitleContainer>
                           <span>
@@ -115,7 +119,7 @@ const IssueContainer = () => {
                         {
                           issue.comments > 0 &&
                           <>
-                            <StyledOcticon icon={Comment} />
+                            {/* <StyledOcticon icon={Comment} /> */}
                             {issue.comments}
                           </>
                         }
@@ -244,7 +248,7 @@ const Label = styled.div`
   padding: 0 4px;
   margin: 0 2px;
   display: inline-block;
-  border-radius: 2px;
+  border-radius: 2em;
   box-shadow: inset 0 -1px 0 rgba(27,31,35,.12);
   cursor: pointer;
 `
