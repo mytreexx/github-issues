@@ -22,19 +22,11 @@ const RepoHead = () => {
   const { repoName } = useParams();
   const { userName } = useParams();
   const [repoDetails, setRepoDetails] = useState();
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:8000/${userName}/${repoName}/`)
       .then(response => response.json())
-      .then(response => {
-        if (response.error) {
-          setError(true);
-        } else {
-          setError(false);
-          setRepoDetails(response);
-        }
-      })
+      .then(response => setRepoDetails(response))
   }, [userName, repoName]);
 
 
