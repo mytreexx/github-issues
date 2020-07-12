@@ -12,6 +12,7 @@ const Issues = () => {
       <RepoHead />
       <Switch>
         <Route path="/:userName/:repoName/issues" exact component={IssueContainer} />
+        <Route path="/:userName/:repoName/issues/page/:pageNumber" exact component={IssueContainer} />
         <Route path="/:userName/:repoName/issues/:issueNumber" exact component={IssueComments} />
       </Switch>
     </>
