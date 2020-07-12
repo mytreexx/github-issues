@@ -10,7 +10,7 @@ import { Helmet } from 'react-helmet';
 import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
 import Loading from '../../../UI-components/Loading';
-import Error from '../../../UI-components/Error';
+import ErrorPage from '../../../UI-components/ErrorPage';
 import Pagination from '../../../UI-components/Pagination';
 
 
@@ -45,7 +45,7 @@ const IssueContainer = () => {
       <IssueContainerNav />
       <Main>
         <IssueListContainer>
-          {error ? <Error /> :
+          {error ? <ErrorPage /> :
             issues && issues.length > 0 ?
               (<>
                 <IssueListHeader>
