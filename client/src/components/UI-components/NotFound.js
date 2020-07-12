@@ -13,7 +13,7 @@ const NotFound = () => {
         </h1>
 
         <p>
-          It looks like we can't find the repositiry you're searching for.
+          It looks like we can't find the what you're searching for.
         </p>
       </span>
     </MainContainer>
