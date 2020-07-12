@@ -11,16 +11,19 @@ import IssueContainerNav from './IssueContainerNav/IssueContainerNav';
 import NoIssues from './NoIssues/NoIssues';
 import Loading from '../../../UI-components/Loading';
 import Error from '../../../UI-components/Error';
+import Pagination from '../../../UI-components/Pagination';
 
 
 const IssueContainer = () => {
   const { repoName } = useParams();
   const { userName } = useParams();
+  const { pageNumber } = useParams();
   const [issues, setIssues] = useState();
   const [error, setError] = useState(false);
+  const [numberOfIssues, setNumberOfIssues] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/repos/${userName}/${repoName}/`)
+    fetch(`http://localhost:8000/repos/${userName}/${repoName}/page/${pageNumber}`)
       .then(response => response.json())
       .then(response => {
         if (response.error) {
@@ -28,102 +31,111 @@ const IssueContainer = () => {
         } else {
           setError(false);
           setIssues(response.items);
+          setNumberOfIssues(response.total_count);
         }
       })
-  }, [userName, repoName]);
+  }, [userName, repoName, pageNumber]);
 
-  console.log(issues)
+  console.log(numberOfIssues)
   return (
     <>
       <Helmet>
         <title>Issues · {`${userName}/${repoName}`} </title>
       </Helmet>
       <IssueContainerNav />
+      <Main>
+        <IssueListContainer>
+          {error ? <Error /> :
+            issues && issues.length > 0 ?
+              (<>
+                <IssueListHeader>
+                  <span>
+                    <StyledOcticon listHeader icon={IssueOpened} />
+                    <a href='/'> 18 Open</a>
+                    <a href='/'>21 Closed</a>
+                  </span>
 
-      <IssueListContainer>
-        {error ? <Error /> :
-          issues && issues.length > 0 ?
-            (<>
-              <IssueListHeader>
-                <span>
-                  <StyledOcticon listHeader icon={IssueOpened} />
-                  <a href='/'> 18 Open</a>
-                  <a href='/'>21 Closed</a>
-                </span>
+                  <span>
+                    <a href='/'>
+                      Author
+                  <StyledOcticon icon={TriangleDown} />
+                    </a>
+                    <a href='/'>
+                      Label
+                  <StyledOcticon icon={TriangleDown} />
+                    </a>
+                    <a href='/'>
+                      Projects
+                  <StyledOcticon icon={TriangleDown} />
+                    </a>
+                    <a href='/'>
+                      Milestones
+                  <StyledOcticon icon={TriangleDown} />
+                    </a>
+                    <a href='/'>
+                      Asignee
+                  <StyledOcticon icon={TriangleDown} />
+                    </a>
+                    <a href='/'>
+                      Sort
+                  <StyledOcticon icon={TriangleDown} />
+                    </a>
+                  </span>
+                </IssueListHeader>
 
-                <span>
-                  <a href='/'>
-                    Author
-                  <StyledOcticon icon={TriangleDown} />
-                  </a>
-                  <a href='/'>
-                    Label
-                  <StyledOcticon icon={TriangleDown} />
-                  </a>
-                  <a href='/'>
-                    Projects
-                  <StyledOcticon icon={TriangleDown} />
-                  </a>
-                  <a href='/'>
-                    Milestones
-                  <StyledOcticon icon={TriangleDown} />
-                  </a>
-                  <a href='/'>
-                    Asignee
-                  <StyledOcticon icon={TriangleDown} />
-                  </a>
-                  <a href='/'>
-                    Sort
-                  <StyledOcticon icon={TriangleDown} />
-                  </a>
-                </span>
-              </IssueListHeader>
+                {
+                  issues.map(issue =>
+                    <Issue key={issue.id}>
+                      <Container>
+                        <StyledOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
 
-              {
-                issues.map(issue =>
-                  <Issue key={issue.id}>
-                    <Container>
-                      <StyledOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
+                        <TitleContainer>
+                          <span>
+                            <IssueTitleLink to={{ pathname: `/${userName}/${repoName}/issues/${issue.number}` }} >
+                              {issue.title}
+                            </IssueTitleLink>
+                            {
+                              issue.labels.map(label =>
+                                <Label
+                                  key={label.id}
+                                  color={label.color}>
+                                  {label.name}
+                                </Label>
+                              )
+                            }
+                          </span>
 
-                      <TitleContainer>
-                        <span>
-                          <IssueTitleLink to={{ pathname: `/${userName}/${repoName}/issues/${issue.number}` }} >
-                            {issue.title}
-                          </IssueTitleLink>
-                          {
-                            issue.labels.map(label =>
-                              <Label
-                                key={label.id}
-                                color={label.color}>
-                                {label.name}
-                              </Label>
-                            )
-                          }
-                        </span>
+                          <IssueDetails>
+                            #{issue.number} opened on {format((new Date(issue.created_at)), "MMM d, y")} by <a href='/'>{issue.user.login}</a>
+                          </IssueDetails>
+                        </TitleContainer>
+                      </Container>
 
-                        <IssueDetails>
-                          #{issue.number} opened on {format((new Date(issue.created_at)), "MMM d, y")} by <a href='/'>{issue.user.login}</a>
-                        </IssueDetails>
-                      </TitleContainer>
-                    </Container>
-
-                    <Container>
-                      {
-                        issue.comments > 0 &&
-                        <>
-                          <StyledOcticon icon={Comment} />
-                          {issue.comments}
-                        </>
-                      }
-                    </Container>
-                  </Issue>
-                )}
-            </>
-            ) : issues ? <NoIssues /> : <Loading />}
-      </IssueListContainer>
+                      <Container>
+                        {
+                          issue.comments > 0 &&
+                          <>
+                            <StyledOcticon icon={Comment} />
+                            {issue.comments}
+                          </>
+                        }
+                      </Container>
+                    </Issue>
+                  )}
+              </>
+              ) : issues ? <NoIssues /> : <Loading />}
+        </IssueListContainer>
+        <Pagination numberOfPages={Math.ceil(numberOfIssues / 25)} />
+      </Main>
     </>
   )
 }
+
+const Main = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`
 
 
 const IssueListContainer = styled(Flex).attrs({
