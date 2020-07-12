@@ -1,41 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Octicon, { Milestone, TriangleDown, Tag } from '@primer/octicons-react';
 
 
 const IssueContainerNav = () => {
+  const { repoName } = useParams();
+  const { userName } = useParams();
+  const { pageNumber } = useParams();
+  const [labels, setLabels] = useState();
+  const [milestones, setMilestones] = useState();
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/${userName}/${repoName}/labels`)
+      .then(response => response.json())
+      .then(response => setLabels(response))
+
+    fetch(`http://localhost:8000/${userName}/${repoName}/milestones`)
+      .then(response => response.json())
+      .then(response => setMilestones(response))
+
+  }, [userName, repoName, pageNumber]);
+
+
   return (
     <StyledIssueContainerNav>
-      <div>
-        <button id='filters'>
-          Filters
-          <StyledOcticon icon={TriangleDown} />
-        </button>
+      {(labels && milestones) &&
+        <>
+          <div>
+            <button id='filters'>
+              Filters
+            <StyledOcticon icon={TriangleDown} />
+            </button>
 
-        <Input placeholder='Search all issues'/>
-      </div>
+            <Input placeholder='Search all issues' />
+          </div>
 
-      <div>
-        <button className='right' >
-          <StyledOcticon icon={Tag} />
-          Lables
-          <span>
-            8
-          </span>
-        </button>
+          <div>
+            <button className='right' >
+              <StyledOcticon icon={Tag} />
+              Lables
+              <span>
+                {labels.length === 30 ? "30+" : labels.length}
+              </span>
+            </button>
 
-        <button>
-          <StyledOcticon icon={Milestone} />
-          Milestones
-          <span>
-            0
-          </span>
-        </button>
-      </div>
+            <button>
+              <StyledOcticon icon={Milestone} />
+              Milestones
+              <span>
+                {milestones.length === 30 ? "30+" : milestones.length}
+              </span>
+            </button>
+          </div>
 
-      <NewIssueButton>
-        New issue
+          <NewIssueButton>
+            New issue
       </NewIssueButton>
+        </>
+      }
 
     </StyledIssueContainerNav>
   );
@@ -50,7 +73,6 @@ const StyledIssueContainerNav = styled.div`
   margin-bottom: 16px;
   padding-top: 24px;
   height: 34px;
-
 
   #filters {
     background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
