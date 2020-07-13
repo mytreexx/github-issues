@@ -27,36 +27,40 @@ const IssueContainerNav = () => {
     <StyledIssueContainerNav>
       {(labels && milestones) &&
         <>
-          <div>
-            <button id='filters'>
+          <Section>
+            <Button>
               Filters
-            <StyledOcticon icon={TriangleDown} />
-            </button>
+            </Button>
+            <Button>
+              Open issues
+            </Button>
 
-            <Input placeholder='Search all issues' />
-          </div>
+            <Button>
+              Closed issues
+            </Button>
+          </Section>
 
-          <div>
-            <button className='right' >
+          <Section>
+            <Button >
               <StyledOcticon icon={Tag} />
               Lables
               <span>
                 {labels.length === 30 ? "30+" : labels.length}
               </span>
-            </button>
+            </Button>
 
-            <button>
+            <Button>
               <StyledOcticon icon={Milestone} />
               Milestones
               <span>
                 {milestones.length === 30 ? "30+" : milestones.length}
               </span>
-            </button>
-          </div>
+            </Button>
+          </Section>
 
           <NewIssueButton>
             New issue
-      </NewIssueButton>
+          </NewIssueButton>
         </>
       }
 
@@ -67,66 +71,13 @@ const IssueContainerNav = () => {
 
 const StyledIssueContainerNav = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  width: 978px;
-  margin: auto;
+  max-width: 1216px;
+  margin: 16px auto;
+  padding: 0 32px;
   margin-bottom: 16px;
-  padding-top: 24px;
-  height: 34px;
-
-  #filters {
-    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-    border-bottom: #e1e4e8;
-    height: 100%;  
-  }
-
-  div {
-    border-radius: 3px;
-    border: 1px solid #e1e4e8;
-
-    button {
-      height: 100%;
-      background-color: white;
-      border: none;
-      padding: 6px 14px;
-      font-weight: 600;
-      color: #586069;
-
-      :hover {
-        background-color: #F6F8FA;
-      }
-
-      span {
-        color: #586069;
-        font-size: 12px;
-        font-weight: 600;
-        background-color: rgba(27,31,35,.08);
-        border-radius: 20px;
-        padding: 2px 5px;
-        margin-left: 2px;
-      }
-
-    }
-
-    .right {
-      border-right: 1px solid #e1e4e8;
-    }
-  }
-`
-
-const NewIssueButton = styled.span`
-  background-image: linear-gradient(-180deg,#34d058,#28a745 90%);
-  box-sizing: border-box;
-  padding: 0 12px;
-  font-size: 14px;
-  line-height: 30px;
-  color: white;
-  font-weight: 600;
-  height: 34px;
-  cursor: pointer;
-  border: 1px solid rgba(27,31,35,.2);
-  border-radius: .25em;
-
+  min-height: 34px;
 `
 
 const StyledOcticon = styled(Octicon)`
@@ -135,12 +86,49 @@ const StyledOcticon = styled(Octicon)`
   margin-left: ${props => props.icon === TriangleDown && '4px'}; 
 `
 
-const Input = styled.input`
-  width: 530px;
+const Section = styled.div`
+  border-radius: 5px;
+  border: 1px solid #e1e4e8;
+`
+const Button = styled.button`
   height: 100%;
+  background-color: white;
   border: none;
-  background-color: #FAFBFC;
-  border-bottom: 1px solid #e1e4e8;
+  padding: 6px 14px;
+  font-weight: 600;
+  color: #586069;
+
+  span {
+    color: #586069;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: rgba(27,31,35,.08);
+    border-radius: 20px;
+    padding: 2px 5px;
+    margin-left: 2px;
+  }
+
+  :hover {
+    background-color: #F6F8FA;
+  }
+`
+const NewIssueButton = styled.span`
+  background-color: #2ea44f;
+  transition: background-color 0.36s ease-in-out;
+  box-sizing: border-box;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 30px;
+  color: white;
+  font-weight: 600;
+  height: 32px;
+  cursor: pointer;
+  border: 1px solid rgba(27,31,35,.2);
+  border-radius: 6px;
+
+  :hover {
+    background-color: #2C974B;
+  }
 `
 
 export default IssueContainerNav;
