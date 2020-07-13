@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Flex } from 'reflexbox/styled-components';
 import Octicon, {
-  Repo, Code, IssueOpened, GitPullRequest, Play, Shield, Graph, Eye, Star, RepoForked, TriangleDown
+  Repo, Code, IssueOpened, GitPullRequest, Play, Shield, Graph, Eye, Star, RepoForked
 } from '@primer/octicons-react';
 
 
@@ -26,30 +25,27 @@ const RepoHead = () => {
   }, [userName, repoName]);
 
   return (
-    <Container>
+    <MainContainer>
       {repoDetails &&
-        <MainContainer>
-          <RepoHeader>
-            <span>
-              <StyledOcticon icon={Repo} />
-              <RepoTitle>
-                {userName} / <span>{repoName}</span>
-              </RepoTitle>
-            </span>
+        <>
+          <TopContainer>
+            <RepoTitle>
+              <StyledOcticon className="title" icon={Repo} />
+              <span>{userName}</span> / <strong>{repoName}</strong>
+            </RepoTitle>
 
             <SideButtons>
               <MenuButton>
                 <button>
-                  <StyledOcticon type='dark' icon={Eye} />
+                  <StyledOcticon icon={Eye} />
                   Watch
-                  <StyledOcticon type='dark' icon={TriangleDown} />
                 </button>
                 <div>{repoDetails.subscribers_count}</div>
               </MenuButton>
 
               <MenuButton>
                 <button>
-                  <StyledOcticon type='dark' icon={Star} />
+                  <StyledOcticon icon={Star} />
                   Star
                 </button>
                 <div>{repoDetails.stargazers_count}</div>
@@ -57,16 +53,16 @@ const RepoHead = () => {
 
               <MenuButton>
                 <button>
-                  <StyledOcticon type='dark' icon={RepoForked} />
+                  <StyledOcticon icon={RepoForked} />
                   Fork
                 </button>
                 <div>{repoDetails.forks}</div>
               </MenuButton>
 
             </SideButtons>
-          </RepoHeader>
+          </TopContainer>
 
-          <RepoNavbar>
+          <BottomContainer>
             <Tab>
               <StyledOcticon icon={Code} />
               Code
@@ -80,10 +76,8 @@ const RepoHead = () => {
 
             <Tab>
               <StyledOcticon icon={GitPullRequest} />
-              Pull Requests
-              <span>
-                {repoDetails.open_issues - numberOfIssues}
-              </span>
+              Pull requests
+              <span>{repoDetails.open_issues - numberOfIssues}</span>
             </Tab>
 
             <Tab>
@@ -100,91 +94,48 @@ const RepoHead = () => {
               <StyledOcticon icon={Graph} />
               Insights
             </Tab>
-          </RepoNavbar>
-        </MainContainer>
+          </BottomContainer>
+        </>
       }
-    </Container>
+    </MainContainer>
   );
 }
 
-
-const Container = styled(Flex).attrs({
-  as: "header",
-  width: "100%",
-  height: "108px",
-  alignItems: "center",
-  justifyContent: "center",
-})`
-  background-color: #FAFBFC;
-  padding-top: 16px;
-  border-bottom: solid 1px #e1e4e8;  
-`;
-
 const MainContainer = styled.div`
-  width: 978px;
-  height: 100%;
+  background-color: #FAFBFC;
+  width: 100%;
+  height: 96px;
+  padding-top: 16px;
+  margin-bottom: 32px;
+  border-bottom: solid 1px #e1e4e8;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `
 
-const RepoHeader = styled.div`
-  width: 100%;
+const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 978px;
+  flex-wrap: wrap;
+  padding: 0 32px;
+  margin-bottom: 16px;
 `
 
-const RepoTitle = styled.span`
-  color: #0366D6;
-  text-decoration: none;
-  font-size: 18px;
-  margin-left: 8px;
-
-  span {
-    font-weight: 600;
-  }
-`
-
-const RepoNavbar = styled.div`
-  width: 100%;
-`
-
-const Tab = styled.div`
-  display: inline-block;
-  padding: 7px 12px;
-  font-size: 14px;
+const RepoTitle = styled.div`
+  font-size: 20px;
   color: #586069;
 
-  :hover {
-    color: #24292e;
-    cursor: pointer;
+  span, strong {
+    color: #0366d6;
+
+    :hover {
+      text-decoration: underline;
+    }
   }
 
-  span {
-    color: #444d56;
-    font-size: 12px;
+  strong {
     font-weight: 600;
-    background-color: rgba(27,31,35,.08);
-    border-radius: 20px;
-    padding: 0 4px;
   }
-`
-
-const SelectedTab = styled(Tab)`
-  background-color: white;
-  border-top: #e36209 3px solid;
-  border-right: solid 1px #e1e4e8;
-  border-left: solid 1px #e1e4e8;
-  box-shadow: 0 1px 0 #fff;
-  border-radius: 3px 3px 0 0;
-  `
-
-const StyledOcticon = styled(Octicon)`
-  color: ${props => props.type === 'dark' ? '#24292e' : 'rgba(27,31,35,.3)'};
-  margin-right: 4px;
-  margin-left: ${props => props.icon === TriangleDown && '4px'};  
-  width: ${props => props.icon === TriangleDown && '8px'};  
 `
 
 const MenuButton = styled.div`
@@ -195,7 +146,7 @@ const MenuButton = styled.div`
   line-height: 27px;
   
   button {
-    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+    background-color: #FAFBFC;
     border: none;
     padding: 3px 10px;
     font-size: 12px;
@@ -203,22 +154,20 @@ const MenuButton = styled.div`
     color: #24292e;
     height: 100%;
     border: 1px solid rgba(27,31,35,.2);
-    border-radius: 3px 0 0 3px;
+    border-radius: 5px 0 0 5px;
       
     :hover {
-      background-image: none;
-      background-color: #E6EBF1;
-      border: 1px solid #A0A5AA;
+      background-color: #F3F4F6;
     }
   }
 
   div {
     display: inline-block;
-    padding: 0 10px;
+    padding: 0 12px;
     background-color: white;
     font-weight: 600;
     border: 1px solid rgba(27,31,35,.2);
-    border-radius: 0 3px 3px 0;
+    border-radius: 0 5px 5px 0;
     border-left: 0;
     height: 100%;
     box-sizing: border-box;
@@ -231,6 +180,56 @@ const MenuButton = styled.div`
 
 const SideButtons = styled.span`
   display: flex;
+  flex-wrap: wrap;
+`
+
+const BottomContainer = styled.div`
+  display: flex;
+  margin-left: 32px; 
+  box-sizing: border-box;
+`
+
+const Tab = styled.div`
+  display: inline-box;
+  padding: 8px 16px;
+  font-size: 14px;
+  line-height: 30px;
+  color: #1b1f23;
+  overflow: hidden;
+  border-bottom: 2px transparent solid;
+  transition: border-bottom 0.36s ease-in-out;
+
+  span {
+    color: #24292e;
+    text-align: center;
+    background-color: rgba(209,213,218,.5);
+    border: 1px solid transparent;
+    border-radius: 2em;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 0 6px;
+    min-width: 20px;
+    margin-left: 4px;
+  }
+
+  :hover {
+    border-bottom: 2px #d1d5da solid;
+    transition: border-bottom 0.2s ease-in-out;
+  }
+`
+
+const SelectedTab = styled(Tab)`
+  border-bottom: 2px #f9826c solid;
+  font-weight: 600;
+
+  :hover {
+    border-bottom: 2px #f9826c solid;
+  }
+`
+
+const StyledOcticon = styled(Octicon)`
+  color: ${props => props.type === 'dark' ? '#24292e' : '#959da5'};
+  margin-right: 8px;
 `
 
 export default RepoHead;
