@@ -44,6 +44,7 @@ const IssueComments = () => {
         <IssueDetails>
           <Title>
             {issue.title}
+            &nbsp;
             <span>
               #{issue.number}
             </span>
@@ -63,6 +64,7 @@ const IssueComments = () => {
             New issue
           </NewIssueButton>
         </IssueDetails>
+
         <Main>
           <CommentSection>
             <VerticalLine />
@@ -161,18 +163,19 @@ const IssueDetails = styled.div`
   border-bottom: 1px solid #e1e4e8;
   min-height: 100px;
   display: flex;
+  align-content: flex-start;
   justify-content: space-between;
 `
 
 const CommentSection = styled.div`
-  width: 727px;
+  width: 75%;
   position: relative;
   border-bottom: 2px solid #e1e4e8;
 `
 
 const Comment = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 16px;
   margin-bottom: 32px;
   min-height: 93px;
@@ -181,9 +184,10 @@ const Comment = styled.div`
 
 const CommentBox = styled.div`
   border: 1px #d1d5da solid;
-  width: 671px;
+  max-width: 850px;
+  width: 95%;
   background-color: white;
-  border-radius: 3px;
+  border-radius: 6px;
 
   p {
     margin: 16px 16px;
@@ -224,12 +228,13 @@ const Arrow = styled.div`
   border-left: 1px solid #d1d5da;
   margin-top: 16px;
   position: relative;
-  left: 6px;
+  left: 5px;
 `
 
 const Container = styled.div`
-  width: 980px;
-  margin: auto;
+  max-width: 1214px;
+  width: 95%;
+  margin: 0 auto;
 `
 
 const Main = styled.div`
@@ -243,6 +248,7 @@ const Title = styled.h1`
   max-width: 900px;
   line-height: 1.125;
   margin-bottom: 8px;
+  margin-top: 0;
   
   span {
     color: #6a737d;
@@ -274,10 +280,10 @@ const Title = styled.h1`
 
 const Status = styled.div`
   margin: 8px 0;
-  background-color: #2cbe4e;
+  background-color: #28a745;
   color: white;
-  border-radius: 3px;
-  padding: 4px 8px;
+  border-radius: 2em;
+  padding: 6px 14px;
   display: inline-block;
   text-transform: capitalize;
 
@@ -291,37 +297,34 @@ const Status = styled.div`
 `
 
 const NewIssueButton = styled.span`
-  background-image: linear-gradient(-180deg,#34d058,#28a745 90%);
-  padding: 3px 10px;
+  background-color: #2ea44f;
+  padding: 3px 12px;
   font-size: 12px;
   line-height: 20px;
   color: white;
   font-weight: 600;
-  margin: 32px 0;
   height: 20px;
   vertical-align: middle;
   cursor: pointer;
   border: 1px solid rgba(27,31,35,.2);
-  border-radius: .25em;
-
-  :hover {
-    border: black;
-  }
+  border-radius: 5px;
 `
 
 const SideDetails = styled.div`
+  width: 90%;
+  margin-left: auto;
   border-bottom: 1px #e1e4e8 solid;
   padding-top: 16px;
   font-size: 12px;
   color: #586069;
   display: flex;
-  flex-direction: column;    
+  flex-direction: column; 
   font-weight: 600;
   
   div {
     line-height: 20px;
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
   }
 
   a {
@@ -349,7 +352,7 @@ const SideDetails = styled.div`
 `
 
 const SidebarSection = styled.div`
-  width: 220px;
+  width: 25%;
   padding-top: 16px;
 `
 
@@ -361,16 +364,16 @@ const Avatar = styled.img`
 `
 
 const Label = styled.div`
+  width: fit-content;
   background-color: #${props => props.color};
   color: ${props => color('#' + props.color).isLight() ? 'black' : 'white'};
   font-size: 12px;
   font-weight: 600;
   height: 20px;
-  padding: 0 4px;
-  margin-bottom: 3px !important;
-  border-radius: 2px;
+  padding: 0 8px;
+  margin-bottom: 2px;
+  border-radius: 2em;
   cursor: pointer;
-
 `
 
 const MilestoneBar = styled.div`
