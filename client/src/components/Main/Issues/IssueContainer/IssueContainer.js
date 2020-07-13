@@ -140,15 +140,17 @@ const Main = styled.div`
 const IssueListContainer = styled.div`.
   display: flex;
   width: 1214px;
+  max-width: 1214px;
+  width: 95%;
   min-height: 335px;
   padding: 0;
   border: solid 1px #d1d5da;
   border-radius: 4px;
-  margin: 32px; 
+  margin: 0 32px; 
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  }
 `;
 
 const Issue = styled.div`
@@ -221,7 +223,7 @@ const TitleContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   padding: 0 0 8px 8px;
-  max-width: 690px;
+  max-width: 870px;
 `
 
 const StyledOcticon = styled(Octicon)`
