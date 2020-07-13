@@ -15,7 +15,7 @@ const Search = (props) => {
       <StyledSearch
         color={props.color}
         type='text'
-        placeholder='search username/repository'
+        placeholder='Search username/repository'
         value={searchInput}
         onChange={handleChange}
         onKeyDown={handlePress}
