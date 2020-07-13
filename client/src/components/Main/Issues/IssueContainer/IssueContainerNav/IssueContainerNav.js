@@ -27,10 +27,11 @@ const IssueContainerNav = () => {
     <StyledIssueContainerNav>
       {(labels && milestones) &&
         <>
-          <Section>
-            <Button>
+          <Section type='right'>
+            <Button type='selected'>
               Filters
             </Button>
+
             <Button>
               Open issues
             </Button>
@@ -43,16 +44,16 @@ const IssueContainerNav = () => {
           <Section>
             <Button >
               <StyledOcticon icon={Tag} />
-              Lables
-              <span>
+                labels
+                <span>
                 {labels.length === 30 ? "30+" : labels.length}
               </span>
             </Button>
 
             <Button>
               <StyledOcticon icon={Milestone} />
-              Milestones
-              <span>
+                Milestones
+                <span>
                 {milestones.length === 30 ? "30+" : milestones.length}
               </span>
             </Button>
@@ -63,7 +64,6 @@ const IssueContainerNav = () => {
           </NewIssueButton>
         </>
       }
-
     </StyledIssueContainerNav>
   );
 }
@@ -72,7 +72,7 @@ const IssueContainerNav = () => {
 const StyledIssueContainerNav = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-end;
   max-width: 1216px;
   margin: 16px auto;
   padding: 0 32px;
@@ -80,20 +80,18 @@ const StyledIssueContainerNav = styled.div`
   min-height: 34px;
 `
 
-const StyledOcticon = styled(Octicon)`
-  margin-right: 4px;
-  width: ${props => props.icon === TriangleDown && '8px'};
-  margin-left: ${props => props.icon === TriangleDown && '4px'}; 
-`
-
 const Section = styled.div`
   border-radius: 5px;
   border: 1px solid #e1e4e8;
+  border-left: 1px solid transparent;
+  margin-right: ${props => props.type === 'right' ? 'auto' : '16px'};
 `
+
 const Button = styled.button`
   height: 100%;
-  background-color: white;
-  border: none;
+  background-color: ${props => props.type === 'selected' ? '#F6F8FA' : 'white'};
+  border: 1px solid transparent;
+  border-left: 1px solid #e1e4e8;
   padding: 6px 14px;
   font-weight: 600;
   color: #586069;
@@ -125,10 +123,17 @@ const NewIssueButton = styled.span`
   cursor: pointer;
   border: 1px solid rgba(27,31,35,.2);
   border-radius: 6px;
+  margin-left: auto
 
   :hover {
     background-color: #2C974B;
   }
+`
+
+const StyledOcticon = styled(Octicon)`
+  margin-right: 4px;
+  width: ${props => props.icon === TriangleDown && '8px'};
+  margin-left: ${props => props.icon === TriangleDown && '4px'}; 
 `
 
 export default IssueContainerNav;
