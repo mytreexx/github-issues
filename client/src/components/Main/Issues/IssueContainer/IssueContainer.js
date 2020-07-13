@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Flex } from 'reflexbox/styled-components';
-import Octicon, { 
-  // IssueOpened,
-  // IssueClosed, 
-  // Comment,
-   TriangleDown } from '@primer/octicons-react';
+import Octicon, { IssueOpened, IssueClosed, Comment, TriangleDown } from '@primer/octicons-react';
 import { Link, useParams } from 'react-router-dom';
 import color from 'color';
 import format from 'date-fns/format';
@@ -54,7 +49,7 @@ const IssueContainer = () => {
               (<>
                 <IssueListHeader>
                   <span>
-                    {/* <StyledOcticon listHeader icon={IssueOpened} /> */}
+                    <StyledOcticon listHeader icon={IssueOpened} />
                     <a href='/'> 18 Open</a>
                     <a href='/'>21 Closed</a>
                   </span>
@@ -91,7 +86,7 @@ const IssueContainer = () => {
                   issues.map(issue =>
                     <Issue key={issue.id}>
                       <Container>
-                        {/* <StyledOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} /> */}
+                        <StyledOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
 
                         <TitleContainer>
                           <span>
@@ -119,7 +114,7 @@ const IssueContainer = () => {
                         {
                           issue.comments > 0 &&
                           <>
-                            {/* <StyledOcticon icon={Comment} /> */}
+                            <StyledOcticon icon={Comment} />
                             {issue.comments}
                           </>
                         }
@@ -142,14 +137,14 @@ const Main = styled.div`
 `
 
 
-const IssueListContainer = styled(Flex).attrs({
-  width: "978px",
-  minHeight: "335px"
-})`
+const IssueListContainer = styled.div`.
+  display: flex;
+  width: 1214px;
+  min-height: 335px;
   padding: 0;
   border: solid 1px #d1d5da;
   border-radius: 4px;
-  margin: auto; 
+  margin: 32px; 
   display: flex;
   flex-direction: column;
   align-items: center;
