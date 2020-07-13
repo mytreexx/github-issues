@@ -35,7 +35,7 @@ const IssueContainer = () => {
       })
   }, [userName, repoName, pageNumber]);
 
-  console.log(numberOfIssues)
+  console.log(issues)
   return (
     <>
       <Helmet>
@@ -46,44 +46,9 @@ const IssueContainer = () => {
         <IssueListContainer>
           {error ? <ErrorPage /> :
             issues && issues.length > 0 ?
-              (<>
-                <IssueListHeader>
-                  <span>
-                    <StyledOcticon listHeader icon={IssueOpened} />
-                    <a href='/'> 18 Open</a>
-                    <a href='/'>21 Closed</a>
-                  </span>
-
-                  <span>
-                    <a href='/'>
-                      Author
-                  <StyledOcticon icon={TriangleDown} />
-                    </a>
-                    <a href='/'>
-                      Label
-                  <StyledOcticon icon={TriangleDown} />
-                    </a>
-                    <a href='/'>
-                      Projects
-                  <StyledOcticon icon={TriangleDown} />
-                    </a>
-                    <a href='/'>
-                      Milestones
-                  <StyledOcticon icon={TriangleDown} />
-                    </a>
-                    <a href='/'>
-                      Asignee
-                  <StyledOcticon icon={TriangleDown} />
-                    </a>
-                    <a href='/'>
-                      Sort
-                  <StyledOcticon icon={TriangleDown} />
-                    </a>
-                  </span>
-                </IssueListHeader>
-
-                {
-                  issues.map(issue =>
+              (
+                <>
+                  {issues.map(issue =>
                     <Issue key={issue.id}>
                       <Container>
                         <StyledOcticon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
@@ -93,15 +58,13 @@ const IssueContainer = () => {
                             <IssueTitleLink to={{ pathname: `/${userName}/${repoName}/issues/${issue.number}` }} >
                               {issue.title}
                             </IssueTitleLink>
-                            {
-                              issue.labels.map(label =>
-                                <Label
-                                  key={label.id}
-                                  color={label.color}>
-                                  {label.name}
-                                </Label>
-                              )
-                            }
+                            {issue.labels.map(label =>
+                              <Label
+                                key={label.id}
+                                color={label.color}>
+                                {label.name}
+                              </Label>
+                            )}
                           </span>
 
                           <IssueDetails>
@@ -111,19 +74,20 @@ const IssueContainer = () => {
                       </Container>
 
                       <Container>
-                        {
-                          issue.comments > 0 &&
-                          <>
+                        {issue.comments > 0 &&
+                          <IssueComments>
                             <StyledOcticon icon={Comment} />
-                            {issue.comments}
-                          </>
-                        }
+                            <span>
+                              {issue.comments}
+                            </span>
+                          </IssueComments>}
                       </Container>
                     </Issue>
                   )}
-              </>
+                </>
               ) : issues ? <NoIssues /> : <Loading />}
         </IssueListContainer>
+
         <Pagination numberOfPages={Math.ceil(numberOfIssues / 25)} />
       </Main>
     </>
@@ -136,7 +100,6 @@ const Main = styled.div`
   flex-direction: column;
 `
 
-
 const IssueListContainer = styled.div`.
   display: flex;
   width: 1214px;
@@ -144,7 +107,8 @@ const IssueListContainer = styled.div`.
   width: 95%;
   min-height: 335px;
   padding: 0;
-  border: solid 1px #d1d5da;
+  border: solid 1px #e1e4e8;
+  border-top: solid 1px transparent;
   border-radius: 4px;
   margin: 0 32px; 
   display: flex;
@@ -156,7 +120,7 @@ const IssueListContainer = styled.div`.
 const Issue = styled.div`
   width: 100%;
   min-height: 57.5px;
-  border-top: solid 1px #d1d5da;
+  border-top: solid 1px #e1e4e8;
   margin: 0;
   display: flex;
   justify-content: space-between;
@@ -165,25 +129,6 @@ const Issue = styled.div`
   :hover {
     background-color: #F6F8FA;
   }
-`
-
-const IssueListHeader = styled(Issue)`
-  border-top: none;
-  width: 100%;
-  background-color: #F6F8FA;
-  pointer-events: none;
-
-  span {
-    margin-right: 20px;
-  }
-
-  a {
-    color: #586069;
-    text-decoration: none;
-    font-size: 14px; 
-    margin-left: 32px;
-  }
-  
 `
 
 const IssueTitleLink = styled(Link)`
@@ -217,6 +162,7 @@ const Container = styled.span`
   display: flex;
   justify-content: flex-start;
   padding-top: 8px;
+  align-self: flex-start;
 `
 
 const TitleContainer = styled(Container)`
@@ -248,6 +194,19 @@ const Label = styled.div`
   border-radius: 2em;
   box-shadow: inset 0 -1px 0 rgba(27,31,35,.12);
   cursor: pointer;
+`
+
+const IssueComments = styled.div`
+  display: flex;
+  display: inline;
+  padding-right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+
+  span {
+    padding-left: 4px;
+  }
+
 `
 
 export default IssueContainer;
