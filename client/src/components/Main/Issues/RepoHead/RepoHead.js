@@ -112,7 +112,7 @@ const RepoHead = () => {
 const MainContainer = styled.div`
   background-color: #FAFBFC;
   width: 100%;
-  height: 96px;
+  min-height: 96px;
   padding-top: 16px;
   margin-bottom: 32px;
   border-bottom: solid 1px #e1e4e8;
