@@ -73,7 +73,7 @@ const IssueContainer = () => {
                         </TitleContainer>
                       </Container>
 
-                      <Container>
+                      <Container type='numberOfComments'>
                         {issue.comments > 0 &&
                           <IssueComments>
                             <StyledOcticon icon={Comment} />
@@ -163,6 +163,7 @@ const Container = styled.span`
   justify-content: flex-start;
   padding-top: 8px;
   align-self: flex-start;
+  min-width: ${props => props.type === 'numberOfComments' && '50px'}
 `
 
 const TitleContainer = styled(Container)`
@@ -197,8 +198,6 @@ const Label = styled.div`
 `
 
 const IssueComments = styled.div`
-  display: flex;
-  display: inline;
   padding-right: 16px;
   font-size: 12px;
   font-weight: 600;
