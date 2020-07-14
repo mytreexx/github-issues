@@ -189,7 +189,7 @@ const Label = styled.div`
   font-size: 12px;
   font-weight: 600;
   height: 20px;
-  padding: 0 4px;
+  padding: 0 8px;
   margin: 0 2px;
   display: inline-block;
   border-radius: 2em;
