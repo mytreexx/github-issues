@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import Octicon, { IssueOpened } from '@primer/octicons-react';
+import Octicon, { IssueOpened, IssueClosed } from '@primer/octicons-react';
 import format from 'date-fns/format';
 import color from 'color';
 import ReactMarkdown from 'react-markdown';
@@ -49,8 +49,8 @@ const IssueComments = () => {
               #{issue.number}
             </span>
             <div>
-              <Status>
-                <Octicon icon={IssueOpened} />
+              <Status state={issue.state === 'open' ? 'openedState' : 'closedState'}>
+                <Octicon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
                 <span id='state'>
                   {issue.state}
                 </span>
@@ -280,7 +280,7 @@ const Title = styled.h1`
 
 const Status = styled.div`
   margin: 8px 0;
-  background-color: #28a745;
+  background-color: ${props => props.state === 'openedState' ? '#28a745' : '#D73A49'};
   color: white;
   border-radius: 2em;
   padding: 6px 14px;
@@ -359,7 +359,7 @@ const SidebarSection = styled.div`
 const Avatar = styled.img`
   width: ${props => props.size === "large" ? "40px" : "20px"};
   height: ${props => props.size === "large" ? "40px" : "20px"};
-  border-radius: 3px;
+  border-radius: 100%;
   margin-right: 2px;
 `
 
