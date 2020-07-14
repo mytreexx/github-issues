@@ -8,11 +8,14 @@ const IssueContainerNav = () => {
   const { repoName } = useParams();
   const { userName } = useParams();
   const { pageNumber } = useParams();
+
   const [labels, setLabels] = useState();
   const [milestones, setMilestones] = useState();
+
   const [openFilter, setOpenFilter] = useState('selected');
   const [closedFilter, setClosedFilter] = useState('inactive');
 
+  
   useEffect(() => {
     fetch(`http://localhost:8000/${userName}/${repoName}/labels`)
       .then(response => response.json())
@@ -135,7 +138,6 @@ const Button = styled.button`
     border: 1px solid red;
   }
 
-
   span {
     color: #586069;
     font-size: 12px;
@@ -150,6 +152,7 @@ const Button = styled.button`
     background-color: ${props => props.type === 'selected' ? '#F6F8FA' : 'white'};
   }
 `
+
 const NewIssueButton = styled.span`
   background-color: #2ea44f;
   transition: background-color 0.36s ease-in-out;
