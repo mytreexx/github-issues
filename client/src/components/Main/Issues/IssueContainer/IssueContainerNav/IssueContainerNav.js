@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Octicon, { Milestone, TriangleDown, Tag } from '@primer/octicons-react';
+import Octicon, { Milestone, TriangleDown, Tag, IssueClosed, IssueOpened } from '@primer/octicons-react';
 
 
 const IssueContainerNav = () => {
@@ -10,6 +10,8 @@ const IssueContainerNav = () => {
   const { pageNumber } = useParams();
   const [labels, setLabels] = useState();
   const [milestones, setMilestones] = useState();
+  const [openFilter, setOpenFilter] = useState('selected');
+  const [closedFilter, setClosedFilter] = useState('inactive');
 
   useEffect(() => {
     fetch(`http://localhost:8000/${userName}/${repoName}/labels`)
@@ -23,20 +25,53 @@ const IssueContainerNav = () => {
   }, [userName, repoName, pageNumber]);
 
 
+  const filterOpenIssues = () => {
+    if (openFilter === 'selected') {
+      setOpenFilter('inactive')
+    } else if (openFilter === 'inactive') {
+      setOpenFilter('selected')
+    };
+  };
+
+  const filterClosedIssues = () => {
+    if (closedFilter === 'selected') {
+      setClosedFilter('inactive')
+    } else if (closedFilter === 'inactive') {
+      setClosedFilter('selected')
+    };
+  };
+
+
   return (
     <StyledIssueContainerNav>
       {(labels && milestones) &&
         <>
           <Section type='right'>
-            <Button type='selected'>
+            <Button type='inactive'>
               Filters
             </Button>
 
-            <Button>
+            <Button
+              type={openFilter === 'selected' ? 'selected' : 'inactive'}
+              onClick={filterOpenIssues}
+            >
+              <StyledOcticon
+                state={openFilter === 'inactive' && 'inactive'}
+                icon={IssueOpened}
+              />
+              &nbsp;
               Open issues
             </Button>
 
-            <Button>
+            <Button
+              type={closedFilter === 'inactive' ? 'inactive' : 'selected'}
+              onClick={filterClosedIssues}
+            >
+              <StyledOcticon
+                state={closedFilter === 'inactive' && 'inactive'}
+                icon={IssueClosed}
+              />
+              &nbsp;
               Closed issues
             </Button>
           </Section>
@@ -44,7 +79,7 @@ const IssueContainerNav = () => {
           <Section>
             <Button >
               <StyledOcticon icon={Tag} />
-                labels
+              labels
                 <span>
                 {labels.length === 30 ? "30+" : labels.length}
               </span>
@@ -52,7 +87,7 @@ const IssueContainerNav = () => {
 
             <Button>
               <StyledOcticon icon={Milestone} />
-                Milestones
+              Milestones
                 <span>
                 {milestones.length === 30 ? "30+" : milestones.length}
               </span>
@@ -89,12 +124,17 @@ const Section = styled.div`
 
 const Button = styled.button`
   height: 100%;
-  background-color: ${props => props.type === 'selected' ? '#F6F8FA' : 'white'};
+  background-color: ${props => props.type === 'inactive' ? '#F6F8FA' : 'white'};
   border: 1px solid transparent;
   border-left: 1px solid #e1e4e8;
   padding: 6px 14px;
   font-weight: 600;
-  color: #586069;
+  color: ${props => props.type === 'selected' ? 'black' : '#586069'};
+
+  :focus {
+    border: 1px solid red;
+  }
+
 
   span {
     color: #586069;
@@ -107,7 +147,7 @@ const Button = styled.button`
   }
 
   :hover {
-    background-color: #F6F8FA;
+    background-color: ${props => props.type === 'selected' ? '#F6F8FA' : 'white'};
   }
 `
 const NewIssueButton = styled.span`
@@ -133,7 +173,8 @@ const NewIssueButton = styled.span`
 const StyledOcticon = styled(Octicon)`
   margin-right: 4px;
   width: ${props => props.icon === TriangleDown && '8px'};
-  margin-left: ${props => props.icon === TriangleDown && '4px'}; 
+  margin-left: ${props => props.icon === TriangleDown && '4px'};
+  color: ${props => props.state === 'inactive' ? '#959da5' : props.icon === IssueOpened ? 'green' : props.icon === IssueClosed && 'red'}
 `
 
 export default IssueContainerNav;
