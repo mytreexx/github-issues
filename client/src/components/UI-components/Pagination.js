@@ -8,8 +8,13 @@ const Pagination = (props) => {
   const { repoName } = useParams();
   const { userName } = useParams();
   let { pageNumber } = useParams();
+  let pagesLength;
 
-  let numberOfPages = Object.keys(Array.from({ length: props.numberOfPages }));
+  //Github API only provides a maximum of 1,000 results, which is 40 pages * 25 results per page
+  //Check if received number of pages is higher than 40 and set maximum number of 40
+  props.numberOfPages > 40 ? pagesLength = 40 : pagesLength = props.numberOfPages;
+
+  let numberOfPages = Object.keys(Array.from({ length: pagesLength }));
   let startPages;
 
   pageNumber = parseInt(pageNumber) || 1;
@@ -22,13 +27,13 @@ const Pagination = (props) => {
   let paginationEnd = numberOfPages.slice(-2);
   let paginationCurrent = numberOfPages.slice(pageNumber - 3, pageNumber + 2);
 
-  if (props.numberOfPages > 10) {
+  if (pagesLength > 10) {
     // Collapse both sides if page is in the middle range
-    if (pageNumber > 6 && pageNumber <= props.numberOfPages - 5) {
+    if (pageNumber > 6 && pageNumber <= pagesLength - 5) {
       numberOfPages = [...paginationStart, "...", ...paginationCurrent, "..", ...paginationEnd];
 
       // Collapse right side if page is not in the end range
-    } else if (pageNumber <= props.numberOfPages - 5 || pageNumber === 6) {
+    } else if (pageNumber <= pagesLength - 5 || pageNumber === 6) {
       numberOfPages = [...paginationStart, ...paginationCurrent, "...", ...paginationEnd];
 
       // Collapse left side if page is not in the start range
