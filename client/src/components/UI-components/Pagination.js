@@ -52,6 +52,11 @@ const Pagination = (props) => {
           <PageButton
             to={{ pathname: `/${userName}/${repoName}/issues/page/${pageNumber - 1}` }}
             className={`${pageNumber === 1 ? 'disabled' : 'controlButton'}`}
+            onClick={window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'smooth'
+            })}
           >
             <Octicon icon={ChevronLeft} />
             &nbsp;
@@ -65,6 +70,11 @@ const Pagination = (props) => {
                 key={index}
                 to={{ pathname: `/${userName}/${repoName}/issues/page/${page + 1}` }}
                 id={`${page + 1 === pageNumber && 'selected'}`}
+                onClick={window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: 'smooth'
+                })}
               >
                 {page + 1}
               </PageButton>
@@ -74,6 +84,11 @@ const Pagination = (props) => {
           <PageButton
             to={{ pathname: `/${userName}/${repoName}/issues/page/${pageNumber + 1}` }}
             className={`${pageNumber === props.numberOfPages ? 'disabled' : 'controlButton'}`}
+            onClick={window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'smooth'
+            })}
           >
             Next
             &nbsp;
