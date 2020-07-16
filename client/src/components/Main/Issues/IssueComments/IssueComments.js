@@ -408,7 +408,7 @@ const MilestoneBar = styled.div`
 const VerticalLine = styled.div`
   background-color: white;
   border-right: 2px solid #e1e4e8;
-  height: 100%;
+  height: 90%;
   width: 68px;
   z-index: -1;
   position: absolute;
