@@ -3,14 +3,16 @@ import styled from 'styled-components';
 
 
 const ErrorPage = () => {
-  return <ErrorMessage>
-    <span>:(</span>
-    <div>
-      <h1>Oops!</h1>
-      <p>Something went wrong. Did you type everything correctly?</p>
-    </div>
+  return (
+    <ErrorMessage>
+      <span>:(</span>
+      <div>
+        <h1>Oops!</h1>
+        <p>Something went wrong. Did you type everything correctly?</p>
+      </div>
 
-  </ErrorMessage>
+    </ErrorMessage>
+  );
 }
 
 
