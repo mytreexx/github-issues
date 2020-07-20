@@ -6,7 +6,7 @@ import Octicon, { Milestone, TriangleDown, Tag, IssueClosed, IssueOpened } from 
 import IssueContainer from './IssueContainer/IssueContainer';
 
 
-const IssueContainerNav = (...props) => {
+const IssueContainerNav = () => {
   const { repoName } = useParams();
   const { userName } = useParams();
   const { pageNumber } = useParams();
@@ -14,8 +14,8 @@ const IssueContainerNav = (...props) => {
   const [labels, setLabels] = useState();
   const [milestones, setMilestones] = useState();
 
-  const [openFilter, setOpenFilter] = useState('selected');
-  const [closedFilter, setClosedFilter] = useState('inactive');
+  const [openFilter, setOpenFilter] = useState(true);
+  const [closedFilter, setClosedFilter] = useState(false);
 
   let filter = '?is=open';
 
@@ -32,31 +32,9 @@ const IssueContainerNav = (...props) => {
   }, [userName, repoName, pageNumber]);
 
 
-  const filterOpenIssues = () => {
-    if (openFilter === 'selected') {
-      setOpenFilter('inactive')
-    } else if (openFilter === 'inactive') {
-      setOpenFilter('selected')
-    };
-  };
-
-  const filterClosedIssues = () => {
-    if (closedFilter === 'selected') {
-      setClosedFilter('inactive')
-    } else if (closedFilter === 'inactive') {
-      setClosedFilter('selected')
-    };
-  };
-
-  if (openFilter === 'selected' && closedFilter === 'selected') {
-    filter = '?is=all';
-  } else if (openFilter === 'inactive' && closedFilter === 'selected') {
-    filter = '?is=closed';
-  } else if (openFilter === 'selected' && closedFilter === 'inactive') {
-    filter = '?is=open';
-  } else {
-    filter = '?is=open';
-  }
+  openFilter && closedFilter ? filter = '?is=all' :
+    !openFilter && closedFilter ? filter = '?is=closed' :
+      filter = '?is=open';
 
 
   return (
@@ -70,11 +48,11 @@ const IssueContainerNav = (...props) => {
             </Button>
 
               <Button
-                type={openFilter === 'selected' ? 'selected' : 'inactive'}
-                onClick={filterOpenIssues}
+                type={openFilter ? 'selected' : 'inactive'}
+                onClick={() => { setOpenFilter(!openFilter) }}
               >
                 <StyledOcticon
-                  state={openFilter === 'inactive' && 'inactive'}
+                  state={!openFilter && 'inactive'}
                   icon={IssueOpened}
                 />
                 &nbsp;
@@ -82,11 +60,11 @@ const IssueContainerNav = (...props) => {
             </Button>
 
               <Button
-                type={closedFilter === 'inactive' ? 'inactive' : 'selected'}
-                onClick={filterClosedIssues}
+                type={closedFilter ? 'selected' : 'inactive'}
+                onClick={() => { setClosedFilter(!closedFilter) }}
               >
                 <StyledOcticon
-                  state={closedFilter === 'inactive' && 'inactive'}
+                  state={!closedFilter && 'inactive'}
                   icon={IssueClosed}
                 />
                 &nbsp;
@@ -194,7 +172,7 @@ const StyledOcticon = styled(Octicon)`
   margin-right: 4px;
   width: ${props => props.icon === TriangleDown && '8px'};
   margin-left: ${props => props.icon === TriangleDown && '4px'};
-  color: ${props => props.state === 'inactive' ? '#959da5' : props.icon === IssueOpened ? 'green' : props.icon === IssueClosed && 'red'}
+  color: ${props => props.state === 'inactive' ? '#959da5' : props.icon === IssueOpened ? 'green' : props.icon === IssueClosed && '#cb2431'}
 `
 
 export default IssueContainerNav;
