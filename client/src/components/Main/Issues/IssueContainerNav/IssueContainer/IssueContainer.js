@@ -16,13 +16,19 @@ const IssueContainer = (props) => {
   const { repoName } = useParams();
   const { userName } = useParams();
   const { pageNumber } = useParams();
+
   const [issues, setIssues] = useState();
   const [error, setError] = useState(false);
   const [numberOfIssues, setNumberOfIssues] = useState();
 
+  let filter;
+
+  props.openFilter && props.closedFilter ? filter = '?is=all' :
+    !props.openFilter && props.closedFilter ? filter = '?is=closed' :
+      filter = '?is=open';
 
   useEffect(() => {
-    fetch(`http://localhost:8000/repos/${userName}/${repoName}/page/${pageNumber} ${props.filter}`)
+    fetch(`http://localhost:8000/repos/${userName}/${repoName}/page/${pageNumber} ${filter}`)
       .then(response => response.json())
       .then(response => {
         if (response.error) {
@@ -33,7 +39,7 @@ const IssueContainer = (props) => {
           setNumberOfIssues(response.total_count);
         }
       })
-  }, [userName, repoName, pageNumber, props.filter]);
+  }, [userName, repoName, pageNumber, filter]);
 
 
   return (

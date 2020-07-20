@@ -17,8 +17,6 @@ const IssueContainerNav = () => {
   const [openFilter, setOpenFilter] = useState(true);
   const [closedFilter, setClosedFilter] = useState(false);
 
-  let filter = '?is=open';
-
 
   useEffect(() => {
     fetch(`http://localhost:8000/${userName}/${repoName}/labels`)
@@ -28,13 +26,7 @@ const IssueContainerNav = () => {
     fetch(`http://localhost:8000/${userName}/${repoName}/milestones`)
       .then(response => response.json())
       .then(response => setMilestones(response))
-
   }, [userName, repoName, pageNumber]);
-
-
-  openFilter && closedFilter ? filter = '?is=all' :
-    !openFilter && closedFilter ? filter = '?is=closed' :
-      filter = '?is=open';
 
 
   return (
@@ -58,7 +50,7 @@ const IssueContainerNav = () => {
                 &nbsp;
                 Open issues
             </Button>
-
+            
               <Button
                 type={closedFilter ? 'selected' : 'inactive'}
                 onClick={() => { setClosedFilter(!closedFilter) }}
@@ -96,7 +88,7 @@ const IssueContainerNav = () => {
           </>
         }
       </Container>
-      <IssueContainer filter={filter} />
+      <IssueContainer openFilter={openFilter} closedFilter={closedFilter} />
     </>
   );
 }
