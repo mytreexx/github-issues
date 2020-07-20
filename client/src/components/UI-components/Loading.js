@@ -1,13 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
 
 
-const Loading = () => {
-  return <Loader />
-}
-
-
-const Loader = styled.div`
+const Loading = styled.div`
   margin-top: 100px;
   width: 40px;
   height: 40px;
@@ -24,6 +18,5 @@ const Loader = styled.div`
       transform: rotate(360deg);
     } 
 `
-
 
 export default Loading;

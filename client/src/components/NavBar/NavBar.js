@@ -8,22 +8,22 @@ import Search from '../UI-components/Search';
 
 const NavBar = () => {
   return (
-    <StyledNavBar>
+    <Container>
       <a href="/">
         <LogoOcticon icon={MarkGithub} />
       </a>
-      
+
       <Search />
       <a href='/'>Pull requests</a>
       <a href='/'>Issues</a>
       <a href='/'>Marketplace</a>
       <a href='/'>Explore</a>
-    </StyledNavBar>
+    </Container>
   );
 }
 
 
-const StyledNavBar = styled(Flex).attrs({
+const Container = styled(Flex).attrs({
   as: "header",
   width: "100%",
   height: "53px",

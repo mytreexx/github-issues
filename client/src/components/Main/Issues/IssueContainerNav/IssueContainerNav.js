@@ -61,7 +61,7 @@ const IssueContainerNav = (...props) => {
 
   return (
     <>
-      <StyledIssueContainerNav >
+      <Container >
         {(labels && milestones) &&
           <>
             <Section type='right'>
@@ -117,14 +117,14 @@ const IssueContainerNav = (...props) => {
           </NewIssueButton>
           </>
         }
-      </StyledIssueContainerNav>
+      </Container>
       <IssueContainer filter={filter} />
     </>
   );
 }
 
 
-const StyledIssueContainerNav = styled.div`
+const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;

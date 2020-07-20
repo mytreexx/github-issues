@@ -5,7 +5,7 @@ import Octicon, { X } from '@primer/octicons-react';
 
 const NotFound = () => {
   return (
-    <MainContainer>
+    <Container>
       <LightBulbOcticon icon={X} />
       <span>
         <h1>
@@ -16,7 +16,7 @@ const NotFound = () => {
           It looks like we can't find the what you're searching for.
         </p>
       </span>
-    </MainContainer>
+    </Container>
   );
 }
 
@@ -27,7 +27,7 @@ const LightBulbOcticon = styled(Octicon)`
   color: #C6CBD1;
 `
 
-const MainContainer = styled.div`
+const Container = styled.div`
   display: flex;
   margin: 75px 0;
   justify-content: center;

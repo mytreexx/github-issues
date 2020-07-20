@@ -12,7 +12,7 @@ const Search = (props) => {
   const handlePress = event => event.keyCode === 13 && history.push(`/${searchInput}/issues`);
 
   return (
-      <StyledSearch
+      <SearchBar
         color={props.color}
         type='text'
         placeholder='Search username/repository'
@@ -23,7 +23,7 @@ const Search = (props) => {
   )
 };
 
-const StyledSearch = styled.input`
+const SearchBar = styled.input`
   background-color: ${props => props.color === "inverse" ? "#C6CBD1" : "#3F4448"};
   color: ${props => props.color === "inverse" ? "#3F4448" : "#8c8f92"};
   font-weight: 600;

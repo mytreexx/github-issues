@@ -5,7 +5,7 @@ import Octicon, { MarkGithub } from '@primer/octicons-react'
 
 const Footer = () => {
   return (
-    <FooterContainer>
+    <Container>
       <span>© 2020 GitHub, Inc.</span>
       <a href='https://github.com/site/terms'>Terms</a>
       <a href='https://github.com/site/privacy'>Privacy</a>
@@ -21,12 +21,12 @@ const Footer = () => {
       <a href='https://training.github.com/'>Training</a>
       <a href='https://github.blog/'>Blog</a>
       <a href='https://github.com/about'>About</a>
-    </FooterContainer>
+    </Container>
   );
 }
 
 
-const FooterContainer = styled.div`
+const Container = styled.div`
   max-width: 1248px;
   flex-wrap: wrap;
   margin: auto;
