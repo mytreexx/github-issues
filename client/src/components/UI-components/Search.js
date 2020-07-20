@@ -24,8 +24,8 @@ const Search = (props) => {
 };
 
 const SearchBar = styled.input`
-  background-color: ${props => props.color === "inverse" ? "#C6CBD1" : "#3F4448"};
-  color: ${props => props.color === "inverse" ? "#3F4448" : "#8c8f92"};
+  background-color: #3F4448;
+  color: #8c8f92;
   font-weight: 600;
   margin-left: 7px;
   width: 300px;
@@ -37,7 +37,7 @@ const SearchBar = styled.input`
 
 ::placeholder {
   color: #8c8f92;
-  color: ${props => props.color === "inverse" ? "#3F4448" : "#8c8f92"};
+  color: #8c8f92;
   font-weight: 600;
   padding-left: 7px;
 }
