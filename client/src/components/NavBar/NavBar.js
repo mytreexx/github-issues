@@ -5,11 +5,10 @@ import Octicon, { MarkGithub } from '@primer/octicons-react';
 
 import Search from '../UI-components/Search';
 
-
 const NavBar = () => {
   return (
     <Container>
-      <a href="/">
+      <a href='/'>
         <LogoOcticon icon={MarkGithub} />
       </a>
 
@@ -20,8 +19,7 @@ const NavBar = () => {
       <a href='/'>Explore</a>
     </Container>
   );
-}
-
+};
 
 const Container = styled(Flex).attrs({
   as: "header",
@@ -29,7 +27,7 @@ const Container = styled(Flex).attrs({
   height: "53px",
   alignItems: "center",
 })`
-  background-color: #24292E;
+  background-color: #24292e;
 
   a {
     margin-left: 16px;
@@ -42,7 +40,7 @@ const Container = styled(Flex).attrs({
   a:hover {
     filter: brightness(0.75);
   }
-`
+`;
 
 const LogoOcticon = styled(Octicon)`
   color: #ffffff;
@@ -53,6 +51,6 @@ const LogoOcticon = styled(Octicon)`
   :hover {
     filter: brightness(0.75);
   }
-`
+`;
 
 export default NavBar;

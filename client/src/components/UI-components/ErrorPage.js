@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 const ErrorPage = () => {
   return (
     <ErrorMessage>
@@ -10,11 +9,9 @@ const ErrorPage = () => {
         <h1>Oops!</h1>
         <p>Something went wrong. Did you type everything correctly?</p>
       </div>
-
     </ErrorMessage>
   );
-}
-
+};
 
 const ErrorMessage = styled.div`
   display: flex;
@@ -31,7 +28,6 @@ const ErrorMessage = styled.div`
     margin-top: 130px;
     margin-left: 50px;
   }
-`
-
+`;
 
 export default ErrorPage;

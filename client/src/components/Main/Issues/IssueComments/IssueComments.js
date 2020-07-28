@@ -10,7 +10,6 @@ import { Helmet } from 'react-helmet';
 import NotFound from '../../../UI-components/NotFound';
 import { SERVER_URL } from '../../../../config';
 
-
 const IssueComments = () => {
   const { issueNumber } = useParams();
   const { repoName } = useParams();
@@ -22,24 +21,23 @@ const IssueComments = () => {
 
   useEffect(() => {
     fetch(`${SERVER_URL}/repos/${userName}/${repoName}/${issueNumber}`)
-      .then(response => response.json())
-      .then(issueDetails => {
+      .then((response) => response.json())
+      .then((issueDetails) => {
         if (issueDetails.length === 0) {
           setError(true);
-          console.log(error)
+          console.log(error);
         } else {
           setError(false);
           setIssue(issueDetails);
         }
-      })
+      });
 
     fetch(`${SERVER_URL}/repos/${userName}/${repoName}/${issueNumber}/comments`)
-      .then(response => response.json())
-      .then(issueComments => {
+      .then((response) => response.json())
+      .then((issueComments) => {
         setIssueComments(issueComments);
-      })
+      });
   }, [issueNumber, repoName, userName, error]);
-
 
   if (!issue || !issueComments) {
     return null;
@@ -51,33 +49,34 @@ const IssueComments = () => {
         <title>{`${issue.title} · Issue #${issue.number} · ${userName}/${repoName}`}</title>
       </Helmet>
 
-      {issue.error ? <NotFound /> :
+      {issue.error ? (
+        <NotFound />
+      ) : (
         <Container>
           <IssueDetails>
             <Title>
               {issue.title}
               &nbsp;
-              <span>
-                #{issue.number}
-              </span>
-
+              <span>#{issue.number}</span>
               <div>
-                <Status state={issue.state === 'open' ? 'openedState' : 'closedState'}>
-                  <Octicon icon={issue.state === 'open' ? IssueOpened : IssueClosed} />
-                  <span id='state'>
-                    {issue.state}
-                  </span>
+                <Status
+                  state={issue.state === 'open' ? 'openedState' : 'closedState'}
+                >
+                  <Octicon
+                    icon={issue.state === 'open' ? IssueOpened : IssueClosed}
+                  />
+                  <span id='state'>{issue.state}</span>
                 </Status>
 
                 <div id='details'>
-                  <a href='/'>{issue.user.login}</a> opened this issue on {format((new Date(issue.created_at)), "MMM d, y")} · {issue.comments} comments
+                  <a href='/'>{issue.user.login}</a> opened this issue on{' '}
+                  {format(new Date(issue.created_at), "MMM d, y")} ·{' '}
+                  {issue.comments} comments
                 </div>
               </div>
             </Title>
 
-            <NewIssueButton>
-              New issue
-            </NewIssueButton>
+            <NewIssueButton>New issue</NewIssueButton>
           </IssueDetails>
 
           <Main>
@@ -85,69 +84,66 @@ const IssueComments = () => {
               <VerticalLine />
 
               <Comment>
-
                 <Avatar size='large' src={issue.user.avatar_url} />
 
                 <Arrow />
 
                 <CommentBox>
                   <CommentDetails type='title'>
-                    <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
+                    <a href='/'>{issue.user.login}</a> commented on{' '}
+                    {format(new Date(issue.created_at), 'MMM d, y')}
                   </CommentDetails>
 
                   <StyledReactMarkdown source={issue.body} />
-
                 </CommentBox>
               </Comment>
 
-              {issueComments.map(comment =>
+              {issueComments.map((comment) => (
                 <Comment key={comment.id}>
                   <Avatar size='large' src={comment.user.avatar_url} />
 
                   <Arrow />
 
-                  <CommentBox >
+                  <CommentBox>
                     <CommentDetails type='title'>
-                      <a href='/'>{issue.user.login}</a> commented on {format((new Date(issue.created_at)), "MMM d, y")}
+                      <a href='/'>{issue.user.login}</a> commented on{' '}
+                      {format(new Date(issue.created_at), 'MMM d, y')}
                     </CommentDetails>
 
                     <StyledReactMarkdown source={comment.body} />
-
                   </CommentBox>
                 </Comment>
-              )}
+              ))}
             </CommentSection>
 
             <SidebarSection>
               <SideDetails>
-                <div>
-                  Assignees
-                </div>
+                <div>Assignees</div>
 
-                {issue.assignee === null ? <span>No one assigned</span> : (
-                  issue.assignees.map(user =>
+                {issue.assignee === null ? (
+                  <span>No one assigned</span>
+                ) : (
+                  issue.assignees.map((user) => (
                     <div key={user.id} className='assignee'>
                       <Avatar src={user.avatar_url} />
-                      <a href='/'>
-                        {user.login}
-                      </a>
+                      <a href='/'>{user.login}</a>
                     </div>
-                  ))}
+                  ))
+                )}
               </SideDetails>
 
               <SideDetails>
-                <div>
-                  Labels
-                </div>
+                <div>Labels</div>
 
-                {issue.labels ? (issue.labels.map(label =>
-                  <Label
-                    key={label.id}
-                    color={label.color}>
-                    {label.name}
-                  </Label>
-                )) : <span>No labels</span>
-                }
+                {issue.labels ? (
+                  issue.labels.map((label) => (
+                    <Label key={label.id} color={label.color}>
+                      {label.name}
+                    </Label>
+                  ))
+                ) : (
+                  <span>No labels</span>
+                )}
               </SideDetails>
 
               <SideDetails>
@@ -157,23 +153,31 @@ const IssueComments = () => {
 
               <SideDetails>
                 <div>Milestone</div>
-                {issue.milestone === null ? (<span>No milestone</span>) : (
+                {issue.milestone === null ? (
+                  <span>No milestone</span>
+                ) : (
                   <>
-                    <MilestoneBar width={issue.milestone.closed_issues / (issue.milestone.open_issues + issue.milestone.closed_issues) * 100}>
+                    <MilestoneBar
+                      width={
+                        (issue.milestone.closed_issues /
+                          (issue.milestone.open_issues +
+                            issue.milestone.closed_issues)) *
+                        100
+                      }
+                    >
                       <div className='progressBar' />
                     </MilestoneBar>
                     <div>{issue.milestone.title}</div>
                   </>
                 )}
-
               </SideDetails>
             </SidebarSection>
           </Main>
-        </Container>}
+        </Container>
+      )}
     </>
-  )
-}
-
+  );
+};
 
 const IssueDetails = styled.div`
   border-bottom: 1px solid #e1e4e8;
@@ -181,13 +185,13 @@ const IssueDetails = styled.div`
   display: flex;
   align-content: flex-start;
   justify-content: space-between;
-`
+`;
 
 const CommentSection = styled.div`
   width: 75%;
   position: relative;
   border-bottom: 2px solid #e1e4e8;
-`
+`;
 
 const Comment = styled.div`
   display: flex;
@@ -196,7 +200,7 @@ const Comment = styled.div`
   margin-bottom: 32px;
   min-height: 93px;
   font-size: 14px;
-`
+`;
 
 const CommentBox = styled.div`
   border: 1px #d1d5da solid;
@@ -212,10 +216,10 @@ const CommentBox = styled.div`
   img {
     width: 100%;
   }
-`
+`;
 
 const CommentDetails = styled.div`
-  background-color: #F6F8FA;
+  background-color: #f6f8fa;
   color: #586069;
   height: 39px;
   border-bottom: 1px #e1e4e8 solid;
@@ -233,30 +237,30 @@ const CommentDetails = styled.div`
       text-decoration: underline;
     }
   }
-`
+`;
 
 const Arrow = styled.div`
   width: 8px;
   height: 8px;
-  background-color: #F6F8FA;
+  background-color: #f6f8fa;
   transform: rotate(45deg);
   border-bottom: 1px solid #d1d5da;
   border-left: 1px solid #d1d5da;
   margin-top: 16px;
   position: relative;
   left: 5px;
-`
+`;
 
 const Container = styled.div`
   max-width: 1214px;
   width: 95%;
   margin: 0 auto;
-`
+`;
 
 const Main = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const Title = styled.h1`
   font-size: 32px;
@@ -265,23 +269,23 @@ const Title = styled.h1`
   line-height: 1.125;
   margin-bottom: 8px;
   margin-top: 0;
-  
+
   span {
     color: #6a737d;
     font-weight: 300;
-
   }
 
   div {
     font-size: 14px;
   }
-  
+
   #details {
     display: inline-block;
     color: #586069;
   }
 
-  #datails, a {
+  #datails,
+  a {
     color: #586069;
     font-weight: 600;
     text-decoration: none;
@@ -292,11 +296,12 @@ const Title = styled.h1`
       text-decoration: underline;
     }
   }
-`
+`;
 
 const Status = styled.div`
   margin: 8px 0;
-  background-color: ${props => props.state === 'openedState' ? '#28a745' : '#D73A49'};
+  background-color: ${(props) =>
+    props.state === 'openedState' ? '#28a745' : '#D73A49'};
   color: white;
   border-radius: 2em;
   padding: 6px 14px;
@@ -310,7 +315,7 @@ const Status = styled.div`
     line-height: 20px;
     margin-left: 4px;
   }
-`
+`;
 
 const NewIssueButton = styled.span`
   background-color: #2ea44f;
@@ -322,9 +327,9 @@ const NewIssueButton = styled.span`
   height: 20px;
   vertical-align: middle;
   cursor: pointer;
-  border: 1px solid rgba(27,31,35,.2);
+  border: 1px solid rgba(27, 31, 35, 0.2);
   border-radius: 5px;
-`
+`;
 
 const SideDetails = styled.div`
   width: 90%;
@@ -334,9 +339,9 @@ const SideDetails = styled.div`
   font-size: 12px;
   color: #586069;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   font-weight: 600;
-  
+
   div {
     line-height: 20px;
     display: flex;
@@ -365,24 +370,24 @@ const SideDetails = styled.div`
     font-weight: 400;
     margin-bottom: 16px;
   }
-`
+`;
 
 const SidebarSection = styled.div`
   width: 25%;
   padding-top: 16px;
-`
+`;
 
 const Avatar = styled.img`
-  width: ${props => props.size === "large" ? "40px" : "20px"};
-  height: ${props => props.size === "large" ? "40px" : "20px"};
+  width: ${(props) => (props.size === 'large' ? '40px' : '20px')};
+  height: ${(props) => (props.size === 'large' ? '40px' : '20px')};
   border-radius: 100%;
   margin-right: 2px;
-`
+`;
 
 const Label = styled.div`
   width: fit-content;
-  background-color: #${props => props.color};
-  color: ${props => color('#' + props.color).isLight() ? 'black' : 'white'};
+  background-color: #${(props) => props.color};
+  color: ${(props) => (color('#' + props.color).isLight() ? 'black' : 'white')};
   font-size: 12px;
   font-weight: 600;
   height: 20px;
@@ -390,7 +395,7 @@ const Label = styled.div`
   margin-bottom: 2px;
   border-radius: 2em;
   cursor: pointer;
-`
+`;
 
 const MilestoneBar = styled.div`
   width: 221px;
@@ -399,12 +404,12 @@ const MilestoneBar = styled.div`
   border-radius: 3px;
 
   .progressBar {
-    width: ${props => props.width}%;
+    width: ${(props) => props.width}%;
     height: 8px;
     background-color: #2cbe4e;
-    border-radius: 3px 0 0 3px; 
-   }
-`
+    border-radius: 3px 0 0 3px;
+  }
+`;
 
 const VerticalLine = styled.div`
   background-color: white;
@@ -414,13 +419,13 @@ const VerticalLine = styled.div`
   z-index: -1;
   position: absolute;
   margin-top: 35px;
-`
+`;
 
 const StyledReactMarkdown = styled(ReactMarkdown)`
   line-height: 1.5;
   font-size: 14px;
   color: #24292e;
-  
+
   blockquote {
     color: #6a737d;
     border-left: 4px #dfe2e5 solid;
@@ -430,7 +435,7 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
   a {
     color: #0366d6;
     text-decoration: none;
-    
+
     :hover {
       text-decoration: underline;
     }
@@ -442,7 +447,7 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
   }
 
   code {
-    padding: .2em .4em;
+    padding: 0.2em 0.4em;
     margin: 0;
     font-size: 85%;
     background-color: #f6f8fa;
@@ -473,7 +478,9 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
     margin-top: 24px;
   }
 
-  h3, h4, h5 {
+  h3,
+  h4,
+  h5 {
     margin: 16px;
     margin-top: 24px;
     font-weight: 600;
@@ -498,6 +505,6 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
   strong {
     font-weight: 600;
   }
-`
+`;
 
 export default IssueComments;

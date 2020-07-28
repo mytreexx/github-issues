@@ -2,25 +2,25 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-
 const Search = (props) => {
   const [searchInput, setSearchInput] = useState();
   let history = useHistory();
 
-  const handleChange = event => setSearchInput(event.target.value);
+  const handleChange = (event) => setSearchInput(event.target.value);
 
-  const handlePress = event => event.keyCode === 13 && history.push(`/${searchInput}/issues`);
+  const handlePress = (event) =>
+    event.keyCode === 13 && history.push(`/${searchInput}/issues`);
 
   return (
-      <SearchBar
-        color={props.color}
-        type='text'
-        placeholder='Search username/repository'
-        value={searchInput}
-        onChange={handleChange}
-        onKeyDown={handlePress}
-      />
-  )
+    <SearchBar
+      color={props.color}
+      type='text'
+      placeholder='Search username/repository'
+      value={searchInput}
+      onChange={handleChange}
+      onKeyDown={handlePress}
+    />
+  );
 };
 
 const SearchBar = styled.input`
@@ -41,6 +41,6 @@ const SearchBar = styled.input`
   font-weight: 600;
   padding-left: 7px;
 }
-`
+`;
 
 export default Search;

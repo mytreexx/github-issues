@@ -17,6 +17,6 @@ const Loading = styled.div`
     100% {
       transform: rotate(360deg);
     } 
-`
+`;
 
 export default Loading;

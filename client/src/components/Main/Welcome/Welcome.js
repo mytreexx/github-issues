@@ -3,37 +3,29 @@ import styled from 'styled-components';
 import Octicon, { LightBulb } from '@primer/octicons-react';
 import { Helmet } from 'react-helmet';
 
-
 const Welcome = () => {
   return (
     <>
       <Helmet>
-        <title>
-          Welcome!
-      </title>
+        <title>Welcome!</title>
       </Helmet>
       <MainContainer>
         <LightBulbOcticon icon={LightBulb} />
         <span>
-          <h1>
-            Welcome!
-          </h1>
+          <h1>Welcome!</h1>
 
-          <p>
-            You can view any repository issue section by searching it.
-          </p>
+          <p>You can view any repository issue section by searching it.</p>
         </span>
       </MainContainer>
     </>
   );
 };
 
-
 const LightBulbOcticon = styled(Octicon)`
   width: 200px;
   height: 200px;
-  color: #C6CBD1;
-`
+  color: #c6cbd1;
+`;
 
 const MainContainer = styled.div`
   display: flex;
@@ -47,9 +39,9 @@ const MainContainer = styled.div`
   margin-top: 50px;
   padding: 50px;
 
-  span{
+  span {
     margin-left: 20px;
   }
-`
+`;
 
 export default Welcome;

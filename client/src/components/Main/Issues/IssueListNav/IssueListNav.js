@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Octicon, { Milestone, TriangleDown, Tag, IssueClosed, IssueOpened } from '@primer/octicons-react';
+import Octicon, {
+  Milestone,
+  TriangleDown,
+  Tag,
+  IssueClosed,
+  IssueOpened,
+} from '@primer/octicons-react';
 
 import IssueList from './IssueList/IssueList';
 import { SERVER_URL } from '../../../../config';
-
 
 const IssueListNav = () => {
   const { repoName } = useParams();
@@ -18,60 +23,56 @@ const IssueListNav = () => {
   const [openFilter, setOpenFilter] = useState(true);
   const [closedFilter, setClosedFilter] = useState(false);
 
-
   useEffect(() => {
     fetch(`${SERVER_URL}/${userName}/${repoName}/labels`)
-      .then(response => response.json())
-      .then(response => setLabels(response))
+      .then((response) => response.json())
+      .then((response) => setLabels(response));
 
     fetch(`${SERVER_URL}/${userName}/${repoName}/milestones`)
-      .then(response => response.json())
-      .then(response => setMilestones(response))
+      .then((response) => response.json())
+      .then((response) => setMilestones(response));
   }, [userName, repoName, pageNumber]);
-
 
   return (
     <>
-      <Container >
-        {(labels && milestones) &&
+      <Container>
+        {labels && milestones && (
           <>
             <Section type='right'>
-              <Button type='inactive'>
-                Filters
-            </Button>
+              <Button type='inactive'>Filters</Button>
 
               <Button
                 type={openFilter ? 'selected' : 'inactive'}
-                onClick={() => { setOpenFilter(!openFilter) }}
+                onClick={() => {
+                  setOpenFilter(!openFilter);
+                }}
               >
                 <StyledOcticon
                   state={!openFilter && 'inactive'}
                   icon={IssueOpened}
                 />
-                &nbsp;
-                Open issues
-            </Button>
+                &nbsp; Open issues
+              </Button>
 
               <Button
                 type={closedFilter ? 'selected' : 'inactive'}
-                onClick={() => { setClosedFilter(!closedFilter) }}
+                onClick={() => {
+                  setClosedFilter(!closedFilter);
+                }}
               >
                 <StyledOcticon
                   state={!closedFilter && 'inactive'}
                   icon={IssueClosed}
                 />
-                &nbsp;
-                Closed issues
-            </Button>
+                &nbsp; Closed issues
+              </Button>
             </Section>
 
             <Section>
-              <Button >
+              <Button>
                 <StyledOcticon icon={Tag} />
                 labels
-                <span>
-                  {labels.length === 30 ? "30+" : labels.length}
-                </span>
+                <span>{labels.length === 30 ? '30+' : labels.length}</span>
               </Button>
 
               <Button>
@@ -83,17 +84,14 @@ const IssueListNav = () => {
               </Button>
             </Section>
 
-            <NewIssueButton>
-              New issue
-          </NewIssueButton>
+            <NewIssueButton>New issue</NewIssueButton>
           </>
-        }
+        )}
       </Container>
       <IssueList openFilter={openFilter} closedFilter={closedFilter} />
     </>
   );
-}
-
+};
 
 const Container = styled.div`
   display: flex;
@@ -104,23 +102,24 @@ const Container = styled.div`
   padding: 0 32px;
   margin-bottom: 16px;
   min-height: 34px;
-`
+`;
 
 const Section = styled.div`
   border-radius: 5px;
   border: 1px solid #e1e4e8;
   border-left: 1px solid transparent;
-  margin-right: ${props => props.type === 'right' ? 'auto' : '16px'};
-`
+  margin-right: ${(props) => (props.type === 'right' ? 'auto' : '16px')};
+`;
 
 const Button = styled.button`
   height: 100%;
-  background-color: ${props => props.type === 'inactive' ? '#F6F8FA' : 'white'};
+  background-color: ${(props) =>
+    props.type === 'inactive' ? '#F6F8FA' : 'white'};
   border: 1px solid transparent;
   border-left: 1px solid #e1e4e8;
   padding: 6px 14px;
   font-weight: 600;
-  color: ${props => props.type === 'selected' ? 'black' : '#586069'};
+  color: ${(props) => (props.type === 'selected' ? 'black' : '#586069')};
 
   :focus {
     border: 1px solid red;
@@ -130,16 +129,17 @@ const Button = styled.button`
     color: #586069;
     font-size: 12px;
     font-weight: 600;
-    background-color: rgba(27,31,35,.08);
+    background-color: rgba(27, 31, 35, 0.08);
     border-radius: 20px;
     padding: 2px 5px;
     margin-left: 2px;
   }
 
   :hover {
-    background-color: ${props => props.type === 'selected' ? '#F6F8FA' : 'white'};
+    background-color: ${(props) =>
+      props.type === 'selected' ? '#F6F8FA' : 'white'};
   }
-`
+`;
 
 const NewIssueButton = styled.span`
   background-color: #2ea44f;
@@ -159,13 +159,18 @@ const NewIssueButton = styled.span`
   :hover {
     background-color: #2C974B;
   }
-`
+`;
 
 const StyledOcticon = styled(Octicon)`
   margin-right: 4px;
-  width: ${props => props.icon === TriangleDown && '8px'};
-  margin-left: ${props => props.icon === TriangleDown && '4px'};
-  color: ${props => props.state === 'inactive' ? '#959da5' : props.icon === IssueOpened ? 'green' : props.icon === IssueClosed && '#cb2431'}
-`
+  width: ${(props) => props.icon === TriangleDown && '8px'};
+  margin-left: ${(props) => props.icon === TriangleDown && '4px'};
+  color: ${(props) =>
+    props.state === 'inactive'
+      ? '#959da5'
+      : props.icon === IssueOpened
+      ? 'green'
+      : props.icon === IssueClosed && '#cb2431'};
+`;
 
 export default IssueListNav;

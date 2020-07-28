@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
 import Octicon, { ChevronLeft, ChevronRight } from '@primer/octicons-react';
 
-
 const Pagination = (props) => {
   const { repoName } = useParams();
   const { userName } = useParams();
@@ -12,7 +11,9 @@ const Pagination = (props) => {
 
   //Github API only provides a maximum of 1,000 results, which is 40 pages * 25 results per page
   //Check if received number of pages is higher than 40 and set maximum number of 40
-  props.numberOfPages > 40 ? pagesLength = 40 : pagesLength = props.numberOfPages;
+  props.numberOfPages > 40
+    ? (pagesLength = 40)
+    : (pagesLength = props.numberOfPages);
 
   let numberOfPages = Object.keys(Array.from({ length: pagesLength }));
   let startPages;
@@ -20,8 +21,11 @@ const Pagination = (props) => {
   pageNumber = parseInt(pageNumber) || 1;
 
   //Determine number of shown pages on left side according to current page number
-  (pageNumber === 6) ? startPages = 3 : (pageNumber > 6) ? startPages = 2 : startPages = 5;
-
+  pageNumber === 6
+    ? (startPages = 3)
+    : pageNumber > 6
+    ? (startPages = 2)
+    : (startPages = 5);
 
   let paginationStart = numberOfPages.slice(0, startPages);
   let paginationEnd = numberOfPages.slice(-2);
@@ -47,62 +51,68 @@ const Pagination = (props) => {
   }
 
   // Filter out duplicate page numbers within paginationStart, paginationCurrent, paginationEnd
-  numberOfPages = numberOfPages.filter((item, index) => numberOfPages.indexOf(item) === index);
+  numberOfPages = numberOfPages.filter(
+    (item, index) => numberOfPages.indexOf(item) === index
+  );
 
+  return props.numberOfPages <= 1 ? null : (
+    <Container>
+      <PageButton
+        to={{
+          pathname: `/${userName}/${repoName}/issues/page/${pageNumber - 1}`,
+        }}
+        className={`${pageNumber === 1 ? 'disabled' : 'controlButton'}`}
+        onClick={window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        })}
+      >
+        <Octicon icon={ChevronLeft} />
+        &nbsp; Previous
+      </PageButton>
 
-  return (
-    props.numberOfPages <= 1 ? null :
-      (
-        <Container>
+      {numberOfPages.map((page, index) => {
+        page = parseInt(page);
+        return isNaN(page) ? (
+          <span key={index}>...</span>
+        ) : (
           <PageButton
-            to={{ pathname: `/${userName}/${repoName}/issues/page/${pageNumber - 1}` }}
-            className={`${pageNumber === 1 ? 'disabled' : 'controlButton'}`}
+            key={index}
+            to={{
+              pathname: `/${userName}/${repoName}/issues/page/${page + 1}`,
+            }}
+            id={`${page + 1 === pageNumber && "selected"}`}
             onClick={window.scrollTo({
               top: 0,
               left: 0,
-              behavior: 'smooth'
+              behavior: 'smooth',
             })}
           >
-            <Octicon icon={ChevronLeft} />
-            &nbsp;
-            Previous
+            {page + 1}
           </PageButton>
+        );
+      })}
 
-          {numberOfPages.map((page, index) => {
-            page = parseInt(page)
-            return (isNaN(page) ? <span key={index}>...</span> :
-              <PageButton
-                key={index}
-                to={{ pathname: `/${userName}/${repoName}/issues/page/${page + 1}` }}
-                id={`${page + 1 === pageNumber && 'selected'}`}
-                onClick={window.scrollTo({
-                  top: 0,
-                  left: 0,
-                  behavior: 'smooth'
-                })}
-              >
-                {page + 1}
-              </PageButton>
-            )
-          })}
-
-          <PageButton
-            to={{ pathname: `/${userName}/${repoName}/issues/page/${pageNumber + 1}` }}
-            className={`${pageNumber === props.numberOfPages ? 'disabled' : 'controlButton'}`}
-            onClick={window.scrollTo({
-              top: 0,
-              left: 0,
-              behavior: 'smooth'
-            })}
-          >
-            Next
-            &nbsp;
-            <Octicon icon={ChevronRight} />
-          </PageButton>
-        </Container>)
-  )
+      <PageButton
+        to={{
+          pathname: `/${userName}/${repoName}/issues/page/${pageNumber + 1}`,
+        }}
+        className={`${
+          pageNumber === props.numberOfPages ? "disabled" : "controlButton"
+        }`}
+        onClick={window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth',
+        })}
+      >
+        Next &nbsp;
+        <Octicon icon={ChevronRight} />
+      </PageButton>
+    </Container>
+  );
 };
-
 
 const Container = styled.div`
   margin-top: 20px;
@@ -110,13 +120,13 @@ const Container = styled.div`
   span {
     color: #24292e;
   }
-  
+
   .disabled {
     color: #6a737d;
     cursor: default;
     pointer-events: none;
-    
-    :hover{
+
+    :hover {
       border: 1px solid transparent;
     }
   }
@@ -129,13 +139,13 @@ const Container = styled.div`
     background-color: #0366d6;
     border-radius: 5px;
     color: white;
-    
+
     :hover {
       border: 1px #0366d6 solid;
       border-radius: 5px;
     }
   }
-`
+`;
 
 const PageButton = styled(Link)`
   padding: 5px 12px;
@@ -151,6 +161,6 @@ const PageButton = styled(Link)`
     border: 1px #e1e4e8 solid;
     border-radius: 5px;
   }
-`
+`;
 
 export default Pagination;

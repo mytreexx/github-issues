@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Octicon, { MarkGithub } from '@primer/octicons-react'
-
+import Octicon, { MarkGithub } from '@primer/octicons-react';
 
 const Footer = () => {
   return (
@@ -13,7 +12,9 @@ const Footer = () => {
       <a href='https://githubstatus.com/'>Status</a>
       <a href='https://help.github.com/'>Help</a>
 
-      <a href='https://github.com/'><GithubLogo icon={MarkGithub} /></a>
+      <a href='https://github.com/'>
+        <GithubLogo icon={MarkGithub} />
+      </a>
 
       <a href='https://github.com/contact'>Contact GitHub</a>
       <a href='https://github.com/pricing'>Pricing</a>
@@ -23,8 +24,7 @@ const Footer = () => {
       <a href='https://github.com/about'>About</a>
     </Container>
   );
-}
-
+};
 
 const Container = styled.div`
   max-width: 1248px;
@@ -47,17 +47,17 @@ const Container = styled.div`
     :hover {
       text-decoration: underline;
     }
-`
+`;
 
 const GithubLogo = styled(Octicon)`
-  color: #C6CBD1;
+  color: #c6cbd1;
   width: 24px;
   height: 24px;
   padding-left: 15px;
 
   :hover {
-    color: #9FA6AE;
+    color: #9fa6ae;
   }
-`
+`;
 
 export default Footer;
