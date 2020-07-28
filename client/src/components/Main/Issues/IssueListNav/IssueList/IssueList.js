@@ -10,6 +10,7 @@ import NoIssues from './NoIssues/NoIssues';
 import Loading from '../../../../UI-components/Loading';
 import ErrorPage from '../../../../UI-components/ErrorPage';
 import Pagination from '../../../../UI-components/Pagination';
+import { SERVER_URL } from '../../../../../config';
 
 
 const IssueList = (props) => {
@@ -28,7 +29,7 @@ const IssueList = (props) => {
       filter = '?is=open';
 
   useEffect(() => {
-    fetch(`http://localhost:8000/repos/${userName}/${repoName}/page/${pageNumber} ${filter}`)
+    fetch(`${SERVER_URL}/repos/${userName}/${repoName}/page/${pageNumber} ${filter}`)
       .then(response => response.json())
       .then(response => {
         if (response.error) {
@@ -47,7 +48,7 @@ const IssueList = (props) => {
       <Helmet>
         <title>Issues · {`${userName}/${repoName}`} </title>
       </Helmet>
-      
+
       <Main>
         <IssueListContainer>
           {error ? <ErrorPage /> :

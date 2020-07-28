@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Octicon, { Milestone, TriangleDown, Tag, IssueClosed, IssueOpened } from '@primer/octicons-react';
 
 import IssueList from './IssueList/IssueList';
+import { SERVER_URL } from '../../../../config';
 
 
 const IssueListNav = () => {
@@ -19,11 +20,11 @@ const IssueListNav = () => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:8000/${userName}/${repoName}/labels`)
+    fetch(`${SERVER_URL}/${userName}/${repoName}/labels`)
       .then(response => response.json())
       .then(response => setLabels(response))
 
-    fetch(`http://localhost:8000/${userName}/${repoName}/milestones`)
+    fetch(`${SERVER_URL}/${userName}/${repoName}/milestones`)
       .then(response => response.json())
       .then(response => setMilestones(response))
   }, [userName, repoName, pageNumber]);
@@ -50,7 +51,7 @@ const IssueListNav = () => {
                 &nbsp;
                 Open issues
             </Button>
-            
+
               <Button
                 type={closedFilter ? 'selected' : 'inactive'}
                 onClick={() => { setClosedFilter(!closedFilter) }}

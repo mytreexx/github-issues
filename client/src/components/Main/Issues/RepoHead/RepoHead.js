@@ -5,6 +5,8 @@ import Octicon, {
   Repo, Code, IssueOpened, GitPullRequest, Play, Shield, Graph, Eye, Star, RepoForked
 } from '@primer/octicons-react';
 
+import { SERVER_URL } from '../../../../config';
+
 
 const RepoHead = () => {
   const { repoName } = useParams();
@@ -21,11 +23,11 @@ const RepoHead = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:8000/${userName}/${repoName}/`)
+    fetch(`${SERVER_URL}/${userName}/${repoName}/`)
       .then(response => response.json())
       .then(response => setRepoDetails(response))
 
-    fetch(`http://localhost:8000/repos/${userName}/${repoName}`)
+    fetch(`${SERVER_URL}/repos/${userName}/${repoName}`)
       .then(response => response.json())
       .then(response => {
         setNumberOfIssues(response.total_count);

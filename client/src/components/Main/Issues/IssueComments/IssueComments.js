@@ -8,6 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import { Helmet } from 'react-helmet';
 
 import NotFound from '../../../UI-components/NotFound';
+import { SERVER_URL } from '../../../../config';
 
 
 const IssueComments = () => {
@@ -20,7 +21,7 @@ const IssueComments = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/repos/${userName}/${repoName}/${issueNumber}`)
+    fetch(`${SERVER_URL}/repos/${userName}/${repoName}/${issueNumber}`)
       .then(response => response.json())
       .then(issueDetails => {
         if (issueDetails.length === 0) {
@@ -32,7 +33,7 @@ const IssueComments = () => {
         }
       })
 
-    fetch(`http://localhost:8000/repos/${userName}/${repoName}/${issueNumber}/comments`)
+    fetch(`${SERVER_URL}/repos/${userName}/${repoName}/${issueNumber}/comments`)
       .then(response => response.json())
       .then(issueComments => {
         setIssueComments(issueComments);
