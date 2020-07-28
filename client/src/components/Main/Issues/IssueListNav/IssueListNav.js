@@ -6,7 +6,7 @@ import Octicon, { Milestone, TriangleDown, Tag, IssueClosed, IssueOpened } from 
 import IssueList from './IssueList/IssueList';
 
 
-const IssueContainerNav = () => {
+const IssueListNav = () => {
   const { repoName } = useParams();
   const { userName } = useParams();
   const { pageNumber } = useParams();
@@ -167,4 +167,4 @@ const StyledOcticon = styled(Octicon)`
   color: ${props => props.state === 'inactive' ? '#959da5' : props.icon === IssueOpened ? 'green' : props.icon === IssueClosed && '#cb2431'}
 `
 
-export default IssueContainerNav;
+export default IssueListNav;
