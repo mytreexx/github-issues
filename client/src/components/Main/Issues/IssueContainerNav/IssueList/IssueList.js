@@ -12,7 +12,7 @@ import ErrorPage from '../../../../UI-components/ErrorPage';
 import Pagination from '../../../../UI-components/Pagination';
 
 
-const IssueContainer = (props) => {
+const IssueList = (props) => {
   const { repoName } = useParams();
   const { userName } = useParams();
   const { pageNumber } = useParams();
@@ -214,4 +214,4 @@ const IssueComments = styled.div`
 
 `
 
-export default IssueContainer;
+export default IssueList;

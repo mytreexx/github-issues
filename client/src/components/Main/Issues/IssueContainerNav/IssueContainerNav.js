@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Octicon, { Milestone, TriangleDown, Tag, IssueClosed, IssueOpened } from '@primer/octicons-react';
 
-import IssueContainer from './IssueContainer/IssueContainer';
+import IssueList from './IssueList/IssueList';
 
 
 const IssueContainerNav = () => {
@@ -88,7 +88,7 @@ const IssueContainerNav = () => {
           </>
         }
       </Container>
-      <IssueContainer openFilter={openFilter} closedFilter={closedFilter} />
+      <IssueList openFilter={openFilter} closedFilter={closedFilter} />
     </>
   );
 }
