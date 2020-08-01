@@ -14,7 +14,7 @@ import Octicon, {
   RepoForked,
 } from '@primer/octicons-react';
 
-import { SERVER_URL } from '../../../../config';
+import { SERVER_URL, MEDIA_QUERY } from '../../../../config';
 
 const RepoHead = () => {
   const { repoName } = useParams();
@@ -96,21 +96,25 @@ const RepoHead = () => {
               Pull requests
               <span>{repoDetails.open_issues - numberOfIssues}</span>
             </Tab>
+            {MEDIA_QUERY.matches &&
+              <>
+                <Tab>
+                  <StyledOcticon icon={Play} />
+                  Actions
+                </Tab>
 
-            <Tab>
-              <StyledOcticon icon={Play} />
-              Actions
-            </Tab>
+                <Tab>
+                  <StyledOcticon icon={Shield} />
+                  Security
+                </Tab>
 
-            <Tab>
-              <StyledOcticon icon={Shield} />
-              Security
-            </Tab>
+                <Tab>
+                  <StyledOcticon icon={Graph} />
+                  Insights
+                </Tab>
+              </>
+            }
 
-            <Tab>
-              <StyledOcticon icon={Graph} />
-              Insights
-            </Tab>
           </BottomContainer>
         </>
       )}
@@ -163,6 +167,10 @@ const MenuButton = styled.div`
   font-size: 12px;
   line-height: 27px;
 
+  @media only screen and (max-width: 450px) {
+    margin-bottom: 4px;
+  }
+
   button {
     background-color: #fafbfc;
     border: none;
@@ -199,6 +207,10 @@ const MenuButton = styled.div`
 const SideButtons = styled.span`
   display: flex;
   flex-wrap: wrap;
+
+  @media only screen and (max-width: 450px) {
+    flex-direction: column;
+  }
 `;
 
 const BottomContainer = styled.div`
