@@ -10,7 +10,7 @@ import Octicon, {
 } from '@primer/octicons-react';
 
 import IssueList from './IssueList/IssueList';
-import { SERVER_URL } from '../../../../config';
+import { SERVER_URL, MEDIA_QUERY } from '../../../../config';
 
 const IssueListNav = () => {
   const { repoName } = useParams();
@@ -67,24 +67,28 @@ const IssueListNav = () => {
                 &nbsp; Closed issues
               </Button>
             </Section>
+            {MEDIA_QUERY.matches &&
+              <>
+                <Section>
+                  <Button>
+                    <StyledOcticon icon={Tag} />
+                    labels
+                    <span>{labels.length === 30 ? '30+' : labels.length}</span>
+                  </Button>
 
-            <Section>
-              <Button>
-                <StyledOcticon icon={Tag} />
-                labels
-                <span>{labels.length === 30 ? '30+' : labels.length}</span>
-              </Button>
-
-              <Button>
-                <StyledOcticon icon={Milestone} />
-                Milestones
-                <span>
-                  {milestones.length === 30 ? "30+" : milestones.length}
-                </span>
-              </Button>
-            </Section>
-
-            <NewIssueButton>New issue</NewIssueButton>
+                  <Button>
+                    <StyledOcticon icon={Milestone} />
+                    Milestones
+                    <span>
+                      {milestones.length === 30 ? "30+" : milestones.length}
+                    </span>
+                  </Button>
+                </Section>
+              </>
+            }
+            {(MEDIA_QUERY + 250).matches &&
+              <NewIssueButton>New issue</NewIssueButton>
+            }
           </>
         )}
       </Container>
