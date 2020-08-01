@@ -151,7 +151,7 @@ const Container = styled.div`
     }
   }
 
-  @media only screen and (max-width: 425px) {
+  @media only screen and (max-width: 450px) {
     transform: scale(0.9, 0.9);
   }
 `;
