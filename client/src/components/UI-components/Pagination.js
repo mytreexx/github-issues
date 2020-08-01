@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
 import Octicon, { ChevronLeft, ChevronRight } from '@primer/octicons-react';
 
+import {MEDIA_QUERY} from  '../../config';
+
+
 const Pagination = (props) => {
   const { repoName } = useParams();
   const { userName } = useParams();
@@ -69,7 +72,8 @@ const Pagination = (props) => {
         })}
       >
         <Octicon icon={ChevronLeft} />
-        &nbsp; Previous
+        &nbsp;
+        {MEDIA_QUERY.matches && 'Previous'}
       </PageButton>
 
       {numberOfPages.map((page, index) => {
@@ -77,21 +81,21 @@ const Pagination = (props) => {
         return isNaN(page) ? (
           <span key={index}>...</span>
         ) : (
-          <PageButton
-            key={index}
-            to={{
-              pathname: `/${userName}/${repoName}/issues/page/${page + 1}`,
-            }}
-            id={`${page + 1 === pageNumber && "selected"}`}
-            onClick={window.scrollTo({
-              top: 0,
-              left: 0,
-              behavior: 'smooth',
-            })}
-          >
-            {page + 1}
-          </PageButton>
-        );
+            <PageButton
+              key={index}
+              to={{
+                pathname: `/${userName}/${repoName}/issues/page/${page + 1}`,
+              }}
+              id={`${page + 1 === pageNumber && "selected"}`}
+              onClick={window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth',
+              })}
+            >
+              {page + 1}
+            </PageButton>
+          );
       })}
 
       <PageButton
@@ -100,14 +104,15 @@ const Pagination = (props) => {
         }}
         className={`${
           pageNumber === props.numberOfPages ? "disabled" : "controlButton"
-        }`}
+          }`}
         onClick={window.scrollTo({
           top: 0,
           left: 0,
           behavior: 'smooth',
         })}
       >
-        Next &nbsp;
+        {MEDIA_QUERY.matches && 'Next'}
+        &nbsp;
         <Octicon icon={ChevronRight} />
       </PageButton>
     </Container>
@@ -144,6 +149,10 @@ const Container = styled.div`
       border: 1px #0366d6 solid;
       border-radius: 5px;
     }
+  }
+
+  @media only screen and (max-width: 425px) {
+    transform: scale(0.9, 0.9);
   }
 `;
 
