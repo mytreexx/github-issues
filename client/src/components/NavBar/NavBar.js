@@ -4,6 +4,7 @@ import { Flex } from 'reflexbox/styled-components';
 import Octicon, { MarkGithub } from '@primer/octicons-react';
 
 import Search from '../UI-components/Search';
+import { MEDIA_QUERY } from '../../config';
 
 const NavBar = () => {
   return (
@@ -13,10 +14,16 @@ const NavBar = () => {
       </a>
 
       <Search />
-      <a href='/'>Pull requests</a>
-      <a href='/'>Issues</a>
-      <a href='/'>Marketplace</a>
-      <a href='/'>Explore</a>
+
+      {MEDIA_QUERY.matches &&
+        <>
+          <a href='/'>Pull requests</a>
+          <a href='/'>Issues</a>
+          <a href='/'>Marketplace</a>
+          <a href='/'>Explore</a>
+        </>
+      }
+
     </Container>
   );
 };
