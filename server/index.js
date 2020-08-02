@@ -36,9 +36,9 @@ app.get('/repos/:userName/:repoName/:issueNumber', async function (req, res) {
 
 app.get('/repos/:userName/:repoName/page/:pageNumber', async function (req, res) {
   try {
-    const val = req.query.is === 'closed' ? 'is:closed' : req.query.is === 'all' ? '' : 'is:open';
+    const isQuery = req.query.is === 'closed' ? 'is:closed' : req.query.is === 'all' ? '' : 'is:open';
     console.log(req.query);
-    const response = await axios.get(`https://api.github.com/search/issues?q=repo:${req.params.userName}/${req.params.repoName}/ is:issue ${val} &per_page=25 &page=${req.params.pageNumber}`, {
+    const response = await axios.get(`https://api.github.com/search/issues?q=repo:${req.params.userName}/${req.params.repoName}/ is:issue ${isQuery} &per_page=25 &page=${req.params.pageNumber}`, {
       headers: {
         'Authorization': `token ${process.env.ACCESS_TOKEN}`
       }
