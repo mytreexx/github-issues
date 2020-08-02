@@ -49,19 +49,6 @@ app.get('/repos/:userName/:repoName/page/:pageNumber', async function (req, res)
   }
 });
 
-app.get('/repos/:userName/:repoName/', async function (req, res) {
-  try {
-    const response = await axios.get(`https://api.github.com/search/issues?q=repo:${req.params.userName}/${req.params.repoName}/ is:issue is:open &per_page=25`, {
-      headers: {
-        'Authorization': `token ${process.env.ACCESS_TOKEN}`
-      }
-    });
-    res.json(response.data);
-  } catch (error) {
-    res.json({ error: true });
-  }
-});
-
 app.get('/:userName/:repoName/', async function (req, res) {
   try {
     const response = await axios.get(`https://api.github.com/repos/${req.params.userName}/${req.params.repoName}`, {
