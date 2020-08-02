@@ -4,7 +4,6 @@ import Octicon, {
   IssueOpened,
   IssueClosed,
   Comment,
-  TriangleDown,
 } from '@primer/octicons-react';
 import { Link, useParams } from 'react-router-dom';
 import color from 'color';
@@ -210,8 +209,7 @@ const StyledOcticon = styled(Octicon)`
   padding: ${(props) =>
     (props.icon === IssueOpened || props.icon === IssueClosed) &&
     '5px 0 0 16px'};
-  width: ${(props) => props.icon === TriangleDown && '8px'};
-  margin-left: ${(props) => props.icon === TriangleDown && '4px'};
+  flex-shrink: 0;
 `;
 
 const Label = styled.div`
