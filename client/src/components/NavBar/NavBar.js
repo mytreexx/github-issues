@@ -17,10 +17,10 @@ const NavBar = () => {
 
       {MEDIA_QUERY.matches &&
         <>
-          <a href='/'>Pull requests</a>
-          <a href='/'>Issues</a>
-          <a href='/'>Marketplace</a>
-          <a href='/'>Explore</a>
+          <a href='https://github.com/pulls'>Pull requests</a>
+          <a href='https://github.com/issues'>Issues</a>
+          <a href='https://github.com/marketplace'>Marketplace</a>
+          <a href='https://github.com/explore'>Explore</a>
         </>
       }
 

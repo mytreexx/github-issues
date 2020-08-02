@@ -144,6 +144,7 @@ const TopContainer = styled.div`
 const RepoTitle = styled.div`
   font-size: 20px;
   color: #586069;
+  cursor: default;
 
   span,
   strong {
@@ -196,6 +197,7 @@ const MenuButton = styled.div`
     border-left: 0;
     height: 100%;
     box-sizing: border-box;
+    cursor: default;
 
     :hover {
       color: #0366d6;
@@ -227,6 +229,7 @@ const Tab = styled.div`
   overflow: hidden;
   border-bottom: 2px transparent solid;
   transition: border-bottom 0.36s ease-in-out;
+  cursor: default;
 
   span {
     color: #24292e;
