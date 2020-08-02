@@ -39,7 +39,7 @@ const IssueListNav = () => {
         {labels && milestones && (
           <>
             <Section type='right'>
-              <Button type='inactive'>Filters</Button>
+              <Button type='inactive' filter>Filters</Button>
 
               <Button
                 type={openFilter ? 'selected' : 'inactive'}
@@ -123,7 +123,7 @@ const Button = styled.button`
   border-left: 1px solid #e1e4e8;
   padding: 6px 14px;
   font-weight: 600;
-  color: ${(props) => (props.type === 'selected' ? 'black' : '#586069')};
+  color: ${(props) => props.type === 'selected' ? 'black' : '#586069'};
 
   :focus {
     border: 1px solid red;
@@ -140,8 +140,10 @@ const Button = styled.button`
   }
 
   :hover {
-    background-color: ${(props) =>
-      props.type === 'selected' ? '#F6F8FA' : 'white'};
+    background-color: ${(props) => props.filter ? '#F6F8FA'
+    : props.type === 'selected' ? '#F6F8FA'
+      : 'white'
+  };
   }
 `;
 
