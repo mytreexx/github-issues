@@ -203,10 +203,10 @@ const StyledOcticon = styled(Octicon)`
     props.listHeader
       ? '#24292e'
       : props.icon === IssueOpened
-        ? '#28a745'
-        : props.icon === IssueClosed
-          ? '#cb2431'
-          : '#586069'};
+      ? '#28a745'
+      : props.icon === IssueClosed
+      ? '#cb2431'
+      : '#586069'};
   padding: ${(props) =>
     (props.icon === IssueOpened || props.icon === IssueClosed) &&
     '5px 0 0 16px'};
