@@ -88,7 +88,9 @@ const IssueList = (props) => {
                       <IssueDetails>
                         #{issue.number} opened on{' '}
                         {format(new Date(issue.created_at), 'MMM d, y')} by{' '}
-                        <a href='/'>{issue.user.login}</a>
+                        <a href={'https://github.com/' + issue.user.login}>
+                          {issue.user.login}
+                        </a>
                       </IssueDetails>
                     </TitleContainer>
                   </Container>
@@ -201,10 +203,10 @@ const StyledOcticon = styled(Octicon)`
     props.listHeader
       ? '#24292e'
       : props.icon === IssueOpened
-      ? '#28a745'
-      : props.icon === IssueClosed
-      ? '#cb2431'
-      : '#586069'};
+        ? '#28a745'
+        : props.icon === IssueClosed
+          ? '#cb2431'
+          : '#586069'};
   padding: ${(props) =>
     (props.icon === IssueOpened || props.icon === IssueClosed) &&
     '5px 0 0 16px'};

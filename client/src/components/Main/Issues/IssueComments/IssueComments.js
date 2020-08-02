@@ -69,7 +69,10 @@ const IssueComments = () => {
                   </Status>
 
                   <div id='details'>
-                    <a href='/'>{issue.user.login}</a> opened this issue on{' '}
+                    <a href={'https://github.com/' + issue.user.login}>
+                      {issue.user.login}
+                    </a>
+                    {' '}opened this issue on{' '}
                     {format(new Date(issue.created_at), "MMM d, y")} ·{' '}
                     {issue.comments} comments
                 </div>
@@ -91,7 +94,10 @@ const IssueComments = () => {
 
                   <CommentBox>
                     <CommentDetails type='title'>
-                      <a href='/'>{issue.user.login}</a> commented on{' '}
+                      <a href={'https://github.com/' + issue.user.login}>
+                        {issue.user.login}
+                      </a>
+                      {' '}commented on{' '}
                       {format(new Date(issue.created_at), 'MMM d, y')}
                     </CommentDetails>
 
@@ -107,7 +113,10 @@ const IssueComments = () => {
 
                     <CommentBox>
                       <CommentDetails type='title'>
-                        <a href='/'>{issue.user.login}</a> commented on{' '}
+                        <a href={'https://github.com/' + issue.user.login}>
+                          {issue.user.login}
+                        </a>
+                        {' '}commented on{' '}
                         {format(new Date(issue.created_at), 'MMM d, y')}
                       </CommentDetails>
 
@@ -127,7 +136,9 @@ const IssueComments = () => {
                         issue.assignees.map((user) => (
                           <div key={user.id} className='assignee'>
                             <Avatar src={user.avatar_url} />
-                            <a href='/'>{user.login}</a>
+                            <a href={'https://github.com/' + issue.user.login}>
+                              {user.login}
+                            </a>
                           </div>
                         ))
                       )}
