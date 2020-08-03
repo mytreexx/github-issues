@@ -15,7 +15,6 @@ import { SERVER_URL, MEDIA_QUERY } from '../../../../config';
 const IssueListNav = () => {
   const { repoName } = useParams();
   const { userName } = useParams();
-  const { pageNumber } = useParams();
 
   const [labels, setLabels] = useState();
   const [milestones, setMilestones] = useState();
@@ -31,7 +30,7 @@ const IssueListNav = () => {
     fetch(`${SERVER_URL}/${userName}/${repoName}/milestones`)
       .then((response) => response.json())
       .then((response) => setMilestones(response));
-  }, [userName, repoName, pageNumber]);
+  }, [userName, repoName]);
 
   return (
     <>
