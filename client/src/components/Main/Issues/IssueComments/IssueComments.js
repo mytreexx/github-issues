@@ -9,6 +9,8 @@ import { Helmet } from 'react-helmet';
 
 import NotFound from '../../../UI-components/NotFound';
 import { SERVER_URL, MEDIA_QUERY } from '../../../../config';
+import Loading from '../../../UI-components/Loading';
+
 
 const IssueComments = () => {
   const { issueNumber } = useParams();
@@ -39,9 +41,15 @@ const IssueComments = () => {
       });
   }, [issueNumber, repoName, userName, error]);
 
-  if (!issue || !issueComments) {
+  if (!issue) {
     return null;
-  }
+  };
+
+  if (!issueComments) {
+    return <Loading />
+  } else if (issue.error) {
+    return <NotFound />
+  };
 
   return (
     <>
@@ -49,146 +57,143 @@ const IssueComments = () => {
         <title>{`${issue.title} · Issue #${issue.number} · ${userName}/${repoName}`}</title>
       </Helmet>
 
-      {issue.error ? (
-        <NotFound />
-      ) : (
-          <Container>
-            <IssueDetails>
-              <Title>
-                {issue.title}
-                &nbsp;
+      <Container>
+        <IssueDetails>
+          <Title>
+            {issue.title}
+            &nbsp;
               <span>#{issue.number}</span>
-                <div>
-                  <Status
-                    state={issue.state === 'open' ? 'openedState' : 'closedState'}
-                  >
-                    <Octicon
-                      icon={issue.state === 'open' ? IssueOpened : IssueClosed}
-                    />
-                    <span id='state'>{issue.state}</span>
-                  </Status>
+            <div>
+              <Status
+                state={issue.state === 'open' ? 'openedState' : 'closedState'}
+              >
+                <Octicon
+                  icon={issue.state === 'open' ? IssueOpened : IssueClosed}
+                />
+                <span id='state'>{issue.state}</span>
+              </Status>
 
-                  <div id='details'>
+              <div id='details'>
+                <a href={'https://github.com/' + issue.user.login}>
+                  {issue.user.login}
+                </a>
+                {' '}opened this issue on{' '}
+                {format(new Date(issue.created_at), "MMM d, y")} ·{' '}
+                {issue.comments} comments
+                </div>
+            </div>
+          </Title>
+
+          {MEDIA_QUERY.matches && <NewIssueButton>New issue</NewIssueButton>}
+
+        </IssueDetails>
+
+        <Main>
+          <CommentSection>
+            <VerticalLine />
+
+            <Comment>
+              <Avatar size='large' src={issue.user.avatar_url} />
+
+              <Arrow />
+
+              <CommentBox>
+                <CommentDetails type='title'>
+                  <a href={'https://github.com/' + issue.user.login}>
+                    {issue.user.login}
+                  </a>
+                  {' '}commented on{' '}
+                  {format(new Date(issue.created_at), 'MMM d, y')}
+                </CommentDetails>
+
+                <StyledReactMarkdown source={issue.body} />
+              </CommentBox>
+            </Comment>
+
+            {issueComments.map((comment) => (
+              <Comment key={comment.id}>
+                <Avatar size='large' src={comment.user.avatar_url} />
+
+                <Arrow />
+
+                <CommentBox>
+                  <CommentDetails type='title'>
                     <a href={'https://github.com/' + issue.user.login}>
                       {issue.user.login}
                     </a>
-                    {' '}opened this issue on{' '}
-                    {format(new Date(issue.created_at), "MMM d, y")} ·{' '}
-                    {issue.comments} comments
-                </div>
-                </div>
-              </Title>
+                    {' '}commented on{' '}
+                    {format(new Date(issue.created_at), 'MMM d, y')}
+                  </CommentDetails>
 
-              {MEDIA_QUERY.matches && <NewIssueButton>New issue</NewIssueButton>}
+                  <StyledReactMarkdown source={comment.body} />
+                </CommentBox>
+              </Comment>
+            ))}
+          </CommentSection>
 
-            </IssueDetails>
+          {MEDIA_QUERY.matches &&
+            <SidebarSection>
+              <SideDetails>
+                <div>Assignees</div>
 
-            <Main>
-              <CommentSection>
-                <VerticalLine />
-
-                <Comment>
-                  <Avatar size='large' src={issue.user.avatar_url} />
-
-                  <Arrow />
-
-                  <CommentBox>
-                    <CommentDetails type='title'>
-                      <a href={'https://github.com/' + issue.user.login}>
-                        {issue.user.login}
-                      </a>
-                      {' '}commented on{' '}
-                      {format(new Date(issue.created_at), 'MMM d, y')}
-                    </CommentDetails>
-
-                    <StyledReactMarkdown source={issue.body} />
-                  </CommentBox>
-                </Comment>
-
-                {issueComments.map((comment) => (
-                  <Comment key={comment.id}>
-                    <Avatar size='large' src={comment.user.avatar_url} />
-
-                    <Arrow />
-
-                    <CommentBox>
-                      <CommentDetails type='title'>
+                {issue.assignee === null ? (
+                  <span>No one assigned</span>
+                ) : (
+                    issue.assignees.map((user) => (
+                      <div key={user.id} className='assignee'>
+                        <Avatar src={user.avatar_url} />
                         <a href={'https://github.com/' + issue.user.login}>
-                          {issue.user.login}
+                          {user.login}
                         </a>
-                        {' '}commented on{' '}
-                        {format(new Date(issue.created_at), 'MMM d, y')}
-                      </CommentDetails>
+                      </div>
+                    ))
+                  )}
+              </SideDetails>
 
-                      <StyledReactMarkdown source={comment.body} />
-                    </CommentBox>
-                  </Comment>
-                ))}
-              </CommentSection>
-              {MEDIA_QUERY.matches &&
-                <SidebarSection>
-                  <SideDetails>
-                    <div>Assignees</div>
+              <SideDetails>
+                <div>Labels</div>
 
-                    {issue.assignee === null ? (
-                      <span>No one assigned</span>
-                    ) : (
-                        issue.assignees.map((user) => (
-                          <div key={user.id} className='assignee'>
-                            <Avatar src={user.avatar_url} />
-                            <a href={'https://github.com/' + issue.user.login}>
-                              {user.login}
-                            </a>
-                          </div>
-                        ))
-                      )}
-                  </SideDetails>
+                {issue.labels ? (
+                  issue.labels.map((label) => (
+                    <Label key={label.id} color={label.color}>
+                      {label.name}
+                    </Label>
+                  ))
+                ) : (
+                    <span>No labels</span>
+                  )}
+              </SideDetails>
 
-                  <SideDetails>
-                    <div>Labels</div>
+              <SideDetails>
+                <div>Projects</div>
+                <span>None yet</span>
+              </SideDetails>
 
-                    {issue.labels ? (
-                      issue.labels.map((label) => (
-                        <Label key={label.id} color={label.color}>
-                          {label.name}
-                        </Label>
-                      ))
-                    ) : (
-                        <span>No labels</span>
-                      )}
-                  </SideDetails>
-
-                  <SideDetails>
-                    <div>Projects</div>
-                    <span>None yet</span>
-                  </SideDetails>
-
-                  <SideDetails>
-                    <div>Milestone</div>
-                    {issue.milestone === null ? (
-                      <span>No milestone</span>
-                    ) : (
-                        <>
-                          <MilestoneBar
-                            width={
-                              (issue.milestone.closed_issues /
-                                (issue.milestone.open_issues +
-                                  issue.milestone.closed_issues)) *
-                              100
-                            }
-                          >
-                            <div className='progressBar' />
-                          </MilestoneBar>
-                          <div>{issue.milestone.title}</div>
-                        </>
-                      )}
-                  </SideDetails>
-                </SidebarSection>
-              }
-
-            </Main>
-          </Container>
-        )}
+              <SideDetails>
+                <div>Milestone</div>
+                {issue.milestone === null ? (
+                  <span>No milestone</span>
+                ) : (
+                    <>
+                      <MilestoneBar
+                        width={
+                          (issue.milestone.closed_issues /
+                            (issue.milestone.open_issues +
+                              issue.milestone.closed_issues)) *
+                          100
+                        }
+                      >
+                        <div className='progressBar' />
+                      </MilestoneBar>
+                      <div>{issue.milestone.title}</div>
+                    </>
+                  )}
+              </SideDetails>
+            </SidebarSection>
+          }
+        </Main>
+      </Container>
+      }
     </>
   );
 };
