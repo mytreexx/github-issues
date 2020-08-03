@@ -119,6 +119,7 @@ const Button = styled.button`
   background-color: ${(props) =>
     props.type === 'inactive' ? '#F6F8FA' : 'white'};
   border: 1px solid transparent;
+  border-bottom: ${props => props.filter && '1px solid #e1e4e8'};
   border-left: 1px solid #e1e4e8;
   padding: 6px 14px;
   font-weight: 600;
