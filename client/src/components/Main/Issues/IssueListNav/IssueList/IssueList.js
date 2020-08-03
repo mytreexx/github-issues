@@ -9,6 +9,7 @@ import { Link, useParams } from 'react-router-dom';
 import color from 'color';
 import format from 'date-fns/format';
 import { Helmet } from 'react-helmet';
+import * as queryString from 'query-string';
 
 import NoIssues from './NoIssues/NoIssues';
 import Loading from '../../../../UI-components/Loading';
@@ -19,7 +20,6 @@ import { SERVER_URL } from '../../../../../config';
 const IssueList = (props) => {
   const { repoName } = useParams();
   const { userName } = useParams();
-  const { pageNumber } = useParams();
 
   const [issues, setIssues] = useState();
   const [error, setError] = useState(false);
@@ -27,6 +27,9 @@ const IssueList = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   let filter;
+
+  const queryParameters = queryString.parse(window.location.search);
+  const pageNumber = Number(queryParameters.page) || 1;
 
   props.openFilter && props.closedFilter
     ? (filter = '?is=all')
@@ -36,7 +39,7 @@ const IssueList = (props) => {
 
   useEffect(() => {
     fetch(
-      `${SERVER_URL}/repos/${userName}/${repoName}/page/${pageNumber} ${filter}`
+      `${SERVER_URL}/repos/${userName}/${repoName}${filter}&page=${pageNumber}`
     )
       .then(setIsLoading(true))
       .then((response) => response.json())
@@ -118,7 +121,7 @@ const IssueList = (props) => {
                 )}
         </IssueListContainer>
 
-        <Pagination numberOfPages={Math.ceil(numberOfIssues / 25)} />
+        <Pagination pageNumber={pageNumber} numberOfPages={Math.ceil(numberOfIssues / 25)} />
       </Main>
     </>
   );
