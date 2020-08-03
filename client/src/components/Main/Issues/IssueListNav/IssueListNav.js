@@ -39,7 +39,7 @@ const IssueListNav = () => {
         {labels && milestones && (
           <>
             <Section type='right'>
-              <Button type='inactive' filter>Filters</Button>
+              <Button type='inactive' filter='true'>Filters</Button>
 
               <Button
                 type={openFilter ? 'selected' : 'inactive'}
@@ -86,9 +86,8 @@ const IssueListNav = () => {
                 </Section>
               </>
             }
-            {(MEDIA_QUERY + 250).matches &&
-              <NewIssueButton>New issue</NewIssueButton>
-            }
+            <NewIssueButton>New issue</NewIssueButton>
+
           </>
         )}
       </Container>
