@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const Loading = styled.div`
   margin-top: 100px;
+  margin: auto;
   width: 40px;
   height: 40px;
   border-radius: 50%;
