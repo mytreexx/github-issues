@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 const Search = (props) => {
-  const [searchInput, setSearchInput] = useState();
+  const [searchInput, setSearchInput] = useState('');
   let history = useHistory();
 
   const handleChange = (event) => setSearchInput(event.target.value);
