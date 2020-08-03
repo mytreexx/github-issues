@@ -23,11 +23,11 @@ const IssueListNav = () => {
   const [closedFilter, setClosedFilter] = useState(false);
 
   useEffect(() => {
-    fetch(`${SERVER_URL}/${userName}/${repoName}/labels`)
+    fetch(`${SERVER_URL}/repos/${userName}/${repoName}/labels`)
       .then((response) => response.json())
       .then((response) => setLabels(response));
 
-    fetch(`${SERVER_URL}/${userName}/${repoName}/milestones`)
+    fetch(`${SERVER_URL}/repos/${userName}/${repoName}/milestones`)
       .then((response) => response.json())
       .then((response) => setMilestones(response));
   }, [userName, repoName]);
