@@ -9,17 +9,14 @@ const Issues = () => {
   return (
     <>
       <RepoHead />
+      
       <Switch>
         <Route
           path='/:userName/:repoName/issues'
           exact
           component={IssueListNav}
         />
-        <Route
-          path='/:userName/:repoName/issues/page/:pageNumber'
-          exact
-          component={IssueListNav}
-        />
+
         <Route
           path='/:userName/:repoName/issues/:issueNumber'
           exact
