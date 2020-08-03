@@ -41,11 +41,7 @@ const IssueComments = () => {
       });
   }, [issueNumber, repoName, userName, error]);
 
-  if (!issue) {
-    return null;
-  };
-
-  if (!issueComments) {
+  if (!issue || !issueComments) {
     return <Loading />
   } else if (issue.error) {
     return <NotFound />
