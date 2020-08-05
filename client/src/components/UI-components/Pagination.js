@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
 import Octicon, { ChevronLeft, ChevronRight } from '@primer/octicons-react';
+import useMediaQuery from '@tevhooks/use-media-query';
 
 import {MEDIA_QUERY} from  '../../config';
 
@@ -9,7 +10,7 @@ import {MEDIA_QUERY} from  '../../config';
 const Pagination = (props) => {
   const { repoName } = useParams();
   const { userName } = useParams();
-  let { pageNumber } = useParams();
+  const breakpoint = useMediaQuery("(min-width: 500px)");
   let pagesLength;
 
   //Github API only provides a maximum of 1,000 results, which is 40 pages * 25 results per page
@@ -73,7 +74,7 @@ const Pagination = (props) => {
       >
         <Octicon icon={ChevronLeft} />
         &nbsp;
-        {MEDIA_QUERY.matches && 'Previous'}
+        {breakpoint && 'Previous'}
       </PageButton>
 
       {numberOfPages.map((page, index) => {
@@ -111,7 +112,7 @@ const Pagination = (props) => {
           behavior: 'smooth',
         })}
       >
-        {MEDIA_QUERY.matches && 'Next'}
+        {breakpoint && 'Next'}
         &nbsp;
         <Octicon icon={ChevronRight} />
       </PageButton>
