@@ -51,10 +51,29 @@ const IssueList = (props) => {
           setIssues(response.items);
           setNumberOfIssues(response.total_count);
           setIsLoading(false);
-          window.history.pushState('','', filter);
+          window.history.pushState('', '', filter);
         }
       });
   }, [userName, repoName, pageNumber, filter]);
+
+  if (error) {
+    return (
+      <Main>
+        <ErrorPage />
+      </Main>)
+  } else if (issues) {
+    if (isLoading) {
+      return <Loading />
+    } else if (issues.length <= 0) {
+      return (
+        <Main>
+          <NoIssues />
+        </Main>
+      )
+    }
+  } else {
+    return <Loading />
+  };
 
   return (
     <>
@@ -64,62 +83,51 @@ const IssueList = (props) => {
 
       <Main>
         <IssueListContainer>
-          {error ? (
-            <ErrorPage />
-          ) : issues && issues.length > 0 ? (
-            isLoading ? <Loading /> :
-              <>
-                {
-                  issues.map((issue) => (
-                    <Issue key={issue.id}>
-                      <Container>
-                        <StyledOcticon
-                          icon={issue.state === 'open' ? IssueOpened : IssueClosed}
-                        />
+          {
+            issues.map((issue) => (
+              <Issue key={issue.id}>
+                <Container>
+                  <StyledOcticon
+                    icon={issue.state === 'open' ? IssueOpened : IssueClosed}
+                  />
 
-                        <TitleContainer>
-                          <span>
-                            <IssueTitleLink
-                              to={{
-                                pathname: `/${userName}/${repoName}/issues/${issue.number}`,
-                              }}
-                            >
-                              {issue.title}
-                            </IssueTitleLink>
-                            {issue.labels.map((label) => (
-                              <Label key={label.id} color={label.color}>
-                                {label.name}
-                              </Label>
-                            ))}
-                          </span>
+                  <TitleContainer>
+                    <span>
+                      <IssueTitleLink
+                        to={{
+                          pathname: `/${userName}/${repoName}/issues/${issue.number}`,
+                        }}
+                      >
+                        {issue.title}
+                      </IssueTitleLink>
+                      {issue.labels.map((label) => (
+                        <Label key={label.id} color={label.color}>
+                          {label.name}
+                        </Label>
+                      ))}
+                    </span>
 
-                          <IssueDetails>
-                            #{issue.number} opened on{' '}
-                            {format(new Date(issue.created_at), 'MMM d, y')} by{' '}
-                            <a href={'https://github.com/' + issue.user.login}>
-                              {issue.user.login}
-                            </a>
-                          </IssueDetails>
-                        </TitleContainer>
-                      </Container>
+                    <IssueDetails>
+                      #{issue.number} opened on{' '}
+                      {format(new Date(issue.created_at), 'MMM d, y')} by{' '}
+                      <a href={'https://github.com/' + issue.user.login}>
+                        {issue.user.login}
+                      </a>
+                    </IssueDetails>
+                  </TitleContainer>
+                </Container>
 
-                      <Container type='numberOfComments'>
-                        {issue.comments > 0 && (
-                          <IssueComments>
-                            <StyledOcticon icon={Comment} />
-                            <span>{issue.comments}</span>
-                          </IssueComments>
-                        )}
-                      </Container>
-                    </Issue>
-                  ))
-                }
-              </>
-          ) : issues ? (
-            <NoIssues />
-          ) : (
-                  <Loading />
-                )}
+                <Container type='numberOfComments'>
+                  {issue.comments > 0 && (
+                    <IssueComments>
+                      <StyledOcticon icon={Comment} />
+                      <span>{issue.comments}</span>
+                    </IssueComments>
+                  )}
+                </Container>
+              </Issue>
+            ))
+          }
         </IssueListContainer>
 
         <Pagination pageNumber={pageNumber} numberOfPages={Math.ceil(numberOfIssues / 25)} />
