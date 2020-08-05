@@ -13,14 +13,18 @@ import Octicon, {
   Star,
   RepoForked,
 } from '@primer/octicons-react';
+import useMediaQuery from '@tevhooks/use-media-query';
 
-import { SERVER_URL, MEDIA_QUERY } from '../../../../config';
+import { SERVER_URL } from '../../../../config';
+
 
 const RepoHead = () => {
   const { repoName } = useParams();
   const { userName } = useParams();
   const [repoDetails, setRepoDetails] = useState();
   const [numberOfIssues, setNumberOfIssues] = useState(0);
+
+  const breakpoint = useMediaQuery("(min-width: 750px)");
 
   const formatNum = (n) => {
     if (n < 1e3) return n;
@@ -96,7 +100,8 @@ const RepoHead = () => {
               Pull requests
               <span>{repoDetails.open_issues - numberOfIssues}</span>
             </Tab>
-            {MEDIA_QUERY.matches &&
+
+            {breakpoint &&
               <>
                 <Tab>
                   <StyledOcticon icon={Play} />
