@@ -8,9 +8,11 @@ import Octicon, {
   IssueClosed,
   IssueOpened,
 } from '@primer/octicons-react';
+import useMediaQuery from '@tevhooks/use-media-query';
+
 
 import IssueList from './IssueList/IssueList';
-import { SERVER_URL, MEDIA_QUERY } from '../../../../config';
+import { SERVER_URL } from '../../../../config';
 
 const IssueListNav = () => {
   const { repoName } = useParams();
@@ -21,6 +23,9 @@ const IssueListNav = () => {
 
   const [openFilter, setOpenFilter] = useState(true);
   const [closedFilter, setClosedFilter] = useState(false);
+
+  const newIssueBreakpoint = useMediaQuery("(min-width: 800px)");
+  const labelsMilstonesBreakpoint = useMediaQuery("(min-width: 700px)");
 
   useEffect(() => {
     fetch(`${SERVER_URL}/repos/${userName}/${repoName}/labels`)
@@ -66,7 +71,7 @@ const IssueListNav = () => {
                 &nbsp; Closed issues
               </Button>
             </Section>
-            {MEDIA_QUERY.matches &&
+            {labelsMilstonesBreakpoint &&
               <>
                 <Section>
                   <Button>
@@ -85,7 +90,10 @@ const IssueListNav = () => {
                 </Section>
               </>
             }
-            <NewIssueButton>New issue</NewIssueButton>
+            
+            {
+              newIssueBreakpoint && <NewIssueButton>New issue</NewIssueButton>
+            }
 
           </>
         )}
@@ -174,8 +182,8 @@ const StyledOcticon = styled(Octicon)`
     props.state === 'inactive'
       ? '#959da5'
       : props.icon === IssueOpened
-      ? 'green'
-      : props.icon === IssueClosed && '#cb2431'};
+        ? 'green'
+        : props.icon === IssueClosed && '#cb2431'};
 `;
 
 export default IssueListNav;
