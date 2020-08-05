@@ -51,6 +51,7 @@ const IssueList = (props) => {
           setIssues(response.items);
           setNumberOfIssues(response.total_count);
           setIsLoading(false);
+          window.history.pushState('','', filter);
         }
       });
   }, [userName, repoName, pageNumber, filter]);
