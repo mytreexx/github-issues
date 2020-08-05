@@ -2,11 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'reflexbox/styled-components';
 import Octicon, { MarkGithub } from '@primer/octicons-react';
+import useMediaQuery from '@tevhooks/use-media-query';
 
 import Search from '../UI-components/Search';
-import { MEDIA_QUERY } from '../../config';
+
 
 const NavBar = () => {
+
+  const breakpoint = useMediaQuery("(min-width: 700px)");
   return (
     <Container>
       <a href='/'>
@@ -15,7 +18,7 @@ const NavBar = () => {
 
       <Search />
 
-      {MEDIA_QUERY.matches &&
+      {breakpoint &&
         <>
           <a href='https://github.com/pulls'>Pull requests</a>
           <a href='https://github.com/issues'>Issues</a>
