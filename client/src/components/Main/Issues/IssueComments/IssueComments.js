@@ -6,9 +6,10 @@ import format from 'date-fns/format';
 import color from 'color';
 import ReactMarkdown from 'react-markdown';
 import { Helmet } from 'react-helmet';
+import useMediaQuery from '@tevhooks/use-media-query';
 
 import NotFound from '../../../UI-components/NotFound';
-import { SERVER_URL, MEDIA_QUERY } from '../../../../config';
+import { SERVER_URL } from '../../../../config';
 import Loading from '../../../UI-components/Loading';
 
 
@@ -20,6 +21,9 @@ const IssueComments = () => {
   const [issue, setIssue] = useState();
   const [issueComments, setIssueComments] = useState();
   const [error, setError] = useState(false);
+
+  const breakpoint = useMediaQuery("(min-width: 900px)");
+
 
   useEffect(() => {
     fetch(`${SERVER_URL}/repos/${userName}/${repoName}/${issueNumber}`)
@@ -80,7 +84,7 @@ const IssueComments = () => {
             </div>
           </Title>
 
-          {MEDIA_QUERY.matches && <NewIssueButton>New issue</NewIssueButton>}
+          {breakpoint && <NewIssueButton>New issue</NewIssueButton>}
 
         </IssueDetails>
 
@@ -127,7 +131,7 @@ const IssueComments = () => {
             ))}
           </CommentSection>
 
-          {MEDIA_QUERY.matches &&
+          {breakpoint &&
             <SidebarSection>
               <SideDetails>
                 <div>Assignees</div>
@@ -189,7 +193,6 @@ const IssueComments = () => {
           }
         </Main>
       </Container>
-      }
     </>
   );
 };
@@ -203,7 +206,7 @@ const IssueDetails = styled.div`
 `;
 
 const CommentSection = styled.div`
-  width: 75%;
+  min-width: 75%;
   position: relative;
   border-bottom: 2px solid #e1e4e8;
 `;
