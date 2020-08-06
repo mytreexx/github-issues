@@ -32,14 +32,14 @@ const IssueList = (props) => {
   const pageNumber = Number(queryParameters.page) || 1;
 
   props.openFilter && props.closedFilter
-    ? (filter = '?is=all')
+    ? (filter = 'all')
     : !props.openFilter && props.closedFilter
-    ? (filter = '?is=closed')
-    : (filter = '?is=open');
+    ? (filter = 'closed')
+    : (filter = 'open');
 
   useEffect(() => {
     fetch(
-      `${SERVER_URL}/repos/${userName}/${repoName}${filter}&page=${pageNumber}`
+      `${SERVER_URL}/repos/${userName}/${repoName}?is=${filter}&page=${pageNumber}`
     )
       .then(setIsLoading(true))
       .then((response) => response.json())
@@ -51,7 +51,7 @@ const IssueList = (props) => {
           setIssues(response.items);
           setNumberOfIssues(response.total_count);
           setIsLoading(false);
-          window.history.pushState('', '', filter);
+          window.history.pushState('', '', `?page=${pageNumber}&is=${filter}`);
         }
       });
   }, [userName, repoName, pageNumber, filter]);

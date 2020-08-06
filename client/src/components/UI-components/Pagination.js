@@ -4,14 +4,15 @@ import { Link, useParams } from 'react-router-dom';
 import Octicon, { ChevronLeft, ChevronRight } from '@primer/octicons-react';
 import useMediaQuery from '@tevhooks/use-media-query';
 
-import {MEDIA_QUERY} from  '../../config';
-
 
 const Pagination = (props) => {
   const { repoName } = useParams();
   const { userName } = useParams();
+
   const breakpoint = useMediaQuery("(min-width: 500px)");
+
   let pagesLength;
+  const pageNumber = props.pageNumber;
 
   //Github API only provides a maximum of 1,000 results, which is 40 pages * 25 results per page
   //Check if received number of pages is higher than 40 and set maximum number of 40
@@ -21,8 +22,6 @@ const Pagination = (props) => {
 
   let numberOfPages = Object.keys(Array.from({ length: pagesLength }));
   let startPages;
-
-  pageNumber = parseInt(pageNumber) || 1;
 
   //Determine number of shown pages on left side according to current page number
   pageNumber === 6
@@ -62,9 +61,8 @@ const Pagination = (props) => {
   return props.numberOfPages <= 1 ? null : (
     <Container>
       <PageButton
-        to={{
-          pathname: `/${userName}/${repoName}/issues/page/${pageNumber - 1}`,
-        }}
+        to={`/${userName}/${repoName}/issues?page=${pageNumber - 1}`
+        }
         className={`${pageNumber === 1 ? 'disabled' : 'controlButton'}`}
         onClick={window.scrollTo({
           top: 0,
@@ -84,9 +82,7 @@ const Pagination = (props) => {
         ) : (
             <PageButton
               key={index}
-              to={{
-                pathname: `/${userName}/${repoName}/issues/page/${page + 1}`,
-              }}
+              to={`/${userName}/${repoName}/issues?page=${page + 1}`}
               id={`${page + 1 === pageNumber && "selected"}`}
               onClick={window.scrollTo({
                 top: 0,
@@ -100,9 +96,7 @@ const Pagination = (props) => {
       })}
 
       <PageButton
-        to={{
-          pathname: `/${userName}/${repoName}/issues/page/${pageNumber + 1}`,
-        }}
+        to={`/${userName}/${repoName}/issues?page=${pageNumber + 1}`}
         className={`${
           pageNumber === props.numberOfPages ? "disabled" : "controlButton"
           }`}
@@ -152,9 +146,6 @@ const Container = styled.div`
     }
   }
 
-  @media only screen and (max-width: 450px) {
-    transform: scale(0.9, 0.9);
-  }
 `;
 
 const PageButton = styled(Link)`
