@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const port = 8000;
 const axios = require('axios');
+const path = require('path');
 require('dotenv').config();
 
 
@@ -89,6 +90,12 @@ app.get('/:userName/:repoName/', async function (req, res) {
     res.json({ error: true });
   }
 });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../", "client", "build", "index.html"));
+});
+
+console.log(__dirname)
 
 
 app.listen(port, () => console.log("Running!"));
