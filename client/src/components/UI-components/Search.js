@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-const Search = (props) => {
+const Search = ({ color }) => {
   const [searchInput, setSearchInput] = useState('');
   let history = useHistory();
 
@@ -13,7 +13,7 @@ const Search = (props) => {
 
   return (
     <SearchBar
-      color={props.color}
+      color={color}
       type='text'
       placeholder='Search username/repository'
       value={searchInput}
@@ -33,7 +33,7 @@ const SearchBar = styled.input`
   border-style: none;
   border-radius: 3px;
   padding: 0;
-}
+
 
 ::placeholder {
   color: #8c8f92;
@@ -41,6 +41,6 @@ const SearchBar = styled.input`
   font-weight: 600;
   padding-left: 7px;
 }
-`;
+`
 
 export default Search;

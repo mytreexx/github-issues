@@ -1,9 +1,9 @@
 const express = require('express');
-require('custom-env').env('staging');
 const app = express();
 const cors = require('cors');
 const port = 8000;
 const axios = require('axios');
+require('dotenv').config();
 
 
 app.use(cors());
@@ -20,6 +20,7 @@ app.get('/repos/:userName/:repoName/labels', async function (req, res) {
     res.json({ error: true });
   }
 });
+
 
 app.get('/repos/:userName/:repoName/milestones', async function (req, res) {
   try {

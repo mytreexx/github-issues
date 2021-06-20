@@ -47,7 +47,8 @@ const Container = styled.div`
     :hover {
       text-decoration: underline;
     }
-`;
+  }
+  `;
 
 const GithubLogo = styled(Octicon)`
   color: #c6cbd1;

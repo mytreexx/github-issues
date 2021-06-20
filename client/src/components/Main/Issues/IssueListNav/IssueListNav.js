@@ -168,10 +168,6 @@ const NewIssueButton = styled.span`
   border: 1px solid rgba(27,31,35,.2);
   border-radius: 6px;
   margin-left: auto
-
-  :hover {
-    background-color: #2C974B;
-  }
 `;
 
 const StyledOcticon = styled(Octicon)`

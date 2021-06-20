@@ -17,7 +17,7 @@ import ErrorPage from '../../../../UI-components/ErrorPage';
 import Pagination from '../../../../UI-components/Pagination';
 import { SERVER_URL } from '../../../../../config';
 
-const IssueList = (props) => {
+const IssueList = ({ openFilter, closedFilter }) => {
   const { repoName } = useParams();
   const { userName } = useParams();
 
@@ -31,11 +31,11 @@ const IssueList = (props) => {
   const queryParameters = queryString.parse(window.location.search);
   const pageNumber = Number(queryParameters.page) || 1;
 
-  props.openFilter && props.closedFilter
+  openFilter && closedFilter
     ? (filter = 'all')
-    : !props.openFilter && props.closedFilter
-    ? (filter = 'closed')
-    : (filter = 'open');
+    : !openFilter && closedFilter
+      ? (filter = 'closed')
+      : (filter = 'open');
 
   useEffect(() => {
     fetch(
@@ -142,7 +142,7 @@ const Main = styled.div`
   flex-direction: column;
 `;
 
-const IssueListContainer = styled.div`.
+const IssueListContainer = styled.div`
   display: flex;
   width: 1214px;
   max-width: 1214px;
@@ -220,10 +220,10 @@ const StyledOcticon = styled(Octicon)`
     props.listHeader
       ? '#24292e'
       : props.icon === IssueOpened
-      ? '#28a745'
-      : props.icon === IssueClosed
-      ? '#cb2431'
-      : '#586069'};
+        ? '#28a745'
+        : props.icon === IssueClosed
+          ? '#cb2431'
+          : '#586069'};
   padding: ${(props) =>
     (props.icon === IssueOpened || props.icon === IssueClosed) &&
     '5px 0 0 16px'};
