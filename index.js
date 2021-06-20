@@ -9,6 +9,8 @@ require('dotenv').config();
 
 app.use(cors());
 
+app.use(express.static(path.join(__dirname, "client", "build")));
+
 app.get('/repos/:userName/:repoName/labels', async function (req, res) {
   try {
     const response = await axios.get(`https://api.github.com/repos/${req.params.userName}/${req.params.repoName}/labels`, {
@@ -92,7 +94,7 @@ app.get('/:userName/:repoName/', async function (req, res) {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname,"client", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 console.log(__dirname)
