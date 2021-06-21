@@ -133,7 +133,7 @@ const Button = styled.button`
   color: ${(props) => props.type === 'selected' ? 'black' : '#586069'};
 
   :focus {
-    border: 1px solid red;
+    border: 1px solid black;
   }
 
   span {
